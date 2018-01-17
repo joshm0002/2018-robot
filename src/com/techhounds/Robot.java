@@ -7,6 +7,13 @@
 
 package com.techhounds;
 
+import com.techhounds.subsystems.Arm;
+import com.techhounds.subsystems.Climber;
+import com.techhounds.subsystems.Drivetrain;
+import com.techhounds.subsystems.Elevator;
+import com.techhounds.subsystems.Gyroscope;
+import com.techhounds.subsystems.Intake;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -19,6 +26,23 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class Robot extends TimedRobot {
 
+	// Robot Subsystems
+	public final Arm arm;
+	public final Climber climber;
+	public final Drivetrain drivetrain;
+	public final Elevator elevator;
+	public final Gyroscope gyro;
+	public final Intake intake;
+	
+	public Robot() {
+		arm = new Arm();
+		climber = new Climber();
+		drivetrain = new Drivetrain();
+		elevator = new Elevator();
+		gyro = new Gyroscope();
+		intake = new Intake();
+	}
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.

@@ -7,7 +7,11 @@
 
 package com.techhounds;
 
+import com.techhounds.commands.ManualShift;
+
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -25,6 +29,9 @@ public class OI {
 		//Set up button/triggers here
 		//Be careful - if the commands require a subsystem that hasn't been
 		//initialized yet we could be in trouble
+		
+		Button leftBumper = new JoystickButton(driver, 7);
+		leftBumper.whileHeld(new ManualShift());
 	}
 	
 }

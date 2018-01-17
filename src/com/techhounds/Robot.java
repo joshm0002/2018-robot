@@ -13,6 +13,7 @@ import com.techhounds.subsystems.Drivetrain;
 import com.techhounds.subsystems.Elevator;
 import com.techhounds.subsystems.Gyroscope;
 import com.techhounds.subsystems.Intake;
+import com.techhounds.subsystems.Transmission;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static final Elevator elevator = new Elevator();
 	public static final Gyroscope gyro = new Gyroscope();
 	public static final Intake intake = new Intake();
+	public static final Transmission transmission = new Transmission();
 	
 	public static final OI oi = new OI();
 	

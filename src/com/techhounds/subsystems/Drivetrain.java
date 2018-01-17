@@ -1,7 +1,7 @@
 package com.techhounds.subsystems;
 
 import com.techhounds.RobotMap;
-import com.techhounds.commands.DriverControl;
+import com.techhounds.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -43,7 +43,7 @@ public class Drivetrain extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-        setDefaultCommand(new DriverControl());
+        setDefaultCommand(new ArcadeDrive());
     }
 }
 

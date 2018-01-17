@@ -27,21 +27,14 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends TimedRobot {
 
 	// Robot Subsystems
-	public final Arm arm;
-	public final Climber climber;
-	public final Drivetrain drivetrain;
-	public final Elevator elevator;
-	public final Gyroscope gyro;
-	public final Intake intake;
+	public static final Arm arm = new Arm();
+	public static final Climber climber = new Climber();
+	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final Elevator elevator = new Elevator();
+	public static final Gyroscope gyro = new Gyroscope();
+	public static final Intake intake = new Intake();
 	
-	public Robot() {
-		arm = new Arm();
-		climber = new Climber();
-		drivetrain = new Drivetrain();
-		elevator = new Elevator();
-		gyro = new Gyroscope();
-		intake = new Intake();
-	}
+	public static final OI oi = new OI();
 	
 	/**
 	 * This function is run when the robot is first started up and should be

@@ -1,15 +1,16 @@
 package com.techhounds.commands;
 
+import com.techhounds.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriverControl extends Command {
+public class ArcadeDrive extends Command {
 
-    public DriverControl() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public ArcadeDrive() {
+        requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time

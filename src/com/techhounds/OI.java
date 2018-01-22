@@ -8,6 +8,7 @@
 package com.techhounds;
 
 import com.techhounds.commands.ManualShift;
+import com.techhounds.commands.ManualShift.State;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -30,8 +31,9 @@ public class OI {
 		//Be careful - if the commands require a subsystem that hasn't been
 		//initialized yet we could be in trouble
 		
+		//Overrides the default, which is auto-shifting
 		Button leftBumper = new JoystickButton(driver, 7);
-		leftBumper.whileHeld(new ManualShift());
+		leftBumper.whenPressed(new ManualShift(State.Toggle));
 	}
 	
 }

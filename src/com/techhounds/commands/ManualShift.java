@@ -6,8 +6,14 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ManualShift extends Command {
+	
+	public enum State {
+		High,
+		Low,
+		Toggle
+	}
 
-    public ManualShift() {
+    public ManualShift(State state) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

@@ -1,7 +1,6 @@
 package com.techhounds.subsystems;
 
 import com.techhounds.RobotMap;
-import com.techhounds.commands.AutoShift;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,7 +24,7 @@ public class Transmission extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new AutoShift());
+//        setDefaultCommand(new AutoShift());
     }
 }
 

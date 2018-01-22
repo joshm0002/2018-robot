@@ -7,6 +7,7 @@
 
 package com.techhounds;
 
+import com.techhounds.commands.UpdateSmartDashboard;
 import com.techhounds.subsystems.Arm;
 import com.techhounds.subsystems.Climber;
 import com.techhounds.subsystems.Drivetrain;
@@ -26,7 +27,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-
+	
 	// Robot Subsystems
 	public static final Arm arm = new Arm();
 	public static final Climber climber = new Climber();
@@ -44,7 +45,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		
+		(new UpdateSmartDashboard()).start();
 	}
 
 	/**

@@ -36,4 +36,8 @@ public class OI {
 		leftBumper.whenPressed(new ManualShift(State.Toggle));
 	}
 	
+	public double getDriverAxis(int axis) {
+		return driver.getRawAxis(axis);
+	}
+	
 }

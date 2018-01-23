@@ -20,23 +20,35 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	
-	public final XboxController driver;
-	public final XboxController operator;
+	public static final XboxController driver = new XboxController(0);
+	public static final XboxController operator = new XboxController(1);
 	
 	public OI() {
-		driver = new XboxController(0);
-		operator = new XboxController(1);
 		
 		//Set up button/triggers here
 		//Be careful - if the commands require a subsystem that hasn't been
 		//initialized yet we could be in trouble
 		
 		//Overrides the default, which is auto-shifting
+		
+	}
+	
+	/**
+	 * Binds triggers/buttons to commands for the driver
+	 */
+	public static void setupDriver() {
 		Button leftBumper = new JoystickButton(driver, 7);
 		leftBumper.whenPressed(new ManualShift(State.Toggle));
 	}
 	
-	public double getDriverAxis(int axis) {
+	/**
+	 * Binds triggers/buttons to commands for the operator
+	 */
+	public static void setupOperator() {
+		
+	}
+	
+	public static double getDriverAxis(int axis) {
 		return driver.getRawAxis(axis);
 	}
 	

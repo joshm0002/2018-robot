@@ -1,36 +1,51 @@
 package com.techhounds.commands.auton;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
- *
+ * This is the main entry point for our match autonomous mode.
+ * This command should be constructed & started at the start of auton -
+ * constructing it too soon means it won't be able to read from the SmartDashboard
+ * to start the correct auton mode.
  */
-public class AutonLauncher extends Command {
+public class AutonLauncher {
 
-    public AutonLauncher() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    }
+	public enum StartingPosition {
+		Left, Center, Right, Unknown
+	}
+	
+	public enum Objective {
+		Baseline, Switch, Scale, Unknown
+	}
+	
+	public enum Side {
+		Left, Right, Unknown
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
+	private static SendableChooser<StartingPosition> startingPosition;
+	
+	public static void addAutonChoices() {
+		
+	}
+	
+	public static StartingPosition getStartingPosition() {
+		return StartingPosition.Unknown;
+	}
+	
+	public static Objective getPrimaryObjective() {
+		return Objective.Unknown;
+	}
+	
+	public static Side getScaleSide() {
+		return Side.Unknown;
+	}
+	
+	public static Side getSwitchSide() {
+		return Side.Unknown;
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
-
-    // Called once after isFinished returns true
-    protected void end() {
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	public static void runAuton() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -7,7 +7,8 @@
 
 package com.techhounds;
 
-import com.techhounds.commands.UpdateSmartDashboard;
+import com.techhounds.commands.Dashboard;
+import com.techhounds.commands.auton.AutonLauncher;
 import com.techhounds.subsystems.Arm;
 import com.techhounds.subsystems.Climber;
 import com.techhounds.subsystems.Drivetrain;
@@ -36,16 +37,17 @@ public class Robot extends TimedRobot {
 	public static final Gyroscope gyro = new Gyroscope();
 	public static final Intake intake = new Intake();
 	public static final Transmission transmission = new Transmission();
-	
-	public static final OI oi = new OI();
-	
+			
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		(new UpdateSmartDashboard()).start();
+		AutonLauncher.addAutonChoices();
+		Dashboard.initDashboard();
+		OI.setupDriver();
+		OI.setupOperator();
 	}
 
 	/**
@@ -76,7 +78,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-
+		Scheduler.getInstance().removeAll();
+		AutonLauncher.runAuton();
 	}
 
 	/**
@@ -85,11 +88,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		Dashboard.updateDashboard();
 	}
 
 	@Override
 	public void teleopInit() {
-
+		Scheduler.getInstance().removeAll();
+		// Don't need to start teleop commands, as they're all set as defaults
 	}
 
 	/**
@@ -98,6 +103,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		Dashboard.updateDashboard();
 	}
 
 	/**

@@ -1,3 +1,4 @@
+
 package com.techhounds.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -88,6 +89,10 @@ public class FieldSetup extends Subsystem {
 	 * Position of the robot (where the drive team told us they placed it).
 	 */
 	private Position robotStartPos;
+	
+	
+	// distance from center line
+	private double DFCL;
 
 	/**
 	 * Constructs a new instance in an unknown state - until the {@link #update()}
@@ -108,7 +113,7 @@ public class FieldSetup extends Subsystem {
 		robotPositionChooser.addObject("Middle", Position.Middle);
 		robotPositionChooser.addObject("Right", Position.Right);
 		SmartDashboard.putData(robotPositionChooser);
-		SmartDashboard.putNumber("Distance From Edge (- is from left wall, + is from right wall)", 0);
+		SmartDashboard.putNumber("Distance From Center Line (- is from left wall, + is from right wall)", 0.0);
 	}
 
 	/**
@@ -165,6 +170,32 @@ public class FieldSetup extends Subsystem {
 			return robotStartPos == switchPos;
 		}
 	}
+	
+	public boolean isSwitchDiag(){
+		if (switchPos == Position.Unknown){
+			return false;
+		}else{
+			return (robotStartPos == Position.Middle && (getCenterPosition() < 60 && getCenterPosition() > -60));
+		}
+	}
+	
+	public boolean isScaleDiag(){
+		if(switchPos == Position.Unknown){
+			return false;
+		}else{
+			return (robotStartPos != Position.Middle && robotStartPos != scalePos && (getCenterPosition() > 60 || getCenterPosition() < -60));
+		}
+	}
+	
+	public boolean isSideSwitch(){
+		if(switchPos == Position.Unknown){
+			return false;
+		}else{
+			return ((robotStartPos == switchPos || robotStartPos == Position.Middle) && (getCenterPosition() > 60 || getCenterPosition() < -60));
+		}
+	}
+	
+	//above methods are possibly redundant
 
 	/**
 	 * Determine if robot is positioned such that our side of the scale is straight
@@ -177,21 +208,14 @@ public class FieldSetup extends Subsystem {
 		if (scalePos == Position.Unknown) {
 			return false;
 		} else {
-			return robotStartPos == scalePos;
+			return robotStartPos == scalePos;// add distance check for this (determine if we need to turn or not)
 		}
 	}
 
-	/**
-	 * Ask Skyler.
-	 * 
-	 * @return No clue - something related to wall position.
-	 */
-	public double getWallPosition() {
-		double SDBN = SmartDashboard.getNumber("Distance From Edge (- is from left wall, + is from right wall)", 0);
-		if (SDBN < 0) {
-			SDBN = 324 + SDBN;
-		}
-		return SDBN;
+	//DFCL = distance from center line
+	public double getCenterPosition() {
+		DFCL = SmartDashboard.getNumber("Distance From Center Line (- is from left wall, + is from right wall)", 0);
+		return DFCL;
 	}
 
 	@Override
@@ -238,8 +262,7 @@ public class FieldSetup extends Subsystem {
 			SmartDashboard.putString("Scale Side", getScalePosition().name());
 			SmartDashboard.putBoolean("Switch ahead", isSwitchStraightAhead());
 			SmartDashboard.putBoolean("Scale ahead", isScaleStraightAhead());
-			SmartDashboard.putNumber("debug: DFW", getWallPosition());
+			SmartDashboard.putNumber("debug: DFW", getCenterPosition());
 		}
 	}
-
 }

@@ -1,5 +1,6 @@
 package com.techhounds.commands.auton;
 
+import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
@@ -74,19 +75,28 @@ public class MotionProfile extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	//if(getStatus().btmBufferCnt < 10) return;
+    	//if(getStatus().isUnderrun) return;
+    	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Enable);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	MotionProfileStatus status = Robot.drivetrain.getLeftProfileStatus(); //TODO: check right status
+    	if (status.activePointValid && status.isLast) {
+			return true;
+    	}
+    	return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Hold);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Disable);
     }
 }

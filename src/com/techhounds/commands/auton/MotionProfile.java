@@ -25,13 +25,17 @@ public class MotionProfile extends Command {
 			return points;
 		}
 	}
+	
+	// BEGIN MOTION PROFILE CLASS
+	
+	private final double[][] profilePoints;
 
     public MotionProfile(Profile profile) {
     	this(profile.getPoints());
     }
     
     public MotionProfile(double[][] points) {
-    	
+    	profilePoints = points;
     }
 
     // Called just before this Command runs the first time

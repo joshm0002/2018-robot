@@ -43,6 +43,13 @@ public class Drivetrain extends Subsystem {
 	
 	public void configModeVelocity() {
 		configDefaults();
+		
+		motorRightMain.config_kP(0, 0, 0);
+		motorRightMain.config_kI(0, 0, 0);
+		motorRightMain.config_kD(0, 0, 0);
+		motorLeftMain.config_kP(0, 0, 0);
+		motorLeftMain.config_kI(0, 0, 0);
+		motorLeftMain.config_kD(0, 0, 0);
 	}
 	
 	public void configModePower() {
@@ -51,8 +58,17 @@ public class Drivetrain extends Subsystem {
 	
 	public void configModeMotionProfile() {
 		configDefaults();
+
 		motorRightMain.changeMotionControlFramePeriod(5); // TODO: store a constant for this
 		motorLeftMain.changeMotionControlFramePeriod(5); // TODO: store a constant for this
+
+		motorRightMain.config_kP(0, 0, 0);
+		motorRightMain.config_kI(0, 0, 0);
+		motorRightMain.config_kD(0, 0, 0);
+		motorLeftMain.config_kP(0, 0, 0);
+		motorLeftMain.config_kI(0, 0, 0);
+		motorLeftMain.config_kD(0, 0, 0);
+
 	}
 	
 	public void setPower(double right, double left) {
@@ -61,7 +77,8 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public void setMotionProfile(SetValueMotionProfile mode) {
-		
+		motorRightMain.set(ControlMode.MotionProfile, mode.value);
+		motorLeftMain.set(ControlMode.MotionProfile, mode.value);
 	}
 	
 	/**

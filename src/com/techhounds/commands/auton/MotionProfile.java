@@ -1,7 +1,5 @@
 package com.techhounds.commands.auton;
 
-import java.io.File;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -19,14 +17,21 @@ public class MotionProfile extends Command {
 			this.filename = filename;
 		}
 		
-		public File getFile() {
-			return new File(filename);
+		public double[][] getPoints() {
+			// TODO: read file
+			double[][] points = {
+					{0, 0, 0}
+			};
+			return points;
 		}
 	}
 
     public MotionProfile(Profile profile) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    	this(profile.getPoints());
+    }
+    
+    public MotionProfile(double[][] points) {
+    	
     }
 
     // Called just before this Command runs the first time

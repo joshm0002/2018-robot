@@ -1,9 +1,12 @@
 package com.techhounds.subsystems;
 
-import com.techhounds.RobotMap;
+import com.ctre.phoenix.motion.SetValueMotionProfile;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.commands.ArcadeDrive;
 
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -11,25 +14,54 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drivetrain extends Subsystem {
 	
-	private Spark motorLeft;
-	private Spark motorRight;
+	private TalonSRX motorRightMain;
+	private TalonSRX motorRightFollower;
+	private TalonSRX motorLeftMain;
+	private TalonSRX motorLeftFollower;
 	
 	public Drivetrain() {
-		motorLeft = new Spark(RobotMap.DRIVE_MOTOR_LEFT);
-		motorRight = new Spark(RobotMap.DRIVE_MOTOR_RIGHT);
+		motorRightMain = new WPI_TalonSRX(0); // TODO: fix port numbers
+		motorRightFollower = new WPI_TalonSRX(1);
+		motorLeftMain = new WPI_TalonSRX(2);
+		motorLeftFollower = new WPI_TalonSRX(3);
 	}
 	
 	/**
-	 * Set the drivetrain motor power.
+	 * Configures the Talons to a default state
 	 * 
-	 * @param right Decimal value [-1.0, 1] to set
-	 * @param left Decimal value [-1.0, 1] to set
+	 * TODO: should we use timeouts on the config calls?
 	 */
-	public void setMotors(double right, double left) {
-		left = constrain(left);
-		right = constrain(right);
-		motorLeft.set(left);
-		motorRight.set(right);
+	public void configDefaults() {
+		motorRightFollower.set(ControlMode.Follower, 0);
+		motorLeftFollower.set(ControlMode.Follower, 2);
+		
+		motorRightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		//motorRightMain.setSensorPhase(true); // TODO: read from RobotMap
+		motorLeftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		//motorLeftMain.setSensorPhase(true); // TODO: read from RobotMap
+	}
+	
+	public void configModeVelocity() {
+		configDefaults();
+	}
+	
+	public void configModePower() {
+		configDefaults();
+	}
+	
+	public void configModeMotionProfile() {
+		configDefaults();
+		motorRightMain.changeMotionControlFramePeriod(5); // TODO: store a constant for this
+		motorLeftMain.changeMotionControlFramePeriod(5); // TODO: store a constant for this
+	}
+	
+	public void setPower(double right, double left) {
+		motorRightMain.set(ControlMode.PercentOutput, constrain(right));
+		motorLeftMain.set(ControlMode.PercentOutput, constrain(left));
+	}
+	
+	public void setMotionProfile(SetValueMotionProfile mode) {
+		
 	}
 	
 	/**

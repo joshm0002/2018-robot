@@ -1,5 +1,10 @@
 package com.techhounds.commands.auton;
 
+import com.ctre.phoenix.motion.SetValueMotionProfile;
+import com.ctre.phoenix.motion.TrajectoryPoint;
+import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
+import com.techhounds.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -28,7 +33,7 @@ public class MotionProfile extends Command {
 	
 	// BEGIN MOTION PROFILE CLASS
 	
-	private final double[][] profilePoints;
+	private final double[][] profilePoints; // TODO: left & right points
 
     public MotionProfile(Profile profile) {
     	this(profile.getPoints());
@@ -40,6 +45,31 @@ public class MotionProfile extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.drivetrain.resetProfile();
+    	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Disable);
+    	
+    	// TODO: will this hang us too much?
+    	
+    	TrajectoryPoint point = new TrajectoryPoint();
+    	
+    	for(int i = 0; i < profilePoints.length; i++) {
+    		double positionRot = profilePoints[i][0];
+    		double velocityRPM = profilePoints[i][1];
+    		
+    		//need to manipulate the numbers below in order to convert to proper units
+    		point.position = positionRot * 1024;
+    		point.velocity = velocityRPM * 1024 / 600;
+    		point.profileSlotSelect0 = 0;
+    		point.profileSlotSelect1 = 0;
+    		
+    		TrajectoryDuration td = TrajectoryDuration.Trajectory_Duration_5ms;
+//    		point.timeDur = td.valueOf((int)profile[i][2]);
+    		point.timeDur = td;
+    		point.zeroPos = (i == 0);
+    		point.isLastPoint = (i + 1 == profilePoints.length);
+    		
+    		Robot.drivetrain.pushLeftPoint(point);   //TODO: push right points  		
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run

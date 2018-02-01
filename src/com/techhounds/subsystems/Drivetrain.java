@@ -53,6 +53,8 @@ public class Drivetrain extends Subsystem {
 		//motorRightMain.setSensorPhase(true); // TODO: read from RobotMap
 		motorLeftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		//motorLeftMain.setSensorPhase(true); // TODO: read from RobotMap
+		
+		motorRightMain.setInverted(false); // TODO
 	}
 	
 	public void configModeVelocity() {

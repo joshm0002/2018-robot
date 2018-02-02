@@ -23,5 +23,8 @@ public class RobotMap {
 	//pneumatics
 	public static final int DRIVE_TRANSMISSION = 0;
 	public static final int ARMS = 1;
+	public static final int WINCH_TRANSMISSION_ELEVATOR = 0;
+	public static final int WINCH_TRANSMISSION_CLIMBER = 0;
+	
 	
 }

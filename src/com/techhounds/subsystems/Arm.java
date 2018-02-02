@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Arm extends Subsystem {
 	
+	public static Arm instance;
+	
 	private Solenoid arm;
 	
 	public void arm(){
@@ -23,6 +25,10 @@ public class Arm extends Subsystem {
     
     public void retractArm(){
     	arm.set(false);
+    }
+    
+    public static Arm getIstance() {
+    	return instance == null ? instance = new Arm() : instance;
     }
 
     public void initDefaultCommand() {

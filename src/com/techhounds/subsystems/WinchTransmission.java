@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class WinchTransmission extends Subsystem {
 	
     // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+    // here. Call these from Commands./
 	private Solenoid elevator;
 	private Solenoid climber;
 	public void WinchTransmission() {

@@ -2,12 +2,12 @@ package com.techhounds.subsystems;
 
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
-import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.commands.ArcadeDrive;
+import com.techhounds.commands.auton.TrajectoryPointPair;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -53,6 +53,8 @@ public class Drivetrain extends Subsystem {
 		//motorRightMain.setSensorPhase(true); // TODO: read from RobotMap
 		motorLeftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		//motorLeftMain.setSensorPhase(true); // TODO: read from RobotMap
+		
+		motorRightMain.setInverted(false); // TODO
 	}
 	
 	public void configModeVelocity() {
@@ -105,12 +107,9 @@ public class Drivetrain extends Subsystem {
     	return status;
     }
     
-    public void pushLeftPoint(TrajectoryPoint point) {
-    	motorLeftMain.pushMotionProfileTrajectory(point);
-    }
-    
-    public void pushRightPoint(TrajectoryPoint point) {
-    	motorRightMain.pushMotionProfileTrajectory(point);
+    public void pushPoint(TrajectoryPointPair point) {
+    	motorRightMain.pushMotionProfileTrajectory(point.right);
+    	motorLeftMain.pushMotionProfileTrajectory(point.left);
     }
     
     public void resetProfile() {

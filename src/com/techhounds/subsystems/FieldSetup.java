@@ -1,3 +1,4 @@
+
 package com.techhounds.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -227,13 +228,10 @@ public class FieldSetup extends Subsystem {
 	 * SmartDashboard and DriverStation.
 	 */
 	public void update() {
-		
-	    /** 
-	     * Will be something like "LLL", "LRL", "RRR", etc where
-		 * first character is our switch ("L" if on left, "R" if on right)
-		 * second character is scale ("L" if on left, "R" if on right)
-		 * third character is their switch ("L" if on left, "R" if on right) 
-		 */
+		// Will be something like "LLL", "LRL", "RRR", etc where
+		// first character is our switch ("L" if on left, "R" if on right)
+		// second character is scale ("L" if on left, "R" if on right)
+		// third character is their switch ("L" if on left, "R" if on right)
 		switchPos = Position.Unknown;
 		scalePos = Position.Unknown;
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();

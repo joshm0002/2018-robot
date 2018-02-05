@@ -8,7 +8,7 @@
 package com.techhounds;
 
 /**
- *The/ RobotMap is a mapping from the ports sensors and actuators are wired into
+ * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
@@ -17,14 +17,6 @@ public class RobotMap {
 	
 	public static final int DRIVE_MOTOR_LEFT = 0;
 	public static final int DRIVE_MOTOR_RIGHT = 1;
-	public static final int MOTOR_INTAKE = 2;
-	public static final int MOTOR_ANGLE_INTAKE = 3;
-	
-	//pneumatics
 	public static final int DRIVE_TRANSMISSION = 0;
-	public static final int ARMS = 1;
-	public static final int WINCH_TRANSMISSION_ELEVATOR = 0;
-	public static final int WINCH_TRANSMISSION_CLIMBER = 0;
-	
 	
 }

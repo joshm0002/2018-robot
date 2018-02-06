@@ -21,8 +21,8 @@ public class ArcadeDrive extends Command {
      * TODO: do we want to square/cube input?
      */
     protected void execute() {
-    	double forward = OI.getDriverAxis(0);
-    	double turn = OI.getDriverAxis(3);
+    	double forward = -OI.getDriverAxis(1); //negatives are intentional
+    	double turn = -OI.getDriverAxis(4);
     	
     	Robot.drivetrain.setPower(forward+turn, forward-turn);
     }

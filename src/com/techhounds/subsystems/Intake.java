@@ -12,6 +12,8 @@ public class Intake extends Subsystem {
 	private TalonSRX intakeAngler;
 	
 	public Intake() {
+		intake.enableCurrentLimit(true);
+		intake.configContinuousCurrentLimit(20, 0);
 		intake = new WPI_TalonSRX(RobotMap.MOTOR_INTAKE);
 	}
 	

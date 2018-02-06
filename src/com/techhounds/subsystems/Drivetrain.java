@@ -55,6 +55,9 @@ public class Drivetrain extends Subsystem {
 		//motorLeftMain.setSensorPhase(true); // TODO: read from RobotMap
 		
 		motorRightMain.setInverted(false); // TODO
+		
+		// TODO: current limitation
+		// TODO: voltage compensation/saturation
 	}
 	
 	public void configModeVelocity() {

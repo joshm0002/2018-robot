@@ -39,7 +39,6 @@ public class PowerPack extends Subsystem {
 	public boolean getClimber() { //returns the state of the climber winch
 		return climberWinch.get();
 	}
-	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

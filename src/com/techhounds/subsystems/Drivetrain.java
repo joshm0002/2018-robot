@@ -3,7 +3,6 @@ package com.techhounds.subsystems;
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.commands.ArcadeDrive;
@@ -28,10 +27,10 @@ public class Drivetrain extends Subsystem {
 	private MotionProfileStatus status;
 		
 	public Drivetrain() {
-		motorRightMain = new WPI_TalonSRX(0); // TODO: fix port numbers
-		motorRightFollower = new WPI_TalonSRX(1);
-		motorLeftMain = new WPI_TalonSRX(2);
-		motorLeftFollower = new WPI_TalonSRX(3);
+		motorRightMain = new WPI_TalonSRX(10); // TODO: use robot map
+		motorRightFollower = new WPI_TalonSRX(11);
+		motorLeftMain = new WPI_TalonSRX(25);
+		motorLeftFollower = new WPI_TalonSRX(24);
 		
 		rightUploader = new MotionProfileUploader(motorRightMain);
 		leftUploader  = new MotionProfileUploader(motorLeftMain);
@@ -46,15 +45,18 @@ public class Drivetrain extends Subsystem {
 	 * TODO: should we use timeouts on the config calls?
 	 */
 	public void configDefaults() {
-		motorRightFollower.set(ControlMode.Follower, 0);
-		motorLeftFollower.set(ControlMode.Follower, 2);
+		motorRightFollower.set(ControlMode.Follower, 10);
+		motorLeftFollower.set(ControlMode.Follower, 25);
 		
-		motorRightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+//		motorRightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		//motorRightMain.setSensorPhase(true); // TODO: read from RobotMap
-		motorLeftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+//		motorLeftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		//motorLeftMain.setSensorPhase(true); // TODO: read from RobotMap
 		
 		motorRightMain.setInverted(false); // TODO
+		
+		// TODO: current limitation
+		// TODO: voltage compensation/saturation
 	}
 	
 	public void configModeVelocity() {

@@ -1,7 +1,5 @@
 package com.techhounds.subsystems;
-
 import com.techhounds.RobotMap;
-
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 

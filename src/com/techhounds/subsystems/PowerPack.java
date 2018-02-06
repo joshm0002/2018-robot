@@ -5,9 +5,6 @@ import com.techhounds.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class PowerPack extends Subsystem {
 	private Solenoid elevatorWinch;
 	private Solenoid climberWinch;

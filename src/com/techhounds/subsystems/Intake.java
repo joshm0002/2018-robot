@@ -8,18 +8,23 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {
 	
-	private TalonSRX intake;
-	private TalonSRX intakeAngler;
+	private TalonSRX intakeLeft;
+	private TalonSRX intakeRight;
 	
 	public Intake() {
-		intake = new WPI_TalonSRX(22);
-		intake.enableCurrentLimit(true);
-		intake.configContinuousCurrentLimit(20, 0);
-		intake = new WPI_TalonSRX(RobotMap.MOTOR_INTAKE);
+		intakeLeft = new WPI_TalonSRX(22);
+		intakeLeft.enableCurrentLimit(true);
+		intakeLeft.configContinuousCurrentLimit(20, 0);
+		intakeLeft = new WPI_TalonSRX(RobotMap.MOTOR_INTAKE);
+		intakeRight = new WPI_TalonSRX(22);
+		intakeRight.enableCurrentLimit(true);
+		intakeRight.configContinuousCurrentLimit(20, 0);
+		intakeRight = new WPI_TalonSRX(RobotMap.MOTOR_INTAKE);
 	}
 	
 	public void setPower(double power){
-		intake.set(ControlMode.PercentOutput, check(power));
+		intakeLeft.set(ControlMode.PercentOutput, check(power));
+		intakeRight.set(ControlMode.PercentOutput, check(power));
 	}
 	
     public double check(double in){

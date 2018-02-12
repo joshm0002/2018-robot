@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
+import com.techhounds.RobotUtilities;
 import com.techhounds.commands.ArcadeDrive;
 import com.techhounds.commands.auton.TrajectoryPointPair;
 
@@ -99,8 +100,8 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public void setPower(double right, double left) {
-		motorRightMain.set(ControlMode.PercentOutput, constrain(right));
-		motorLeftMain.set(ControlMode.PercentOutput, constrain(left));
+		motorRightMain.set(ControlMode.PercentOutput, RobotUtilities.constrain(right));
+		motorLeftMain.set(ControlMode.PercentOutput, RobotUtilities.constrain(left));
 	}
 	
 	public void setMotionProfile(SetValueMotionProfile mode) {
@@ -132,16 +133,7 @@ public class Drivetrain extends Subsystem {
 //    	talon.configMotionProfileTrajectoryPeriod(5, 0);
     	
     }
-	
-	/**
-	 * Limits the given value to -1, 1
-	 * 
-	 * @param value
-	 * @return
-	 */
-	private double constrain(double value) {
-		return Math.min(Math.max(value, -1), 1);
-	}
+
 
     public void initDefaultCommand() {
         setDefaultCommand(new ArcadeDrive());

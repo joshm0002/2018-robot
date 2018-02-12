@@ -29,6 +29,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * information from the FMS. It does not need to be called during autonomous or
  * teleop as the information should not change.
  * </p>
+ * 
+ * FIXME: Since this is never require()'d by commands, and doesn't do anything like
+ * initDefaultCommand, it doesn't really need to extend Subsystem.
  */
 public class FieldSetup extends Subsystem {
 

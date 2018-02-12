@@ -14,20 +14,16 @@ public class Tilt {
 	
 	public void tiltMotor() {
 		tiltMotor = new WPI_TalonSRX(RobotMap.TILT);
+		configDefaults();
+	}
+	
+	public void configDefaults() {
 		tiltMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
 		tiltMotor.enableCurrentLimit(true);
 		tiltMotor.configContinuousCurrentLimit(20, 0);
 		tiltMotor.config_kP(0, P, 0);
 		tiltMotor.config_kI(0, I, 0);
 		tiltMotor.config_kD(0, D, 0);
-	}
-	
-	public void toggleTilt() {
-		
-	}
-	
-	public void setPower(double power) {
-		tiltMotor.set(ControlMode.PercentOutput, power);;
 	}
 	
 	public void setPosition(double position) {

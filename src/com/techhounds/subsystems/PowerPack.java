@@ -10,33 +10,67 @@ public class PowerPack extends Subsystem {
 	public PowerPack() {
 		elevatorWinch = new Solenoid(RobotMap.WINCH_TRANSMISSION_ELEVATOR);
 		climberWinch = new Solenoid(RobotMap.WINCH_TRANSMISSION_CLIMBER);
+		configDefaults();
 	}
 	
-	public void toggle() { // switches elevatorWinch and climberWinch
+	/**
+	 * TODO: inversion
+	 * TODO: current limit (peak & continuous)
+	 * TODO: voltage limitation
+	 */
+	public void configDefaults() {
+		
+	}
+	
+	/**
+	 * Switches between elevator & climber mode
+	 * 
+	 * FIXME: if you call off() then toggle(), both will 
+	 * be enabled which is bad!
+	 */
+	public void toggle() {
 		elevatorWinch.set(!elevatorWinch.get());
 		climberWinch.set(!climberWinch.get());
 	}
-	public void toElevator() { //switches winch to the elevator
+	
+	/**
+	 * Switches to elevator mode
+	 */
+	public void toElevator() {
 		elevatorWinch.set(true);
 		climberWinch.set(false);
 	}
-	public void toClimber() { //switches winch to the climber
+	
+	/**
+	 * Switches to climber mode
+	 */
+	public void toClimber() {
 		elevatorWinch.set(false);
 		climberWinch.set(true);
 	}
-	public void off() { //sets both to false
+	
+	/**
+	 * Disables both outputs
+	 */
+	public void off() {
 		elevatorWinch.set(false);
-		climberWinch.set(true);
+		climberWinch.set(false);
 	}
-	public boolean getElevator() { //returns the state of the elevator winch
+	
+	/**
+	 * @return whether the elevator is enabled
+	 */
+	public boolean getElevator() {
 		return elevatorWinch.get();
 	}
-	public boolean getClimber() { //returns the state of the climber winch
+	
+	/**
+	 * @return whether the climber is enabled
+	 */
+	public boolean getClimber() {
 		return climberWinch.get();
 	}
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+	
+    public void initDefaultCommand() {}
 }
 

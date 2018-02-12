@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Represents the pneumatic arms that squeeze the box.
  * 
  * TODO: may need to invert positions (this can be done
- *       via pneumatic tubing too_
+ *       via pneumatic tubing too)
  */
 public class Arm extends Subsystem {
 	

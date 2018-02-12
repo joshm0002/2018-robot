@@ -15,16 +15,26 @@ package com.techhounds;
  */
 public class RobotMap {
 	
-	public static final int DRIVE_MOTOR_LEFT = 0;
-	public static final int DRIVE_MOTOR_RIGHT = 1;
-	public static final int MOTOR_INTAKE = 2;
-	public static final int MOTOR_ANGLE_INTAKE = 3;
+	// Motors (CAN)
+	public static final int DRIVE_LEFT_PRIMARY = 25;
+	public static final int DRIVE_LEFT_SECONDARY = 24;
+	public static final int DRIVE_RIGHT_PRIMARY = 10;
+	public static final int DRIVE_RIGHT_SECONDARY = 11;
+	public static final int INTAKE_LEFT = 1; // FIXME: find real port #s
+	public static final int INTAKE_RIGHT = 2;
+	public static final int POWER_PACK_PRIMARY = 3;
+	public static final int POWER_PACK_SECONDARY = 4;
+//	public static final int POWER_PACK_TERTIARY;
+	public static final int TILT = 5;
 	
-	//pneumatics
+	// Pneumatics (PCM)
 	public static final int DRIVE_TRANSMISSION = 0;
 	public static final int ARMS = 1;
 	public static final int WINCH_TRANSMISSION_ELEVATOR = 0;
 	public static final int WINCH_TRANSMISSION_CLIMBER = 0;
 	
+	// Sensors (Analog)
+	public static final int IR_DISTANCE = 0;
 	
+	// Sensors (Digital)	
 }

@@ -15,7 +15,7 @@ public class ArcadeDrive extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {}
+    protected void initialize() {} //TODO configModePower
 
     /**
      * TODO: do we want to square/cube input?

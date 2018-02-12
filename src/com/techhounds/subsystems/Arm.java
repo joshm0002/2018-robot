@@ -5,9 +5,13 @@ import com.techhounds.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Represents the pneumatic arms that squeeze the box.
+ * 
+ * TODO: may need to invert positions (this can be done
+ *       via pneumatic tubing too_
+ */
 public class Arm extends Subsystem {
-	
-	public static Arm instance;
 	
 	private Solenoid arm;
 	
@@ -19,19 +23,17 @@ public class Arm extends Subsystem {
     	arm.set(!arm.get());
     }
     
-    public void extendArm(){
+    public void openArm(){
     	arm.set(true);
     }
     
-    public void retractArm(){
+    public void closeArm(){
     	arm.set(false);
     }
     
-    public static Arm getIstance() {
-    	return instance == null ? instance = new Arm() : instance;
+    public boolean isOpen() {
+    	return arm.get();
     }
 
-    public void initDefaultCommand() {
-        
-    }
+    public void initDefaultCommand() {}
 }

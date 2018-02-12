@@ -6,11 +6,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
-
 public class Tilt {
 	
 	private TalonSRX tiltMotor;
@@ -18,7 +13,7 @@ public class Tilt {
 	private double P = 0, I = 0, D = 0;
 	
 	public void tiltMotor() {
-		tiltMotor = new WPI_TalonSRX(RobotMap.MOTOR_ANGLE_INTAKE);
+		tiltMotor = new WPI_TalonSRX(RobotMap.TILT);
 		tiltMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
 		tiltMotor.enableCurrentLimit(true);
 		tiltMotor.configContinuousCurrentLimit(20, 0);

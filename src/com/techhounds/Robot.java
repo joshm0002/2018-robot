@@ -10,11 +10,10 @@ package com.techhounds;
 import com.techhounds.commands.Dashboard;
 import com.techhounds.commands.auton.AutonLauncher;
 import com.techhounds.subsystems.Arm;
-import com.techhounds.subsystems.Climber;
 import com.techhounds.subsystems.Drivetrain;
-import com.techhounds.subsystems.Elevator;
 import com.techhounds.subsystems.Gyroscope;
 import com.techhounds.subsystems.Intake;
+import com.techhounds.subsystems.PowerPack;
 import com.techhounds.subsystems.Transmission;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -31,11 +30,10 @@ public class Robot extends TimedRobot {
 	
 	// Robot Subsystems
 	public static final Arm arm = new Arm();
-	public static final Climber climber = new Climber();
 	public static final Drivetrain drivetrain = new Drivetrain();
-	public static final Elevator elevator = new Elevator();
 	public static final Gyroscope gyro = new Gyroscope();
 	public static final Intake intake = new Intake();
+	public static final PowerPack powerPack = new PowerPack();
 	public static final Transmission transmission = new Transmission();
 			
 	/**

@@ -15,11 +15,11 @@ public class Intake extends Subsystem {
 		intakeLeft = new WPI_TalonSRX(22);
 		intakeLeft.enableCurrentLimit(true);
 		intakeLeft.configContinuousCurrentLimit(20, 0);
-		intakeLeft = new WPI_TalonSRX(RobotMap.MOTOR_INTAKE);
+		intakeLeft = new WPI_TalonSRX(RobotMap.INTAKE_LEFT);
 		intakeRight = new WPI_TalonSRX(22);
 		intakeRight.enableCurrentLimit(true);
 		intakeRight.configContinuousCurrentLimit(20, 0);
-		intakeRight = new WPI_TalonSRX(RobotMap.MOTOR_INTAKE);
+		intakeRight = new WPI_TalonSRX(RobotMap.INTAKE_RIGHT);
 	}
 	
 	public void setPower(double power){
@@ -31,7 +31,5 @@ public class Intake extends Subsystem {
     	return Math.min(Math.max(in, -1), 1);
     }
 
-    public void initDefaultCommand() {
-        
-    }
+    public void initDefaultCommand() {}
 }

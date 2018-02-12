@@ -5,6 +5,7 @@ import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.techhounds.RobotMap;
 import com.techhounds.commands.ArcadeDrive;
 import com.techhounds.commands.auton.TrajectoryPointPair;
 
@@ -27,16 +28,18 @@ public class Drivetrain extends Subsystem {
 	private MotionProfileStatus status;
 		
 	public Drivetrain() {
-		motorRightMain = new WPI_TalonSRX(10); // TODO: use robot map
-		motorRightFollower = new WPI_TalonSRX(11);
-		motorLeftMain = new WPI_TalonSRX(25);
-		motorLeftFollower = new WPI_TalonSRX(24);
+		motorRightMain = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_PRIMARY);
+		motorRightFollower = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_SECONDARY);
+		motorLeftMain = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_PRIMARY);
+		motorLeftFollower = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_SECONDARY);
 		
 		rightUploader = new MotionProfileUploader(motorRightMain);
 		leftUploader  = new MotionProfileUploader(motorLeftMain);
 		
 		new Notifier(rightUploader).startPeriodic(0.005);
 		new Notifier(leftUploader).startPeriodic(0.005);
+		
+		configDefaults();
 	}
 	
 	/**
@@ -45,16 +48,22 @@ public class Drivetrain extends Subsystem {
 	 * TODO: should we use timeouts on the config calls?
 	 */
 	public void configDefaults() {
-		motorRightFollower.set(ControlMode.Follower, 10);
-		motorLeftFollower.set(ControlMode.Follower, 25);
+//		motorRightFollower.set(ControlMode.Follower, 10);
+//		motorLeftFollower.set(ControlMode.Follower, 25);
+		
+		motorRightFollower.follow(motorRightMain);
+		motorLeftFollower.follow(motorLeftMain);
 		
 //		motorRightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		//motorRightMain.setSensorPhase(true); // TODO: read from RobotMap
 //		motorLeftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		//motorLeftMain.setSensorPhase(true); // TODO: read from RobotMap
 		
-		motorRightMain.setInverted(false); // TODO
-		
+		motorRightMain.setInverted(true); // TODO
+		motorRightFollower.setInverted(true);
+		motorLeftMain.setInverted(false);
+		motorLeftFollower.setInverted(false);
+
 		// TODO: current limitation
 		// TODO: voltage compensation/saturation
 	}

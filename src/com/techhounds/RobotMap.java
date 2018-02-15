@@ -14,7 +14,6 @@ package com.techhounds;
  * floating around.
  */
 public class RobotMap {
-	
 	// Motors (CAN)
 	public static final int DRIVE_LEFT_PRIMARY = 25;
 	public static final int DRIVE_LEFT_SECONDARY = 24;

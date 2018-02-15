@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class VisionSubsystem extends Subsystem {
-    private static VisionSubsystem instance;
+public class PullVision extends Subsystem {
+    private static PullVision instance;
     
-    public static VisionSubsystem getInstance() {
-    	return instance == null ? instance = new VisionSubsystem() : instance;
+    public static PullVision getInstance() {
+    	return instance == null ? instance = new PullVision() : instance;
     }
     
     public double getFrameCount() {

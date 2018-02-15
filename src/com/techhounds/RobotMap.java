@@ -24,6 +24,8 @@ public class RobotMap {
 	public static final int INTAKE_RIGHT = 2;
 	public static final int POWER_PACK_PRIMARY = 3;
 	public static final int POWER_PACK_SECONDARY = 4;
+	public static final int POWER_PACK_3 = 5;
+	public static final int POWER_PACK_4 = 6;
 //	public static final int POWER_PACK_TERTIARY;
 	public static final int TILT = 5;
 	

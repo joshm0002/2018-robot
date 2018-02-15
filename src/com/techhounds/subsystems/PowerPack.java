@@ -16,6 +16,8 @@ public class PowerPack extends Subsystem {
 	
 	private TalonSRX winch;
 	private TalonSRX winch2;
+	private TalonSRX winch3;
+	private TalonSRX winch4;
 	
 	private double P = 0, I = 0, D = 0;
 	private int PCL = 10000; //peak current limit
@@ -26,7 +28,11 @@ public class PowerPack extends Subsystem {
 		climberWinch = new Solenoid(RobotMap.WINCH_TRANSMISSION_CLIMBER);
 		winch = new WPI_TalonSRX(RobotMap.POWER_PACK_PRIMARY);
 		winch2 = new WPI_TalonSRX(RobotMap.POWER_PACK_SECONDARY);
+		winch3 = new WPI_TalonSRX(RobotMap.POWER_PACK_3);
+		winch4 = new WPI_TalonSRX(RobotMap.POWER_PACK_4);
 		winch2.follow(winch);
+		winch3.follow(winch);
+		winch4.follow(winch);
 		configDefaults();
 	}
 	

@@ -8,11 +8,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import lib.util.gyro.BNO055;
 
 public class Gyroscope extends Subsystem {
-	private static Gyroscope instance;
 	private BNO055 gyro;
 	private GyroBase gyroX;
 	
-	private Gyroscope() {
+	public Gyroscope() {
 		gyro = BNO055.getInstance(I2C.Port.kOnboard);
 		gyroX = gyro.createGyroX();
 		gyroX.reset();

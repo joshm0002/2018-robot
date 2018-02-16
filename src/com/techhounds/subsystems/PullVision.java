@@ -7,12 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class PullVision extends Subsystem {
-    private static PullVision instance;
-    
-    public static PullVision getInstance() {
-    	return instance == null ? instance = new PullVision() : instance;
-    }
-    
     public double getFrameCount() {
     	return SmartDashboard.getNumber("VisFrame", 0);
     }

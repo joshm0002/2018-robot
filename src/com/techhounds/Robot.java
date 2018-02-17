@@ -14,6 +14,7 @@ import com.techhounds.subsystems.Drivetrain;
 import com.techhounds.subsystems.Gyroscope;
 import com.techhounds.subsystems.Intake;
 import com.techhounds.subsystems.PowerPack;
+import com.techhounds.subsystems.PullVision;
 import com.techhounds.subsystems.Tilt;
 import com.techhounds.subsystems.Transmission;
 
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
 	public static final PowerPack powerPack = new PowerPack();
 	public static final Transmission transmission = new Transmission();
 	public static final Tilt tilt = new Tilt();
+	public static final PullVision vision = new PullVision();
 			
 	/**
 	 * This function is run when the robot is first started up and should be

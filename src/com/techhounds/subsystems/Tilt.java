@@ -6,7 +6,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 
-public class Tilt {
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+public class Tilt extends Subsystem{
 	
 	private TalonSRX tiltMotor;
 	
@@ -38,4 +40,11 @@ public class Tilt {
 	public void stopPower() {
 		tiltMotor.set(ControlMode.PercentOutput, 0);
 	}
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

@@ -16,7 +16,9 @@ public class RotateUsingDriverVision extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	new TurnByAngleGyro(vis.getTurnAngle());
+    	if (vis.getFoundStatus()) {
+    		new TurnByAngleGyro(vis.getTurnAngle());
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -15,7 +15,7 @@ public class Arm extends Subsystem {
 	
 	private Solenoid arm;
 	
-	public void arm(){
+	public Arm(){
 		arm = new Solenoid(RobotMap.ARMS);
 	}
 	

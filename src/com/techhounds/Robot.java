@@ -19,7 +19,6 @@ import com.techhounds.subsystems.Transmission;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the

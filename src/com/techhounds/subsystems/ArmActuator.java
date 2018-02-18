@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * TODO: may need to invert positions (this can be done
  *       via pneumatic tubing too)
  */
-public class Arm extends Subsystem {
+public class ArmActuator extends Subsystem {
 	
 	private Solenoid arm;
 	
-	public Arm(){
+	public ArmActuator(){
 		arm = new Solenoid(RobotMap.ARMS);
 	}
 	
@@ -35,5 +35,8 @@ public class Arm extends Subsystem {
     	return arm.get();
     }
 
+    /**
+     * TODO: do we want to set a default open/closed position here?
+     */
     public void initDefaultCommand() {}
 }

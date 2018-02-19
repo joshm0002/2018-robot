@@ -59,7 +59,7 @@ public class TurnByAngleGyro extends TimedCommand {
     }
     
     protected void initialize() {
-    	SmartDashboard.putData("Rotation PID", ctrl);
+    	SmartDashboard.putData("By Rotation PID", ctrl);
     	ctrl.setSetpoint(setAngle+Robot.gyro.getRotation());
     	ctrl.enable();
     }

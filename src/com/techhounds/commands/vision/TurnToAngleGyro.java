@@ -54,7 +54,7 @@ public class TurnToAngleGyro extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putData("Rotation PID", ctrl);
+    	SmartDashboard.putData("To Rotation PID", ctrl);
     	ctrl.setSetpoint(setAngle);
     	ctrl.enable();
     }

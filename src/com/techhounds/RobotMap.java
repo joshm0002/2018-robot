@@ -38,4 +38,7 @@ public class RobotMap {
 	public static final int IR_DISTANCE = 0;
 	
 	// Sensors (Digital)	
+	
+	// Drivetrain
+	public static final double DRIVE_MIN_SPEED = .3; // TODO: is this right?
 }

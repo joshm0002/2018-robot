@@ -14,11 +14,13 @@ import com.techhounds.subsystems.Drivetrain;
 import com.techhounds.subsystems.Gyroscope;
 import com.techhounds.subsystems.ArmIntake;
 import com.techhounds.subsystems.PowerPack;
+import com.techhounds.subsystems.PullVision;
 import com.techhounds.subsystems.ArmTilt;
 import com.techhounds.subsystems.Transmission;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,6 +39,7 @@ public class Robot extends TimedRobot {
 	public static final PowerPack powerPack = new PowerPack();
 	public static final Transmission transmission = new Transmission();
 	public static final ArmTilt tilt = new ArmTilt();
+	public static final PullVision vision = new PullVision();
 			
 	/**
 	 * This function is run when the robot is first started up and should be

@@ -9,13 +9,13 @@ package com.techhounds;
 
 import com.techhounds.commands.Dashboard;
 import com.techhounds.commands.auton.AutonLauncher;
-import com.techhounds.subsystems.Arm;
+import com.techhounds.subsystems.ArmActuator;
 import com.techhounds.subsystems.Drivetrain;
 import com.techhounds.subsystems.Gyroscope;
-import com.techhounds.subsystems.Intake;
+import com.techhounds.subsystems.ArmIntake;
 import com.techhounds.subsystems.PowerPack;
 import com.techhounds.subsystems.PullVision;
-import com.techhounds.subsystems.Tilt;
+import com.techhounds.subsystems.ArmTilt;
 import com.techhounds.subsystems.Transmission;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -32,13 +32,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Robot extends TimedRobot {
 	
 	// Robot Subsystems
-	public static final Arm arm = new Arm();
+	public static final ArmActuator arm = new ArmActuator();
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Gyroscope gyro = new Gyroscope();
-	public static final Intake intake = new Intake();
+	public static final ArmIntake intake = new ArmIntake();
 	public static final PowerPack powerPack = new PowerPack();
 	public static final Transmission transmission = new Transmission();
-	public static final Tilt tilt = new Tilt();
+	public static final ArmTilt tilt = new ArmTilt();
 	public static final PullVision vision = new PullVision();
 			
 	/**

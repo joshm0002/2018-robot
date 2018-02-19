@@ -19,10 +19,6 @@ public class Gyroscope extends Subsystem {
 		// TODO: livewindow stuff
 	}
 	
-	public static Gyroscope getInstance() {
-		return instance == null ? instance = new Gyroscope() : instance;
-	}
-	
 	/**
 	 * Gets current rotation of the robot.
 	 * @return rotation of the robot (degrees)

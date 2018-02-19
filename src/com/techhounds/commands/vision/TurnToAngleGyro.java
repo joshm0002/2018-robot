@@ -2,6 +2,7 @@ package com.techhounds.commands.vision;
 
 import com.techhounds.Robot;
 import com.techhounds.RobotMap;
+import com.techhounds.RobotUtilities;
 import com.techhounds.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -46,7 +47,7 @@ public class TurnToAngleGyro extends Command {
     				output = RobotMap.DRIVE_MIN_SPEED;
     			if (output < -0.5 && output > -RobotMap.DRIVE_MIN_SPEED)
     				output = -RobotMap.DRIVE_MIN_SPEED;
-    			motors.setPower(HoundMath.checkRange(-output, -.7, .7), HoundMath.checkRange(output, -.7, .7));
+    			motors.setPower(RobotUtilities.constrain(-output), RobotUtilities.constrain(output));
     		}
     	});
     	ctrl.setAbsoluteTolerance(1);

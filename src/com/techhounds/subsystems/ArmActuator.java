@@ -36,7 +36,8 @@ public class ArmActuator extends Subsystem {
     }
 
     /**
-     * TODO: do we want to set a default open/closed position here?
+     * Intentionally left blank: default state of
+     * pneumatics is determined by tubing connections.
      */
     public void initDefaultCommand() {}
 }

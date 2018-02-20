@@ -27,8 +27,9 @@ public class Transmission extends Subsystem {
     	state = highGear;
     }
 
-    public void initDefaultCommand() {
-//        setDefaultCommand(new AutoShift());
-    }
+    /**
+     * Intentionally left blank.
+     */
+    public void initDefaultCommand() {}
 }
 

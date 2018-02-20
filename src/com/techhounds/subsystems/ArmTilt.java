@@ -63,7 +63,7 @@ public class ArmTilt extends Subsystem{
 
 	@Override
 	/**
-	 * TODO: set to "down" position
+	 * TODO: set to "down" position? Or hold position?
 	 */
 	protected void initDefaultCommand() {
 		setDefaultCommand(new SetTiltPower(0));

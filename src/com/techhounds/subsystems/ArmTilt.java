@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
+import com.techhounds.commands.SetTiltPower;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -48,6 +49,10 @@ public class ArmTilt extends Subsystem{
 		tiltMotor.set(ControlMode.Position, position);
 	}
 	
+	public void setPower(double power) {
+		tiltMotor.set(ControlMode.PercentOutput, power);
+	}
+	
 	public double getPosition() {
 		return tiltMotor.getSensorCollection().getAnalogIn();
 	}
@@ -61,6 +66,7 @@ public class ArmTilt extends Subsystem{
 	 * TODO: set to "down" position
 	 */
 	protected void initDefaultCommand() {
+		setDefaultCommand(new SetTiltPower(0));
 	}
 	
 }

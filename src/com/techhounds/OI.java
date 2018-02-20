@@ -7,8 +7,10 @@
 
 package com.techhounds;
 
+import com.techhounds.commands.Collector;
 import com.techhounds.commands.ManualShift;
 import com.techhounds.commands.ManualShift.State;
+import com.techhounds.commands.SetTiltPower;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -37,8 +39,20 @@ public class OI {
 	 * Binds triggers/buttons to commands for the driver
 	 */
 	public static void setupDriver() {
-		Button leftBumper = new JoystickButton(driver, 7);
-		leftBumper.whenPressed(new ManualShift(State.Toggle));
+		Button select = new JoystickButton(driver, 7);
+		select.whenPressed(new ManualShift(State.Toggle));
+		
+		Button bB = new JoystickButton(driver, 2);
+		bB.toggleWhenPressed(new Collector(1));
+		
+		Button bX = new JoystickButton(driver, 3);
+		bX.toggleWhenPressed(new Collector(-1));
+		
+		Button bY = new JoystickButton(driver, 4);
+		bY.toggleWhenPressed(new SetTiltPower(-0.5));
+		
+		Button bA = new JoystickButton(driver, 1);
+		bA.toggleWhenPressed(new SetTiltPower(0.5));
 	}
 	
 	/**

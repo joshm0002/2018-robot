@@ -40,6 +40,4 @@ public class RobotMap {
 	// Sensors (Digital)	
 	
 	// Drivetrain
-	public static final double DRIVE_MIN_SPEED = .3; // TODO: is this right?
-	// TODO: Move to constants.java
 }

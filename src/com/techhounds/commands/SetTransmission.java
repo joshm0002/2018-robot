@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Shift extends Command {
+public class SetTransmission extends Command {
 	
 	private boolean state;
 
@@ -16,7 +16,7 @@ public class Shift extends Command {
 	 * 
 	 * @param highGear True for High Gear, False for Low Gear
 	 */
-    public Shift(boolean highGear) {
+    public SetTransmission(boolean highGear) {
         requires(Robot.transmission);
         state = highGear;
     }

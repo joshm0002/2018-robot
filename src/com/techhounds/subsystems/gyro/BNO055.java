@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -988,28 +987,6 @@ public class BNO055 {
 		SmartDashboard.putNumber("BNO055 Read Dur", readDurationLast);
 		SmartDashboard.putNumber("BNO055 Read Max", readDurationMax);			
 		SmartDashboard.putNumber("BNO055 Read Over", readDurationOver);	
-	}
-	
-	/**
-	 * Removes the SmartDashboard diagnostics from the network tables.
-	 */
-	public void clearDashboard() {
-		NetworkTable sd = NetworkTable.getTable("SmartDashboard");
-
-		sd.delete("BNO055 Present");
-		sd.delete("BNO055 Heading");
-		sd.delete("BNO055 Initialized");
-		sd.delete("BNO055 X");
-		sd.delete("BNO055 Y");
-		sd.delete("BNO055 Z");
-		sd.delete("BNO055 Gyro Cal");
-		sd.delete("BNO055 Calibrated");
-		sd.delete("BNO055 Sys Cal");
-		sd.delete("BNO055 Mag Cal");
-		sd.delete("BNO055 Accel Cal");
-		sd.delete("BNO055 Read Dur");
-		sd.delete("BNO055 Read Max");
-		sd.delete("BNO055 Read Over");
 	}
 
 	/**

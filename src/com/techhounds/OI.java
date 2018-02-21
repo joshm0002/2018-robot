@@ -8,9 +8,8 @@
 package com.techhounds;
 
 import com.techhounds.commands.Collector;
-import com.techhounds.commands.ManualShift;
-import com.techhounds.commands.ManualShift.State;
 import com.techhounds.commands.SetTiltPower;
+import com.techhounds.commands.ToggleTransmission;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -40,7 +39,7 @@ public class OI {
 	 */
 	public static void setupDriver() {
 		Button select = new JoystickButton(driver, 7);
-		select.whenPressed(new ManualShift(State.Toggle));
+		select.whenPressed(new ToggleTransmission());
 		
 		Button bB = new JoystickButton(driver, 2);
 		bB.toggleWhenPressed(new Collector(1));

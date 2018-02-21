@@ -1,11 +1,11 @@
 package com.techhounds.subsystems;
 
+import com.techhounds.subsystems.gyro.BNO055;
+
 import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import lib.util.gyro.BNO055;
 
 public class Gyroscope extends Subsystem {
 	private BNO055 gyro;

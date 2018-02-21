@@ -1,7 +1,7 @@
 package com.techhounds.commands.vision;
 
+import com.techhounds.Constants;
 import com.techhounds.Robot;
-import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
 import com.techhounds.subsystems.Drivetrain;
 
@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import lib.util.HoundMath;
 
 /**
  *
@@ -46,10 +45,10 @@ public class TurnByAngleGyro extends TimedCommand {
         	}
         }, new PIDOutput() {
         	public void pidWrite(double output) {
-    			if (output > .05 && output < RobotMap.DRIVE_MIN_SPEED)
-    				output = RobotMap.DRIVE_MIN_SPEED;
-    			if (output < -0.5 && output > -RobotMap.DRIVE_MIN_SPEED)
-    				output = -RobotMap.DRIVE_MIN_SPEED;
+    			if (output > .05 && output < Constants.DRIVE_MIN_SPEED)
+    				output = Constants.DRIVE_MIN_SPEED;
+    			if (output < -0.5 && output > -Constants.DRIVE_MIN_SPEED)
+    				output = -Constants.DRIVE_MIN_SPEED;
     			motors.setPower(RobotUtilities.constrain(-output), RobotUtilities.constrain(output));
     		}
         });

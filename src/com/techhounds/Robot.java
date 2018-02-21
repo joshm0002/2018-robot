@@ -7,16 +7,15 @@
 
 package com.techhounds;
 
-import com.techhounds.commands.Dashboard;
-import com.techhounds.commands.auton.AutonLauncher;
-import com.techhounds.subsystems.ArmActuator;
-import com.techhounds.subsystems.ArmIntake;
-import com.techhounds.subsystems.ArmTilt;
-import com.techhounds.subsystems.Drivetrain;
-import com.techhounds.subsystems.Gyroscope;
-import com.techhounds.subsystems.PowerPack;
-import com.techhounds.subsystems.PullVision;
-import com.techhounds.subsystems.Transmission;
+import com.techhounds.arm.Arm;
+import com.techhounds.auton.AutonLauncher;
+import com.techhounds.drivetrain.Drivetrain;
+import com.techhounds.drivetrain.Transmission;
+import com.techhounds.gyro.Gyroscope;
+import com.techhounds.intake.ArmIntake;
+import com.techhounds.powerpack.PowerPack;
+import com.techhounds.tilt.ArmTilt;
+import com.techhounds.vision.PullVision;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -31,7 +30,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends TimedRobot {
 	
 	// Robot Subsystems
-	public static final ArmActuator arm = new ArmActuator();
+	public static final Arm arm = new Arm();
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Gyroscope gyro = new Gyroscope();
 	public static final ArmIntake intake = new ArmIntake();

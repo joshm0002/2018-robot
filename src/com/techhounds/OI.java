@@ -7,9 +7,9 @@
 
 package com.techhounds;
 
-import com.techhounds.commands.Collector;
-import com.techhounds.commands.SetTiltPower;
-import com.techhounds.commands.ToggleTransmission;
+import com.techhounds.drivetrain.ToggleTransmission;
+import com.techhounds.intake.Collector;
+import com.techhounds.tilt.SetTiltPower;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;

@@ -124,6 +124,22 @@ public class Drivetrain extends Subsystem {
     	motorLeftMain.pushMotionProfileTrajectory(point.left);
     }
     
+    public double getLeftDistance() {
+    	return motorLeftMain.getSelectedSensorPosition(0);
+    }
+    
+    public double getLeftVelocity() {
+    	return motorLeftMain.getSelectedSensorVelocity(0);
+    }
+    
+    public double getRightDistance() {
+    	return motorRightMain.getSelectedSensorPosition(0);
+    }
+    
+    public double getRightVelocity() {
+    	return motorRightMain.getSelectedSensorVelocity(0);
+    }
+    
     public void resetProfile() {
 //    	talon.clearMotionProfileTrajectories();
 //    	if(getProfileStatus().hasUnderrun) {

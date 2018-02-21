@@ -24,15 +24,7 @@ public class OI {
 	public static final XboxController driver = new XboxController(0);
 	public static final XboxController operator = new XboxController(1);
 	
-	public OI() {
-		
-		//Set up button/triggers here
-		//Be careful - if the commands require a subsystem that hasn't been
-		//initialized yet we could be in trouble
-		
-		//Overrides the default, which is auto-shifting
-		
-	}
+	public OI() {}
 	
 	/**
 	 * Binds triggers/buttons to commands for the driver
@@ -58,7 +50,40 @@ public class OI {
 	 * Binds triggers/buttons to commands for the operator
 	 */
 	public static void setupOperator() {
+		Button bA = new JoystickButton(operator, 1);
+		// Set elevator to DOWN position
 		
+		Button bB = new JoystickButton(operator, 2);
+		// Set elevator to SWITCH position
+		
+		Button bX = new JoystickButton(operator, 3);
+		// Actuate collector arms
+		
+		Button bY = new JoystickButton(operator, 4);
+		// Set elevator to SCALE position
+		
+		Button LB = new JoystickButton(operator, 5);
+		// Intake IN
+		
+		Button RB = new JoystickButton(operator, 6);
+		// Intake OUT
+		
+		Button select = new JoystickButton(operator, 7);
+		// Flip out climbing hook
+		
+		Button start = new JoystickButton(operator, 8);
+		// Enable climbing mode, climb 12"
+		
+		// Set arm position (UP/DOWN/45)
+		
+		// Manual arm position ??
+		
+		// Manual elevator control (I'm thinking maybe with the triggers?)
+		
+		// Manual climber control (I'm thinking maybe with the triggers? could share w/ elevator manual)
+		
+		// Separate "enable climbing mode" and "climb 12 inches"
+	
 	}
 	
 	public static double getDriverAxis(int axis) {

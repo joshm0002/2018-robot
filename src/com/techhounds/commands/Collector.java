@@ -16,7 +16,6 @@ public class Collector extends Command {
     }
 
     protected void initialize() {
-    	Robot.intake.configure();
     }
     
     public void execute() {

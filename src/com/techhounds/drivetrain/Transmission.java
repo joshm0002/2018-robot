@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * TODO: why do we bother storing the state variable?
+ * Why not implement this subsystem just like Arm?
  */
 public class Transmission extends Subsystem {
 

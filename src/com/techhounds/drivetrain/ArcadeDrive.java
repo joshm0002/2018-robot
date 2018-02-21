@@ -14,8 +14,7 @@ public class ArcadeDrive extends Command {
         requires(Robot.drivetrain);
     }
 
-    // Called just before this Command runs the first time
-    protected void initialize() {} //TODO configModePower
+    protected void initialize() {}
 
     /**
      * TODO: do we want to square/cube input?
@@ -27,18 +26,14 @@ public class ArcadeDrive extends Command {
     	Robot.drivetrain.setPower(forward+turn, forward-turn);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.setPower(0, 0);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     	end();
     }

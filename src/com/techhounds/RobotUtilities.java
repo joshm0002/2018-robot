@@ -74,7 +74,7 @@ public class RobotUtilities {
 		talon.config_kI(0, 0, 0);
 		talon.config_kD(0, 0, 0);
 //		talon.config_IntegralZone(0, 0, 0);
-		talon.configAllowableClosedloopError(0, 0, 0);
+		talon.configAllowableClosedloopError(0, 10, 0);
 		talon.configClosedloopRamp(0, 0);
 //		talon.configMaxIntegralAccumulator(0, 0, 0);
 //		talon.setIntegralAccumulator(0, 0, 0);

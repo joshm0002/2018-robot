@@ -3,7 +3,7 @@ package com.techhounds.subsystems;
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
@@ -18,10 +18,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drivetrain extends Subsystem {
 	
-	private TalonSRX motorRightMain;
-	private TalonSRX motorRightFollower;
-	private TalonSRX motorLeftMain;
-	private TalonSRX motorLeftFollower;
+	private WPI_TalonSRX motorRightMain;
+	private WPI_TalonSRX motorRightFollower;
+	private WPI_TalonSRX motorLeftMain;
+	private WPI_TalonSRX motorLeftFollower;
 	
 	public final MotionProfileUploader rightUploader;
 	public final MotionProfileUploader leftUploader;
@@ -29,10 +29,10 @@ public class Drivetrain extends Subsystem {
 	private MotionProfileStatus status;
 		
 	public Drivetrain() {
-		motorRightMain = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_PRIMARY);
-		motorRightFollower = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_SECONDARY);
-		motorLeftMain = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_PRIMARY);
-		motorLeftFollower = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_SECONDARY);
+		motorRightMain = RobotUtilities.getTalonSRX(RobotMap.DRIVE_RIGHT_PRIMARY);
+		motorRightFollower = RobotUtilities.getTalonSRX(RobotMap.DRIVE_RIGHT_SECONDARY);
+		motorLeftMain = RobotUtilities.getTalonSRX(RobotMap.DRIVE_LEFT_PRIMARY);
+		motorLeftFollower = RobotUtilities.getTalonSRX(RobotMap.DRIVE_LEFT_SECONDARY);
 		
 		rightUploader = new MotionProfileUploader(motorRightMain);
 		leftUploader  = new MotionProfileUploader(motorLeftMain);
@@ -40,63 +40,31 @@ public class Drivetrain extends Subsystem {
 		new Notifier(rightUploader).startPeriodic(0.005);
 		new Notifier(leftUploader).startPeriodic(0.005);
 		
-		configDefaults();
-	}
-	
-	/**
-	 * Configures the Talons to a default state
-	 * 
-	 * TODO: should we use timeouts on the config calls?
-	 */
-	public void configDefaults() {
-//		motorRightFollower.set(ControlMode.Follower, 10);
-//		motorLeftFollower.set(ControlMode.Follower, 25);
+		configure(motorRightMain);
+		configure(motorLeftMain);
 		
 		motorRightFollower.follow(motorRightMain);
 		motorLeftFollower.follow(motorLeftMain);
 		
-//		motorRightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		//motorRightMain.setSensorPhase(true); // TODO: read from RobotMap
-//		motorLeftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		//motorLeftMain.setSensorPhase(true); // TODO: read from RobotMap
-		
-		motorRightMain.setInverted(true); // TODO
+		motorRightMain.setInverted(true);
 		motorRightFollower.setInverted(true);
-		motorLeftMain.setInverted(false);
-		motorLeftFollower.setInverted(false);
-
-		// TODO: current limitation
-		// TODO: voltage compensation/saturation
 	}
 	
-	public void configModeVelocity() {
-		configDefaults();
+	/**
+	 * Configures the Talons to a default state
+	 */
+	private void configure(WPI_TalonSRX talon) {
+		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		talon.setSensorPhase(true);
 		
-		motorRightMain.config_kP(0, 0, 0);
-		motorRightMain.config_kI(0, 0, 0);
-		motorRightMain.config_kD(0, 0, 0);
-		motorLeftMain.config_kP(0, 0, 0);
-		motorLeftMain.config_kI(0, 0, 0);
-		motorLeftMain.config_kD(0, 0, 0);
-	}
-	
-	public void configModePower() {
-		configDefaults();
-	}
-	
-	public void configModeMotionProfile() {
-		configDefaults();
-
-		motorRightMain.changeMotionControlFramePeriod(5); // TODO: store a constant for this
-		motorLeftMain.changeMotionControlFramePeriod(5); // TODO: store a constant for this
-
-		motorRightMain.config_kP(0, 0, 0);
-		motorRightMain.config_kI(0, 0, 0);
-		motorRightMain.config_kD(0, 0, 0);
-		motorLeftMain.config_kP(0, 0, 0);
-		motorLeftMain.config_kI(0, 0, 0);
-		motorLeftMain.config_kD(0, 0, 0);
-
+		talon.config_kP(0, 0, 0); // FIXME: find values
+		talon.config_kI(0, 0, 0); // TODO: do we want different PID for velocity/motion profiling modes?
+		talon.config_kD(0, 0, 0);
+		
+		talon.enableCurrentLimit(true);
+		talon.configContinuousCurrentLimit(60, 0);
+		talon.configPeakCurrentLimit(100, 0);
+		talon.configPeakCurrentDuration(500, 0);
 	}
 	
 	public void setPower(double right, double left) {
@@ -110,12 +78,12 @@ public class Drivetrain extends Subsystem {
 	}
 	
     public MotionProfileStatus getLeftProfileStatus() {
-    	motorLeftMain.getMotionProfileStatus(status); // TODO: separate status for left/right
+    	motorLeftMain.getMotionProfileStatus(status);
     	return status;
     }
     
     public MotionProfileStatus getRightProfileStatus() {
-    	motorLeftMain.getMotionProfileStatus(status);
+    	motorRightMain.getMotionProfileStatus(status);
     	return status;
     }
     
@@ -141,15 +109,16 @@ public class Drivetrain extends Subsystem {
     }
     
     public void resetProfile() {
-//    	talon.clearMotionProfileTrajectories();
-//    	if(getProfileStatus().hasUnderrun) {
-//    		// TODO: log this
-//    		talon.clearMotionProfileHasUnderrun(0);
-//    	}
-//    	talon.configMotionProfileTrajectoryPeriod(5, 0);
-    	
+    	motorRightMain.clearMotionProfileTrajectories();
+    	motorLeftMain.clearMotionProfileTrajectories();
+    	if(getRightProfileStatus().hasUnderrun) {
+    		// TODO: log this
+    		motorRightMain.clearMotionProfileHasUnderrun(0);
+    	}    
+    	if (getLeftProfileStatus().hasUnderrun) {
+    		motorLeftMain.clearMotionProfileHasUnderrun(0);
+    	}
     }
-
 
     public void initDefaultCommand() {
         setDefaultCommand(new ArcadeDrive());

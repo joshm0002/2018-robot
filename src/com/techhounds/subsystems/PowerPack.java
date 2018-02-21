@@ -1,7 +1,6 @@
 package com.techhounds.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
@@ -11,58 +10,45 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class PowerPack extends Subsystem {
 	
-	private Solenoid elevatorWinch;
-	private Solenoid climberWinch;
+	private Solenoid elevatorTransmission;
+	private Solenoid climberTransmission;
+	// TODO: add brake
 	
-	private TalonSRX winch;
-	private TalonSRX winch2;
-	private TalonSRX winch3;
-	private TalonSRX winch4;
-	
-	private double P = 0, I = 0, D = 0;
-	private int PCL = 10000; //peak current limit
-	private int CCL = 10000; //continuous current limit
-	
+	private WPI_TalonSRX winchPrimary;
+	private WPI_TalonSRX winchSecondary;
+	private WPI_TalonSRX winchTertiary;
+	private WPI_TalonSRX winchQuaternary;
+		
 	public PowerPack() {
-		elevatorWinch = new Solenoid(RobotMap.WINCH_TRANSMISSION_ELEVATOR);
-		climberWinch = new Solenoid(RobotMap.WINCH_TRANSMISSION_CLIMBER);
-		winch = new WPI_TalonSRX(RobotMap.POWER_PACK_PRIMARY);
-		winch2 = new WPI_TalonSRX(RobotMap.POWER_PACK_SECONDARY);
-		winch3 = new WPI_TalonSRX(RobotMap.POWER_PACK_3);
-		winch4 = new WPI_TalonSRX(RobotMap.POWER_PACK_4);
-		winch2.follow(winch);
-		winch3.follow(winch);
-		winch4.follow(winch);
-		configDefaults();
+		elevatorTransmission = new Solenoid(RobotMap.WINCH_TRANSMISSION_ELEVATOR);
+		climberTransmission = new Solenoid(RobotMap.WINCH_TRANSMISSION_CLIMBER);
+		
+		winchPrimary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_PRIMARY);
+		winchSecondary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_SECONDARY);
+		winchTertiary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_TERTIARY);
+		winchQuaternary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_QUATERNARY);
+		
+		winchSecondary.follow(winchPrimary);
+		winchTertiary.follow(winchPrimary);
+		winchQuaternary.follow(winchPrimary);
+		
+		configure(winchPrimary);
 	}
 	
 	/**
-	 * TODO: inversion
-	 * TODO: current limit (peak & continuous)
-	 * TODO: voltage limitation
 	 */
-	public void configDefaults() {
-		winch.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
-		P = 0;
-		I = 0;
-		D = 0;
-		updatePIDValues();
-		winch.configPeakCurrentLimit(PCL, 100);
-		winch.configContinuousCurrentLimit(CCL, 100);
-		winch.enableCurrentLimit(true);
-	}
-	
-	public void setPIDValues(double P, double I, double D){
-		this.P = P;
-		this.I = I;
-		this.D = D;
-		updatePIDValues();
-	}
-	
-	public void updatePIDValues(){
-		winch.config_kP(0, P, 0);
-		winch.config_kI(0, I, 0);
-		winch.config_kD(0, D, 0);
+	public void configure(WPI_TalonSRX talon) {
+		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+
+		talon.configPeakCurrentLimit(100, 0);
+		talon.configPeakCurrentDuration(500, 0);
+		talon.configContinuousCurrentLimit(60, 0);
+		talon.enableCurrentLimit(true);
+		
+		talon.config_kP(0, 0, 0); // FIXME
+		talon.config_kI(0, 0, 0);
+		talon.config_kD(0, 0, 0);
+		// TODO: allowed error
 	}
 	
 	/**
@@ -72,82 +58,82 @@ public class PowerPack extends Subsystem {
 	 * be enabled which is bad!
 	 */
 	public void toggle() {
-		if(!elevatorWinch.get() && !climberWinch.get()){
-			climberWinch.set(false);
-			elevatorWinch.set(true);
+		if(!elevatorTransmission.get() && !climberTransmission.get()){
+			climberTransmission.set(false);
+			elevatorTransmission.set(true);
 		}
-		elevatorWinch.set(!elevatorWinch.get());
-		climberWinch.set(!climberWinch.get());
+		elevatorTransmission.set(!elevatorTransmission.get());
+		climberTransmission.set(!climberTransmission.get());
 	}
 	
 	/**
 	 * Switches to elevator mode
 	 */
 	public void toElevator() {
-		elevatorWinch.set(true);
-		climberWinch.set(false);
+		elevatorTransmission.set(true);
+		climberTransmission.set(false);
 	}
 	
 	/**
 	 * Switches to climber mode
 	 */
 	public void toClimber() {
-		elevatorWinch.set(false);
-		climberWinch.set(true);
+		elevatorTransmission.set(false);
+		climberTransmission.set(true);
 	}
 	
 	/**
 	 * Disables both outputs
 	 */
 	public void off() {
-		elevatorWinch.set(false);
-		climberWinch.set(false);
+		elevatorTransmission.set(false);
+		climberTransmission.set(false);
 	}
 	
 	public void setWinchPosition(double position){
-		winch.set(ControlMode.Position, position);
+		winchPrimary.set(ControlMode.Position, position);
 	}
 	
 	public void setWinchVelocity(double velocity){
-		winch.set(ControlMode.Velocity, velocity);
+		winchPrimary.set(ControlMode.Velocity, velocity);
 	}
 	
 	public void setWinchPercent(double percent){
-		winch.set(ControlMode.PercentOutput, RobotUtilities.constrain(percent));
+		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(percent));
 	}
 	
 	public void stopWinchMotor(){
-		winch.set(ControlMode.PercentOutput, 0);
+		winchPrimary.set(ControlMode.PercentOutput, 0);
 	}
 	
 	public int getWinchPosition(){
-		return winch.getSensorCollection().getAnalogIn();
+		return winchPrimary.getSensorCollection().getAnalogIn();
 	}
 	
 	public double getWinchVelocity(){
-		return winch.getSensorCollection().getAnalogInVel();
+		return winchPrimary.getSensorCollection().getAnalogInVel();
 	}
 	
 	public double getWinchMotorOutVolt(){
-		return winch.getMotorOutputVoltage();
+		return winchPrimary.getMotorOutputVoltage();
 	}
 	
 	public double getWinchMotorCurrent(){
-		return winch.getOutputCurrent();
+		return winchPrimary.getOutputCurrent();
 	}
 	
 	/**
 	 * @return whether the elevator is enabled
 	 */
 	public boolean getElevator() {
-		return elevatorWinch.get();
+		return elevatorTransmission.get();
 	}
 	
 	/**
 	 * @return whether the climber is enabled
 	 */
 	public boolean getClimber() {
-		return climberWinch.get();
+		return climberTransmission.get();
 	}
 	
     public void initDefaultCommand() {}

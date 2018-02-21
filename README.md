@@ -1,5 +1,11 @@
 # 2018 Robot
 
-## Setup
+Some definitions:
 
-You need to initialize the submodule in `src/lib`.
+**Collector** refers to the entire elevator carriage assembly.
+
+**Arm** refers to the pneumatic actuating arms.
+
+**Intake** refers to the collector's wheels.
+
+**Tilt** refers to the collector's motor which allows it to angle itself.

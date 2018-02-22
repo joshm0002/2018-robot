@@ -12,6 +12,7 @@ import com.techhounds.auton.AutonLauncher;
 import com.techhounds.drivetrain.Drivetrain;
 import com.techhounds.drivetrain.Transmission;
 import com.techhounds.gyro.Gyroscope;
+import com.techhounds.hook.Hook;
 import com.techhounds.intake.Intake;
 import com.techhounds.powerpack.PowerPack;
 import com.techhounds.tilt.ArmTilt;
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
 	public static final PowerPack powerPack = new PowerPack();
 	public static final Transmission transmission = new Transmission();
 	public static final ArmTilt tilt = new ArmTilt();
+	public static final Hook hook = new Hook();
 	public static final PullVision vision = new PullVision();
 			
 	/**

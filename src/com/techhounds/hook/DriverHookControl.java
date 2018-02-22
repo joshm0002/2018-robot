@@ -6,7 +6,7 @@ import com.techhounds.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * TODO refactor to take controller & axis arguments
  */
 public class DriverHookControl extends Command {
 

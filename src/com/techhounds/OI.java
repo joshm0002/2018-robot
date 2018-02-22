@@ -9,7 +9,7 @@ package com.techhounds;
 
 import com.techhounds.arm.ToggleArm;
 import com.techhounds.drivetrain.ToggleTransmission;
-import com.techhounds.intake.SetIntakePower;
+import com.techhounds.hook.SetHookPower;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 
@@ -35,9 +35,7 @@ public class OI {
 		
 		// Drivetrain default command is ArcadeDrive
 		
-		// Hook default command is DriverHookControl
-		
-		// TODO: do we want to give the driver control of the collector?
+		// Intake Default is DriverIntakeControl
 		
 		Button RB = new JoystickButton(driver, 6);
 		RB.whenPressed(new ToggleTransmission());
@@ -64,34 +62,23 @@ public class OI {
 		bY.whenPressed(new SetElevatorPosition(ElevatorPosition.SCALE));
 
 		Button LB = new JoystickButton(operator, 5);
-		// Intake OUT
-		LB.toggleWhenPressed(new SetIntakePower(-1));
+		// Hook UP
+		LB.whileHeld(new SetHookPower(1)); // TODO may need to use whenPressed, and a whenReleased(new SetHookPower(0))
 		
 		Button RB = new JoystickButton(operator, 6);
-		// Intake IN
-		RB.toggleWhenPressed(new SetIntakePower(1));
+		// Hook DOWN
+		RB.whileHeld(new SetHookPower(-1));
 		
 		Button select = new JoystickButton(operator, 7);
-		// Flip out climbing hook
+		// OperatorClimberControl (joystick)
 		
 		Button start = new JoystickButton(operator, 8);
-		// Enable climbing mode, climb 12"
+		// OperatorElevatorControl (joystick)
 		
-		// Set arm position (UP/DOWN/45)
+		// Set arm position (UP/DOWN/45) using arrow pad
 		
-		// Manual arm position ??
+		// TODO operator control of hook via triggers
 		
-		// Manual elevator control (I'm thinking maybe with the triggers?)
-		
-		// Manual climber control (I'm thinking maybe with the triggers? could share w/ elevator manual)
-		
-		// Separate "enable climbing mode" and "climb 12 inches"
-		
-		// Right joystick - press down starts "OperatorElevatorControl" which reads joystick power to set power %
-		// Left joystick - same for Arm
-		
-		// Analog control of collector (e.g. use triggers like Hammerhead?)
-	
 	}
 	
 	public static double getDriverAxis(int axis) {

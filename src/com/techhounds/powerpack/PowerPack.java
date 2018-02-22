@@ -17,6 +17,8 @@ public class PowerPack extends Subsystem {
 	private WPI_TalonSRX winchSecondary;
 	private WPI_TalonSRX winchTertiary;
 	private WPI_TalonSRX winchQuaternary;
+	
+	private final int PID_TOLERANCE = 3;
 		
 	public PowerPack() {
 		transmission = new Solenoid(RobotMap.WINCH_TRANSMISSION);
@@ -44,10 +46,14 @@ public class PowerPack extends Subsystem {
 		talon.configContinuousCurrentLimit(60, 0);
 		talon.enableCurrentLimit(true);
 		
+		talon.configPeakOutputForward(100, 0);
+		talon.configPeakOutputReverse(0, 0);
+		
 		talon.config_kP(0, 0, 0); // FIXME
 		talon.config_kI(0, 0, 0);
 		talon.config_kD(0, 0, 0);
-		// TODO: allowed error
+		talon.config_kF(0, 0, 0);
+		talon.configAllowableClosedloopError(0, PID_TOLERANCE, 0);
 	}
 	
 	/**
@@ -101,6 +107,10 @@ public class PowerPack extends Subsystem {
 	
 	public boolean getBrake() {
 		return brake.get();
+	}
+	
+	public boolean onTarget() {
+		return Math.abs(winchPrimary.getClosedLoopError(0)) < PID_TOLERANCE;
 	}
 	
     public void initDefaultCommand() {

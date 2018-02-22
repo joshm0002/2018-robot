@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SetCollectorPower extends Command {
+public class SetIntakePower extends Command {
 	
 	private final double power;
 
-	public SetCollectorPower(double power) {
+	public SetIntakePower(double power) {
     	requires(Robot.intake);
     	this.power = power;
     }

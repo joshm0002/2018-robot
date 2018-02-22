@@ -41,6 +41,6 @@ public class Intake extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new SetCollectorPower(0));
+    	setDefaultCommand(new SetIntakePower(0));
     }
 }

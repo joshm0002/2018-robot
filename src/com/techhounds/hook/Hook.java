@@ -23,6 +23,7 @@ public class Hook extends Subsystem {
 	}
 
     public void initDefaultCommand() {
+    	setDefaultCommand(new DriverHookControl());
     }
 }
 

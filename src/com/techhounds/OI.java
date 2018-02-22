@@ -32,6 +32,13 @@ public class OI {
 	 * Binds triggers/buttons to commands for the driver
 	 */
 	public static void setupDriver() {
+		
+		// Drivetrain default command is ArcadeDrive
+		
+		// Hook default command is DriverHookControl
+		
+		// TODO: do we want to give the driver control of the collector?
+		
 		Button RB = new JoystickButton(driver, 6);
 		RB.whenPressed(new ToggleTransmission());
 	}
@@ -82,6 +89,8 @@ public class OI {
 		
 		// Right joystick - press down starts "OperatorElevatorControl" which reads joystick power to set power %
 		// Left joystick - same for Arm
+		
+		// Analog control of collector (e.g. use triggers like Hammerhead?)
 	
 	}
 	

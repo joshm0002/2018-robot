@@ -13,8 +13,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class SetTiltPosition extends Command {
 	
+	/**
+	 * FIXME find the actual setpoint values
+	 */
     public enum TiltPosition {
-    	UP(100), 
+    	UP(100),
+    	MIDDLE(50),
     	DOWN(0);
 
     	public final double setpoint;

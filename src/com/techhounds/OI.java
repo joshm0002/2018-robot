@@ -7,9 +7,11 @@
 
 package com.techhounds;
 
+import com.techhounds.arm.ToggleArm;
 import com.techhounds.drivetrain.ToggleTransmission;
-import com.techhounds.intake.SetCollectorPower;
-import com.techhounds.tilt.SetTiltPower;
+import com.techhounds.intake.SetIntakePower;
+import com.techhounds.powerpack.SetElevatorPosition;
+import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -30,20 +32,8 @@ public class OI {
 	 * Binds triggers/buttons to commands for the driver
 	 */
 	public static void setupDriver() {
-		Button select = new JoystickButton(driver, 7);
-		select.whenPressed(new ToggleTransmission());
-		
-		Button bB = new JoystickButton(driver, 2);
-		bB.toggleWhenPressed(new SetCollectorPower(1));
-		
-		Button bX = new JoystickButton(driver, 3);
-		bX.toggleWhenPressed(new SetCollectorPower(-1));
-		
-		Button bY = new JoystickButton(driver, 4);
-		bY.toggleWhenPressed(new SetTiltPower(-0.5));
-		
-		Button bA = new JoystickButton(driver, 1);
-		bA.toggleWhenPressed(new SetTiltPower(0.5));
+		Button RB = new JoystickButton(driver, 6);
+		RB.whenPressed(new ToggleTransmission());
 	}
 	
 	/**
@@ -52,21 +42,27 @@ public class OI {
 	public static void setupOperator() {
 		Button bA = new JoystickButton(operator, 1);
 		// Set elevator to DOWN position
+		bA.whenPressed(new SetElevatorPosition(ElevatorPosition.COLLECT));
 		
 		Button bB = new JoystickButton(operator, 2);
 		// Set elevator to SWITCH position
+		bB.whenPressed(new SetElevatorPosition(ElevatorPosition.SWITCH));
 		
 		Button bX = new JoystickButton(operator, 3);
 		// Actuate collector arms
+		bX.whenPressed(new ToggleArm());
 		
 		Button bY = new JoystickButton(operator, 4);
 		// Set elevator to SCALE position
-		
+		bY.whenPressed(new SetElevatorPosition(ElevatorPosition.SCALE));
+
 		Button LB = new JoystickButton(operator, 5);
-		// Intake IN
+		// Intake OUT
+		LB.toggleWhenPressed(new SetIntakePower(-1));
 		
 		Button RB = new JoystickButton(operator, 6);
-		// Intake OUT
+		// Intake IN
+		RB.toggleWhenPressed(new SetIntakePower(1));
 		
 		Button select = new JoystickButton(operator, 7);
 		// Flip out climbing hook
@@ -83,6 +79,9 @@ public class OI {
 		// Manual climber control (I'm thinking maybe with the triggers? could share w/ elevator manual)
 		
 		// Separate "enable climbing mode" and "climb 12 inches"
+		
+		// Right joystick - press down starts "OperatorElevatorControl" which reads joystick power to set power %
+		// Left joystick - same for Arm
 	
 	}
 	

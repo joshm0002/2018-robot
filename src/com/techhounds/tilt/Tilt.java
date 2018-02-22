@@ -54,9 +54,6 @@ public class Tilt extends Subsystem{
 	}
 
 	@Override
-	/**
-	 * TODO: set to "down" position? Or hold position?
-	 */
 	protected void initDefaultCommand() {
 		setDefaultCommand(new SetTiltHold());
 	}

@@ -1,36 +1,52 @@
 package com.techhounds.powerpack;
 
+import com.techhounds.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class SetElevatorPosition extends Command {
+	
+	public enum ElevatorPosition {
+		COLLECT(0),
+		SWITCH(200),
+		SCALE(1000);
+		
+		public final double setpoint;
+		private ElevatorPosition(double value) {
+			setpoint = value;
+		}
+	}
+	
+	private final double setpoint;
+	
+	public SetElevatorPosition(ElevatorPosition position) {
+		this(position.setpoint);
+	}
 
-    public SetElevatorPosition() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public SetElevatorPosition(double setpoint) {
+    	requires(Robot.powerPack);
+    	this.setpoint = setpoint;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.powerPack.setTransmission(true);
+    	Robot.powerPack.setBrake(false);
+    	Robot.powerPack.setWinchPosition(setpoint);
     }
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+    protected void execute() {}
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.powerPack.onTarget();
     }
 
-    // Called once after isFinished returns true
     protected void end() {
+    	// Don't need to do anything, because powerPack's default command is
+    	// to hold position!
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 }

@@ -1,5 +1,7 @@
 package com.techhounds.powerpack;
 
+import com.techhounds.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -7,30 +9,29 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class SetClimberPosition extends Command {
 
-    public SetClimberPosition() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+	private final double setpoint;
+	
+    public SetClimberPosition(double setpoint) {
+    	requires(Robot.powerPack);
+    	this.setpoint = setpoint;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.powerPack.setTransmission(false);
+    	Robot.powerPack.setBrake(false);
+    	Robot.powerPack.setWinchPosition(setpoint);
     }
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+    protected void execute() {}
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.powerPack.onTarget();
     }
 
-    // Called once after isFinished returns true
     protected void end() {
+    	// Don't need to do anything, because powerPack's default command is
+    	// to hold position!
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 }

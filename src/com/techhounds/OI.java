@@ -11,7 +11,6 @@ import com.techhounds.arm.ToggleArm;
 import com.techhounds.drivetrain.ArcadeDrive;
 import com.techhounds.drivetrain.ToggleTransmission;
 import com.techhounds.hook.GamepadHookControl;
-import com.techhounds.hook.SetHookPower;
 import com.techhounds.intake.GamepadIntakeControl;
 import com.techhounds.powerpack.GamepadClimberControl;
 import com.techhounds.powerpack.GamepadElevatorControl;
@@ -76,26 +75,22 @@ public class OI {
 		// Set elevator to SCALE position
 		bY.whenPressed(new SetElevatorPosition(ElevatorPosition.SCALE));
 
+		// TODO: these whileHeld might not work right
 		Button LB = new JoystickButton(operator, 5);
-		// Hook UP
-		LB.whileHeld(new SetHookPower(1)); // TODO may need to use whenPressed, and a whenReleased(new SetHookPower(0))
+		// OperatorClimberControl (joystick)
+		LB.whileHeld(new GamepadClimberControl(operator, 1));
 
 		Button RB = new JoystickButton(operator, 6);
-		// Hook DOWN
-		RB.whileHeld(new SetHookPower(-1));
-
-		Button select = new JoystickButton(operator, 7);
-		// OperatorClimberControl (joystick)
-		select.toggleWhenPressed(new GamepadClimberControl(operator, 1));
-
-		Button start = new JoystickButton(operator, 8);
 		// OperatorElevatorControl (joystick)
-		start.toggleWhenPressed(new GamepadElevatorControl(operator, 3));
+		RB.whileHeld(new GamepadElevatorControl(operator, 3));
+
+//		Button select = new JoystickButton(operator, 7);
+//		Button start = new JoystickButton(operator, 8);
 
 		Button arrowUp = getPOVButton(operator, 0);
 		// Set Tilt to UP
 		arrowUp.whenPressed(new SetTiltPosition(TiltPosition.UP));
-		
+
 		Button arrowRight = getPOVButton(operator, 90);
 		// Set Tilt to MIDDLE
 		arrowRight.whenPressed(new SetTiltPosition(TiltPosition.MIDDLE));

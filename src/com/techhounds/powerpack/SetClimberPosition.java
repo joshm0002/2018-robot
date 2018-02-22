@@ -1,6 +1,7 @@
 package com.techhounds.powerpack;
 
 import com.techhounds.Robot;
+import com.techhounds.powerpack.PowerPack.PowerPackState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,8 +18,7 @@ public class SetClimberPosition extends Command {
     }
 
     protected void initialize() {
-    	Robot.powerPack.setTransmission(false);
-    	Robot.powerPack.setBrake(false);
+    	Robot.powerPack.setState(PowerPackState.CLIMBER);
     	Robot.powerPack.setWinchPosition(setpoint);
     }
 

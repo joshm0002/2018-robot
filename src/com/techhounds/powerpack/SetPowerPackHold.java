@@ -1,6 +1,7 @@
 package com.techhounds.powerpack;
 
 import com.techhounds.Robot;
+import com.techhounds.powerpack.PowerPack.PowerPackState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,7 +15,7 @@ public class SetPowerPackHold extends Command {
     }
 
     protected void initialize() {
-    	Robot.powerPack.setBrake(true);
+    	Robot.powerPack.setState(PowerPackState.BRAKE);
     	Robot.powerPack.setWinchPower(0);
     }
 

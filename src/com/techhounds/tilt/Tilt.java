@@ -9,7 +9,7 @@ import com.techhounds.RobotUtilities;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class ArmTilt extends Subsystem{
+public class Tilt extends Subsystem{
 	
 	private WPI_TalonSRX tiltMotor;
 	
@@ -52,17 +52,13 @@ public class ArmTilt extends Subsystem{
 	public double getPosition() {
 		return tiltMotor.getSensorCollection().getAnalogIn();
 	}
-	
-	public void stopPower() {
-		tiltMotor.set(ControlMode.PercentOutput, 0);
-	}
 
 	@Override
 	/**
 	 * TODO: set to "down" position? Or hold position?
 	 */
 	protected void initDefaultCommand() {
-		setDefaultCommand(new SetTiltPower(0));
+		setDefaultCommand(new SetTiltHold());
 	}
 	
 }

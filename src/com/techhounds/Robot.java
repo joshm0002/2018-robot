@@ -15,7 +15,7 @@ import com.techhounds.gyro.Gyroscope;
 import com.techhounds.hook.Hook;
 import com.techhounds.intake.Intake;
 import com.techhounds.powerpack.PowerPack;
-import com.techhounds.tilt.ArmTilt;
+import com.techhounds.tilt.Tilt;
 import com.techhounds.vision.PullVision;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 	public static final Intake intake = new Intake();
 	public static final PowerPack powerPack = new PowerPack();
 	public static final Transmission transmission = new Transmission();
-	public static final ArmTilt tilt = new ArmTilt();
+	public static final Tilt tilt = new Tilt();
 	public static final Hook hook = new Hook();
 	public static final PullVision vision = new PullVision();
 			

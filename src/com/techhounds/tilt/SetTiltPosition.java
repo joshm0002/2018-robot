@@ -40,8 +40,11 @@ public class SetTiltPosition extends Command {
 
     protected void execute() {}
 
+    /**
+     * TODO: finish when we're on-target?
+     */
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     protected void end() {}

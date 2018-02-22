@@ -60,20 +60,6 @@ public class PowerPack extends Subsystem {
 		transmission.set(transmission.get());
 	}
 	
-	/**
-	 * Switches to elevator mode
-	 */
-	public void toElevator() {
-		transmission.set(true);
-	}
-	
-	/**
-	 * Switches to climber mode
-	 */
-	public void toClimber() {
-		transmission.set(false);
-	}
-	
 	public void setTransmission(boolean elevator) {
 		transmission.set(elevator);
 	}
@@ -82,11 +68,7 @@ public class PowerPack extends Subsystem {
 		winchPrimary.set(ControlMode.Position, position);
 	}
 	
-	public void setWinchVelocity(double velocity){
-		winchPrimary.set(ControlMode.Velocity, velocity);
-	}
-	
-	public void Power(double percent){
+	public void setWinchPower(double percent){
 		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(percent));
 	}
 	

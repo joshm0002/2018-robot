@@ -8,7 +8,7 @@
 package com.techhounds;
 
 import com.techhounds.drivetrain.ToggleTransmission;
-import com.techhounds.intake.Collector;
+import com.techhounds.intake.SetCollectorPower;
 import com.techhounds.tilt.SetTiltPower;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -34,10 +34,10 @@ public class OI {
 		select.whenPressed(new ToggleTransmission());
 		
 		Button bB = new JoystickButton(driver, 2);
-		bB.toggleWhenPressed(new Collector(1));
+		bB.toggleWhenPressed(new SetCollectorPower(1));
 		
 		Button bX = new JoystickButton(driver, 3);
-		bX.toggleWhenPressed(new Collector(-1));
+		bX.toggleWhenPressed(new SetCollectorPower(-1));
 		
 		Button bY = new JoystickButton(driver, 4);
 		bY.toggleWhenPressed(new SetTiltPower(-0.5));

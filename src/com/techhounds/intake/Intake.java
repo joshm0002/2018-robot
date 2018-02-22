@@ -7,12 +7,12 @@ import com.techhounds.RobotUtilities;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class ArmIntake extends Subsystem {
+public class Intake extends Subsystem {
 	
 	private WPI_TalonSRX intakeLeft;
 	private WPI_TalonSRX intakeRight;
 	
-	public ArmIntake() {
+	public Intake() {
 		intakeLeft = RobotUtilities.getTalonSRX(RobotMap.INTAKE_LEFT);
 		intakeRight = RobotUtilities.getTalonSRX(RobotMap.INTAKE_RIGHT);
 		configure(intakeLeft);
@@ -31,8 +31,16 @@ public class ArmIntake extends Subsystem {
 		intakeLeft.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 		intakeRight.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 	}
+	
+	public double getLeftPower() {
+		return intakeLeft.get();
+	}
+	
+	public double getRightPower() {
+		return intakeRight.get();
+	}
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new Collector(0));
+    	setDefaultCommand(new SetCollectorPower(0));
     }
 }

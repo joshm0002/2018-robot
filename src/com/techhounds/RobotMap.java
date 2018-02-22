@@ -31,8 +31,9 @@ public class RobotMap {
 	// Pneumatics (PCM)
 	public static final int DRIVE_TRANSMISSION = 0;
 	public static final int ARMS = 2;
-	public static final int WINCH_TRANSMISSION_ELEVATOR = 1;
-	public static final int WINCH_TRANSMISSION_CLIMBER = 3;
+	public static final int WINCH_TRANSMISSION = 1;
+	public static final int WINCH_BRAKE = 3;
+
 	
 	// Sensors (Analog)
 	public static final int IR_DISTANCE = 0;

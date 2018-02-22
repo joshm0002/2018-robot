@@ -121,6 +121,8 @@ public class PowerPack extends Subsystem {
 		return brake.get();
 	}
 	
-    public void initDefaultCommand() {}
+    public void initDefaultCommand() {
+    	setDefaultCommand(new SetPowerPackHold());
+    }
 }
 

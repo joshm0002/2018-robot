@@ -23,13 +23,18 @@ public class RobotUtilities {
 		return talon;
 	}
 	
+	/**
+	 * TODO: use timeouts
+	 *
+	 * @param talon The TalonSRX to configure
+	 */
 	public static void configureDefaults(WPI_TalonSRX talon) {
 		// OUTPUTS
 		talon.setInverted(false);
 		talon.setNeutralMode(NeutralMode.Coast);
 		talon.configPeakOutputForward(100, 0);
 		talon.configPeakOutputReverse(-100, 0);
-//		talon.configNeutralDeadband(0, 0);
+//		talon.configNeutralDeadband(0, 0); // -1 to 1
 //		talon.configNominalOutputForward(100, 0);
 //		talon.configNominalOutputReverse(-100, 0);
 		
@@ -37,6 +42,7 @@ public class RobotUtilities {
 		talon.enableCurrentLimit(false);
 		talon.configContinuousCurrentLimit(0, 0);
 		talon.configPeakCurrentDuration(0, 0);
+		talon.configPeakCurrentLimit(0, 0);
 		talon.configVoltageCompSaturation(12, 0);
 		talon.enableVoltageCompensation(true);
 		talon.configOpenloopRamp(0, 0);
@@ -73,6 +79,7 @@ public class RobotUtilities {
 		talon.config_kP(0, 0, 0);
 		talon.config_kI(0, 0, 0);
 		talon.config_kD(0, 0, 0);
+		talon.config_kF(0, 0, 0);
 //		talon.config_IntegralZone(0, 0, 0);
 		talon.configAllowableClosedloopError(0, 10, 0);
 		talon.configClosedloopRamp(0, 0);

@@ -41,6 +41,6 @@ public class Intake extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new DriverIntakeControl());
+    	// GamepadIntakeControl set in OI
     }
 }

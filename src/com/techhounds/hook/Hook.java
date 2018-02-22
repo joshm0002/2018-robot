@@ -23,7 +23,7 @@ public class Hook extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new SetHookPower(0));
+    	// GamepadHookControl set in OI
     }
 }
 

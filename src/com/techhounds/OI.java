@@ -8,8 +8,11 @@
 package com.techhounds;
 
 import com.techhounds.arm.ToggleArm;
+import com.techhounds.drivetrain.ArcadeDrive;
 import com.techhounds.drivetrain.ToggleTransmission;
+import com.techhounds.hook.GamepadHookControl;
 import com.techhounds.hook.SetHookPower;
+import com.techhounds.intake.GamepadIntakeControl;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 
@@ -34,8 +37,10 @@ public class OI {
 	public static void setupDriver() {
 		
 		// Drivetrain default command is ArcadeDrive
+		Robot.drivetrain.setDefaultCommand(new ArcadeDrive(driver, 1, 4));
 		
 		// Intake Default is DriverIntakeControl
+		Robot.intake.setDefaultCommand(new GamepadIntakeControl(driver, 5, 6));
 		
 		Button RB = new JoystickButton(driver, 6);
 		RB.whenPressed(new ToggleTransmission());
@@ -45,6 +50,10 @@ public class OI {
 	 * Binds triggers/buttons to commands for the operator
 	 */
 	public static void setupOperator() {
+		
+		// Hook default command
+		Robot.hook.setDefaultCommand(new GamepadHookControl(operator, 5, 6));
+		
 		Button bA = new JoystickButton(operator, 1);
 		// Set elevator to DOWN position
 		bA.whenPressed(new SetElevatorPosition(ElevatorPosition.COLLECT));
@@ -75,10 +84,7 @@ public class OI {
 		Button start = new JoystickButton(operator, 8);
 		// OperatorElevatorControl (joystick)
 		
-		// Set arm position (UP/DOWN/45) using arrow pad
-		
-		// TODO operator control of hook via triggers
-		
+		// Set arm position (UP/DOWN/45) using arrow pad		
 	}
 	
 	public static double getDriverAxis(int axis) {

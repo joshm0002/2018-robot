@@ -1,17 +1,24 @@
 package com.techhounds.drivetrain;
 
-import com.techhounds.OI;
 import com.techhounds.Robot;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * TODO refactor to take controller & axis arguments
+ * 
  */
 public class ArcadeDrive extends Command {
-
-    public ArcadeDrive() {
+	
+	private final XboxController controller;
+	private final int forwardAxis;
+	private final int turnAxis;
+	
+    public ArcadeDrive(XboxController controller, int forward, int turn) {
         requires(Robot.drivetrain);
+        this.controller = controller;
+        this.forwardAxis = forward;
+        this.turnAxis = turn;
     }
 
     protected void initialize() {}
@@ -20,8 +27,8 @@ public class ArcadeDrive extends Command {
      * TODO: do we want to square/cube input?
      */
     protected void execute() {
-    	double forward = -OI.getDriverAxis(1); //negatives are intentional
-    	double turn = -OI.getDriverAxis(4);
+    	double forward = -controller.getRawAxis(forwardAxis); //negatives are intentional
+    	double turn = -controller.getRawAxis(turnAxis);
     	
     	Robot.drivetrain.setPower(forward+turn, forward-turn);
     }

@@ -121,7 +121,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new ArcadeDrive());
+    	// ArcadeDrive set in OI
     }
 }
 

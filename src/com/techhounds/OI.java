@@ -13,6 +13,8 @@ import com.techhounds.drivetrain.ToggleTransmission;
 import com.techhounds.hook.GamepadHookControl;
 import com.techhounds.hook.SetHookPower;
 import com.techhounds.intake.GamepadIntakeControl;
+import com.techhounds.powerpack.GamepadClimberControl;
+import com.techhounds.powerpack.GamepadElevatorControl;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 
@@ -80,15 +82,12 @@ public class OI {
 		
 		Button select = new JoystickButton(operator, 7);
 		// OperatorClimberControl (joystick)
+		select.toggleWhenPressed(new GamepadClimberControl(operator, 1));
 		
 		Button start = new JoystickButton(operator, 8);
 		// OperatorElevatorControl (joystick)
+		start.toggleWhenPressed(new GamepadElevatorControl(operator, 3));
 		
-		// Set arm position (UP/DOWN/45) using arrow pad		
+		// TODO Set arm position (UP/DOWN/45) using arrow pad		
 	}
-	
-	public static double getDriverAxis(int axis) {
-		return driver.getRawAxis(axis);
-	}
-	
 }

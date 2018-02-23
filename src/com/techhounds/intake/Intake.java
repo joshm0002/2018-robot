@@ -41,6 +41,15 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	public double getRightPower() {
 		return intakeRight.get();
 	}
+	
+	/**
+	 * NOTE: the reading tends to peak around the center of the blue collector
+	 * wheels, then drops off to ~400 when you get up to the metal bar.
+	 * @return value approx 180 to 750
+	 */
+	public double getIRSensor() {
+		return intakeLeft.getSensorCollection().getAnalogIn();
+	}
 
     public void initDefaultCommand() {
     	// GamepadIntakeControl set in OI

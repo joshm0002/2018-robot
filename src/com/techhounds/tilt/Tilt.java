@@ -56,7 +56,9 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new SetTiltHold());
+		// FIXME both causes Scheduler hangs
+//		setDefaultCommand(new SetTiltHold());
+//		setDefaultCommand(new SetTiltPower(0));
 	}
 
 	@Override

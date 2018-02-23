@@ -56,17 +56,17 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	 * Configures the Talons to a default state
 	 */
 	private void configure(WPI_TalonSRX talon) {
-		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setSensorPhase(true);
 		
-		talon.config_kP(0, 0, 0); // FIXME: find values
-		talon.config_kI(0, 0, 0); // TODO: do we want different PID for velocity/motion profiling modes?
-		talon.config_kD(0, 0, 0);
+		talon.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT); // FIXME: find values
+		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT); // TODO: do we want different PID for velocity/motion profiling modes?
+		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		
 		talon.enableCurrentLimit(true);
-		talon.configContinuousCurrentLimit(60, 0);
-		talon.configPeakCurrentLimit(100, 0);
-		talon.configPeakCurrentDuration(500, 0);
+		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);
 	}
 	
 	public void setPower(double right, double left) {

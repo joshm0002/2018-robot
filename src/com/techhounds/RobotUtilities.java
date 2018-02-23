@@ -30,6 +30,10 @@ public class RobotUtilities {
 	/**
 	 * TODO: check error codes/timeouts
 	 * 
+	 * FIXME: we get Error -200: no new response errors pretty much
+	 * every time on some Talon, but on different/random talons
+	 * and different config calls.
+	 *
 	 * @param talon The TalonSRX to configure
 	 */
 	public static void configureDefaults(WPI_TalonSRX talon) {

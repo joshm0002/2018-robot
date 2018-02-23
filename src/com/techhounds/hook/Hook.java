@@ -17,6 +17,11 @@ public class Hook extends Subsystem implements DashboardUpdatable {
 	
 	public Hook() {
 		hookMotor = RobotUtilities.getTalonSRX(RobotMap.HOOK_MOTOR);
+		configure(hookMotor);
+	}
+	
+	private void configure(WPI_TalonSRX talon) {
+		
 	}
 	
 	public void setPower(double power) {

@@ -23,10 +23,10 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	
 	private void configure(WPI_TalonSRX talon) {
 		talon.enableCurrentLimit(true);
-		talon.configContinuousCurrentLimit(20, 0);
-		talon.configPeakCurrentLimit(40, 0);
-		talon.configPeakCurrentDuration(250, 0);
-		talon.configOpenloopRamp(0.5, 0);
+		talon.configContinuousCurrentLimit(20, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakCurrentLimit(40, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakCurrentDuration(250, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configOpenloopRamp(0.5, RobotUtilities.CONFIG_TIMEOUT);
 	}
 	
 	public void setPower(double power){

@@ -46,21 +46,21 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	/**
 	 */
 	public void configure(WPI_TalonSRX talon) {
-		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 
-		talon.configPeakCurrentLimit(100, 0);
-		talon.configPeakCurrentDuration(500, 0);
-		talon.configContinuousCurrentLimit(60, 0);
+		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
 		talon.enableCurrentLimit(true);
 
-		talon.configPeakOutputForward(100, 0);
-		talon.configPeakOutputReverse(0, 0);
+		talon.configPeakOutputForward(100, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakOutputReverse(0, RobotUtilities.CONFIG_TIMEOUT);
 
-		talon.config_kP(0, 0, 0); // FIXME
-		talon.config_kI(0, 0, 0);
-		talon.config_kD(0, 0, 0);
-		talon.config_kF(0, 0, 0);
-		talon.configAllowableClosedloopError(0, PID_TOLERANCE, 0);
+		talon.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT); // FIXME
+		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		talon.config_kF(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configAllowableClosedloopError(0, PID_TOLERANCE, RobotUtilities.CONFIG_TIMEOUT);
 	}
 
 	public void setWinchPosition(double position){

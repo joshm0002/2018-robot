@@ -28,18 +28,18 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	 * an analog potentiometer (we won't need to zero it)
 	 */
 	private void configure(WPI_TalonSRX talon) {
-		talon.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
+		talon.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, RobotUtilities.CONFIG_TIMEOUT);
 		
 		talon.enableCurrentLimit(true);
-		talon.configContinuousCurrentLimit(20, 0);
-		talon.configPeakCurrentLimit(40, 0);
-		talon.configPeakCurrentDuration(250, 0);
+		talon.configContinuousCurrentLimit(20, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakCurrentLimit(40, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakCurrentDuration(250, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setNeutralMode(NeutralMode.Brake);
 		
-		talon.config_kP(0, P, 0);
-		talon.config_kI(0, I, 0);
-		talon.config_kD(0, D, 0);
-		talon.configClosedloopRamp(0.5, 0);
+		talon.config_kP(0, P, RobotUtilities.CONFIG_TIMEOUT);
+		talon.config_kI(0, I, RobotUtilities.CONFIG_TIMEOUT);
+		talon.config_kD(0, D, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configClosedloopRamp(0.5, RobotUtilities.CONFIG_TIMEOUT);
 	}
 
 	public void setPosition(double position) {

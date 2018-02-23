@@ -38,6 +38,8 @@ public class Dashboard {
 				subsystem.initDebugSD();
 			}
 		}
+		
+		SmartDashboard.putData("Toggle Compressor", new ToggleCompressor());
 	}
 	
 	public static void updateDashboard() {
@@ -51,7 +53,9 @@ public class Dashboard {
 		// FIXME: appears to never get here, possibly Drive or Intake (IR sensor)
 		SmartDashboard.putNumber("Dashboard Update Counts", updateCounts++);
 		
-		SmartDashboard.putData("Toggle Compressor", new ToggleCompressor());
+		SmartDashboard.putBoolean("Compressor Closed Loop Control", Robot.compressor.getClosedLoopControl());
+		SmartDashboard.putBoolean("Compressor Enabled", Robot.compressor.enabled());
+		SmartDashboard.putBoolean("Compressor Pressure Switch", Robot.compressor.getPressureSwitchValue());
 	}
 	
 	public interface DashboardUpdatable {

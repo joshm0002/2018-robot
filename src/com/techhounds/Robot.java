@@ -21,6 +21,7 @@ import com.techhounds.vision.PullVision;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -53,7 +54,7 @@ public class Robot extends TimedRobot {
 		Dashboard.initDashboard();
 		OI.setupDriver();
 		OI.setupOperator();
-		System.out.println("Robot Initialized!");
+		SmartDashboard.putBoolean("Robot Initialized", true);
 	}
 
 	/**

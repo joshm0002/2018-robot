@@ -4,12 +4,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
-import com.techhounds.Dashboard.DashboardUpdatable;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Tilt extends Subsystem implements DashboardUpdatable {
 	
@@ -79,8 +78,8 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateDebugSD() {
-		SmartDashboard.putNumber("Tilt Angle", tiltMotor.getSelectedSensorPosition(0));
-		
+		// FIXME: this hangs!
+//		SmartDashboard.putNumber("Tilt Angle", tiltMotor.getSelectedSensorPosition(0));
 	}
 	
 }

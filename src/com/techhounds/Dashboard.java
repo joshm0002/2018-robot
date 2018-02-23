@@ -3,6 +3,8 @@ package com.techhounds;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.techhounds.compressor.ToggleCompressor;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -22,11 +24,6 @@ public class Dashboard {
 	}
 	
 	public static void initDashboard() {
-		
-	}
-	
-	public static void updateDashboard() {
-		
 		subsystems.add(Robot.arm);
 		subsystems.add(Robot.drivetrain);
 		subsystems.add(Robot.intake);
@@ -41,8 +38,20 @@ public class Dashboard {
 				subsystem.initDebugSD();
 			}
 		}
+	}
+	
+	public static void updateDashboard() {
+		for (DashboardUpdatable subsystem : subsystems) {
+			subsystem.updateSD();
+			if (DEBUG) {
+				subsystem.updateDebugSD();
+			}
+		}
 		
+		// FIXME: appears to never get here
 		SmartDashboard.putNumber("Dashboard Update Counts", updateCounts++);
+		
+		SmartDashboard.putData("Toggle Compressor", new ToggleCompressor());
 	}
 	
 	public interface DashboardUpdatable {

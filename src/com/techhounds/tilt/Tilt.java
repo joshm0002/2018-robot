@@ -6,10 +6,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
+import com.techhounds.Dashboard.DashboardUpdatable;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Tilt extends Subsystem{
+public class Tilt extends Subsystem implements DashboardUpdatable {
 	
 	private WPI_TalonSRX tiltMotor;
 	
@@ -56,6 +58,29 @@ public class Tilt extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new SetTiltHold());
+	}
+
+	@Override
+	public void initSD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initDebugSD() {
+		
+	}
+
+	@Override
+	public void updateDebugSD() {
+		SmartDashboard.putNumber("Tilt Angle", tiltMotor.getSelectedSensorPosition(0));
+		
 	}
 	
 }

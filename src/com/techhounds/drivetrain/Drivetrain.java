@@ -7,16 +7,18 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
+import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.auton.MotionProfileUploader;
 import com.techhounds.auton.TrajectoryPointPair;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class Drivetrain extends Subsystem {
+public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	
 	private WPI_TalonSRX motorRightMain;
 	private WPI_TalonSRX motorRightFollower;
@@ -123,5 +125,35 @@ public class Drivetrain extends Subsystem {
     public void initDefaultCommand() {
     	// ArcadeDrive set in OI
     }
+
+	@Override
+	public void initSD() {
+	}
+
+	@Override
+	public void updateSD() {
+	}
+
+	@Override
+	public void initDebugSD() {
+		SmartDashboard.putData(this);
+	}
+
+	@Override
+	public void updateDebugSD() {
+		SmartDashboard.putNumber("Drive Right Distance", getRightDistance());
+		SmartDashboard.putNumber("Drive Right Velocity", getRightVelocity());
+		SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
+//		SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
+		SmartDashboard.putNumber("Drive Right Power", motorRightMain.getMotorOutputPercent());
+		SmartDashboard.putNumber("Drive Right Current", motorRightMain.getOutputCurrent());
+		
+		SmartDashboard.putNumber("Drive Left Distance", getLeftDistance());
+		SmartDashboard.putNumber("Drive Left Velocity", getLeftVelocity());
+		SmartDashboard.putNumber("Drive Left Profile Top Buffer", motorLeftMain.getMotionProfileTopLevelBufferCount());
+//		SmartDashboard.putNumber("Drive Left Profile Bottom Buffer", getLeftProfileStatus().btmBufferCnt);
+		SmartDashboard.putNumber("Drive Left Power", motorLeftMain.getMotorOutputPercent());
+		SmartDashboard.putNumber("Drive Left Current", motorLeftMain.getOutputCurrent());
+	}
 }
 

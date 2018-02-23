@@ -4,11 +4,12 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
+import com.techhounds.Dashboard.DashboardUpdatable;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class PowerPack extends Subsystem {
+public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	private Solenoid transmission;
 	private Solenoid brake;
@@ -120,6 +121,30 @@ public class PowerPack extends Subsystem {
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new SetPowerPackHold());
+	}
+
+	@Override
+	public void initSD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initDebugSD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateDebugSD() {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

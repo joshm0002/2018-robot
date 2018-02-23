@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class RobotUtilities {
 	
 	// TODO will this hang us too much?
-	public static final int CONFIG_TIMEOUT = 5;
+	public static final int CONFIG_TIMEOUT = 10;
 	
 	/**
 	 * Limits the given value to -1, 1

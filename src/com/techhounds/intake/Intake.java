@@ -4,10 +4,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
+import com.techhounds.Dashboard.DashboardUpdatable;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Intake extends Subsystem {
+public class Intake extends Subsystem implements DashboardUpdatable {
 	
 	private WPI_TalonSRX intakeLeft;
 	private WPI_TalonSRX intakeRight;
@@ -43,4 +45,27 @@ public class Intake extends Subsystem {
     public void initDefaultCommand() {
     	// GamepadIntakeControl set in OI
     }
+
+	@Override
+	public void initSD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initDebugSD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateDebugSD() {
+		SmartDashboard.putNumber("IR Sensor", intakeLeft.getSensorCollection().getAnalogIn());
+	}
 }

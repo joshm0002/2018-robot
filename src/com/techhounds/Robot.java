@@ -18,8 +18,11 @@ import com.techhounds.powerpack.PowerPack;
 import com.techhounds.tilt.Tilt;
 import com.techhounds.vision.PullVision;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,6 +43,7 @@ public class Robot extends TimedRobot {
 	public static final Tilt tilt = new Tilt();
 	public static final Hook hook = new Hook();
 	public static final PullVision vision = new PullVision();
+	public static final Compressor compressor = new Compressor();
 			
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -51,6 +55,17 @@ public class Robot extends TimedRobot {
 		Dashboard.initDashboard();
 		OI.setupDriver();
 		OI.setupOperator();
+		
+		// FIXME: ugh
+		SmartDashboard.putData("Toggle Compressor", new Command() {
+			protected void initialize() {
+				Robot.compressor.setClosedLoopControl(!Robot.compressor.getClosedLoopControl());
+			}
+			@Override
+			protected boolean isFinished() {
+				return true;
+			}
+		});
 	}
 
 	/**
@@ -66,6 +81,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		Dashboard.updateDashboard();
 	}
 
 	/**

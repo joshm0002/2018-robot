@@ -24,8 +24,8 @@ public class GamepadIntakeControl extends Command {
     protected void initialize() {}
 
     protected void execute() {
-    	double forward = controller.getRawAxis(forwardAxis); // FIXME
-    	double reverse = controller.getRawAxis(reverseAxis);
+    	double forward = Math.pow(controller.getRawAxis(forwardAxis), 2);
+    	double reverse = Math.pow(controller.getRawAxis(reverseAxis), 2);
     	
     	Robot.intake.setPower(forward - reverse);
     }

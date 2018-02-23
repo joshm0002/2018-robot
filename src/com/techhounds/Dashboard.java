@@ -48,7 +48,7 @@ public class Dashboard {
 			}
 		}
 		
-		// FIXME: appears to never get here
+		// FIXME: appears to never get here, possibly Drive or Intake (IR sensor)
 		SmartDashboard.putNumber("Dashboard Update Counts", updateCounts++);
 		
 		SmartDashboard.putData("Toggle Compressor", new ToggleCompressor());

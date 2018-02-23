@@ -53,6 +53,7 @@ public class Robot extends TimedRobot {
 		Dashboard.initDashboard();
 		OI.setupDriver();
 		OI.setupOperator();
+		System.out.println("Robot Initialized!");
 	}
 
 	/**

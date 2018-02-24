@@ -85,7 +85,7 @@ public class OI {
 
 		Button RB = new JoystickButton(operator, 6);
 		// OperatorElevatorControl (joystick)
-		RB.whileHeld(new GamepadElevatorControl(operator, 3));
+		RB.whileHeld(new GamepadElevatorControl(operator, 5));
 
 //		Button select = new JoystickButton(operator, 7);
 //		Button start = new JoystickButton(operator, 8);

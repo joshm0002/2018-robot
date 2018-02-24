@@ -11,6 +11,10 @@ import com.techhounds.Dashboard.DashboardUpdatable;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Default (false) is elevator
+ * Default (false) is brake
+ */
 public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	private Solenoid transmission;
@@ -37,20 +41,21 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		winchQuaternary.follow(winchPrimary);
 
 		configure(winchPrimary);
+		
 	}
 
 	/**
 	 */
 	private void configure(WPI_TalonSRX talon) {
-		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 
-		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
-		talon.enableCurrentLimit(true);
+//		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.enableCurrentLimit(true);
 
-		talon.configPeakOutputForward(100, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configPeakOutputReverse(0, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configPeakOutputForward(100, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configPeakOutputReverse(0, RobotUtilities.CONFIG_TIMEOUT);
 
 		talon.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT); // FIXME
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
@@ -63,32 +68,32 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	}
 	
 	public void setElevatorPower(double power) {
-		brake.set(false);
-		transmission.set(true);
+		brake.set(true);
+		transmission.set(false);
 		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 	}
 	
 	public void setElevatorPosition(double position) {
-		brake.set(false);
-		transmission.set(true);
+		brake.set(true);
+		transmission.set(false);
 		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
 	}
 	
 	public void setClimberPower(double power) {
-		brake.set(false);
-		transmission.set(false);
+		brake.set(true);
+		transmission.set(true);
 		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 	}
 	
 	public void setClimberPosition(double position) {
-		brake.set(false);
-		transmission.set(false);
+		brake.set(true);
+		transmission.set(true);
 		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
 	}
 	
 	public void setBrake() {
 		winchPrimary.set(ControlMode.Disabled, 0);
-		brake.set(true);
+		brake.set(false);
 	}
 	
 	public boolean isTopSwitchTripped() {

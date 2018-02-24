@@ -22,8 +22,8 @@ public class GamepadElevatorControl extends Command {
     protected void initialize() {}
 
     protected void execute() {
-    	double forward = -controller.getRawAxis(axis);
-    	
+    	double forward = Math.pow(controller.getRawAxis(axis), 3);
+   
     	Robot.powerPack.setElevatorPower(forward);
     }
 

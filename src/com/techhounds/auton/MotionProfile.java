@@ -34,10 +34,13 @@ public enum MotionProfile {
 		
 	Test("test.csv");
 	
-	private List<TrajectoryPointPair> points;
-	
+	public final String filename;
 	MotionProfile(String filename) {
-		points = new ArrayList<>();
+		this.filename = filename;
+	}
+	
+	public List<TrajectoryPointPair> getPoints() {
+		List<TrajectoryPointPair> points = new ArrayList<>();
 		
 		// TODO: read file, push points to right/left points
 		
@@ -61,9 +64,7 @@ public enum MotionProfile {
 //			point.isLastPoint = (i + 1 == profilePoints.length);
 		
 //			points.push(point);
-	}
-	
-	public List<TrajectoryPointPair> getPoints() {
+		
 		return points;
 	}
 }

@@ -30,6 +30,7 @@ public class ProfileRecorder extends Command {
 
     protected void initialize() {
     	notifier.startPeriodic(period);
+    	System.out.println("Recording Profile");
     }
 
     protected void execute() {
@@ -45,7 +46,9 @@ public class ProfileRecorder extends Command {
     	recorder.writeToFile(SmartDashboard.getString("Profile Recorder File Name", "Test"));
     }
 
-    protected void interrupted() {}
+    protected void interrupted() {
+    	end();
+    }
     
     public class ProfileRecorderRunnable implements Runnable {
     	
@@ -67,19 +70,19 @@ public class ProfileRecorder extends Command {
 		
 		public void writeToFile(String filename) {
 			try {
-				BufferedWriter file = new BufferedWriter(new FileWriter(filename + ".csv"));
+				BufferedWriter file = new BufferedWriter(new FileWriter("/home/lvuser/" + filename + ".csv"));
 				
 				file.write(filename + "\n" + data.size() + "\n");
 				
 				for (double[] point : data) {
-					// FIXME: this format is not correct, we need to use the 254 standard
 					file.write("" + point[0] + ", " + point[1] + ", " + point[2] + ", " + point[3] + "\n");
 				}
 				
 				file.flush();
 				file.close();
+				System.out.println("Successfully wrote Profile to " + filename);
 			} catch (IOException e) {
-				System.err.println("Failed to write Recorded Profile to " + filename);
+				System.out.println("Failed to write Recorded Profile to " + filename);
 			}
 		}
     	

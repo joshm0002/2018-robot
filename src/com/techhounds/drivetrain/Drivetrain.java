@@ -31,6 +31,9 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	private MotionProfileStatus status;
 		
 	public Drivetrain() {
+		
+		status = new MotionProfileStatus();
+		
 		motorRightMain = RobotUtilities.getTalonSRX(RobotMap.DRIVE_RIGHT_PRIMARY);
 		motorRightFollower = RobotUtilities.getTalonSRX(RobotMap.DRIVE_RIGHT_SECONDARY);
 		motorLeftMain = RobotUtilities.getTalonSRX(RobotMap.DRIVE_LEFT_PRIMARY);
@@ -60,7 +63,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setSensorPhase(true); // TODO: why both here and in the constructor??
 		
-		talon.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT); // FIXME: find values
+		talon.config_kP(0, 1, RobotUtilities.CONFIG_TIMEOUT); // FIXME: find values
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		

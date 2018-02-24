@@ -37,6 +37,13 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 		talon.configPeakCurrentDuration(250, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setNeutralMode(NeutralMode.Brake);
 		
+		// forward is down, backwards is up
+		talon.setSensorPhase(true);
+		
+//		talon.configPeakOutputForward(20, 0);
+//		talon.configPeakOutputReverse(-40, 0);
+		// TODO nominal limits
+		
 		talon.config_kP(0, P, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kI(0, I, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kD(0, D, RobotUtilities.CONFIG_TIMEOUT);
@@ -58,7 +65,6 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new SetTiltHold());
-//		setDefaultCommand(new SetTiltPower(0));
 	}
 
 	@Override

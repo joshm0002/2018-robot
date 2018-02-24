@@ -17,9 +17,9 @@ public class SetTiltPosition extends Command {
 	 * FIXME find the actual setpoint values
 	 */
     public enum TiltPosition {
-    	UP(100),
-    	MIDDLE(50),
-    	DOWN(0);
+    	UP(-375),
+    	MIDDLE(-500),
+    	DOWN(-625);
 
     	public final double setpoint;
     	TiltPosition(double setpoint) {

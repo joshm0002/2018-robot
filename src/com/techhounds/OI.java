@@ -8,6 +8,7 @@
 package com.techhounds;
 
 import com.techhounds.arm.ToggleArm;
+import com.techhounds.auton.ProfileRecorder;
 import com.techhounds.drivetrain.ArcadeDrive;
 import com.techhounds.drivetrain.ToggleTransmission;
 import com.techhounds.hook.GamepadHookControl;
@@ -55,6 +56,9 @@ public class OI {
 		
 		Button LB = new JoystickButton(driver, 5);
 		LB.whenPressed(new ToggleArm());
+		
+		Button start = new JoystickButton(driver, 8);
+		start.toggleWhenPressed(new ProfileRecorder(0.005));
 	}
 
 	/**

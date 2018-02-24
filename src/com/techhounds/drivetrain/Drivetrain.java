@@ -50,6 +50,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		
 		motorRightMain.setInverted(true);
 		motorRightFollower.setInverted(true);
+		motorRightMain.setSensorPhase(true);
 	}
 	
 	/**

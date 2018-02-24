@@ -1,6 +1,8 @@
 package com.techhounds.powerpack;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
@@ -45,7 +47,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	/**
 	 */
-	public void configure(WPI_TalonSRX talon) {
+	private void configure(WPI_TalonSRX talon) {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 
 		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
@@ -61,22 +63,39 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kF(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configAllowableClosedloopError(0, PID_TOLERANCE, RobotUtilities.CONFIG_TIMEOUT);
+		
+		talon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
 	}
+	
+	// TODO: refactor set* to have only: setBrake, setElevatorPower, setElevatorPos, setClimberPower, setClimberPos
 
 	public void setWinchPosition(double position){
-		winchPrimary.set(ControlMode.Position, position);
+		if (!brake.get()) {
+			winchPrimary.set(ControlMode.Position, position);
+		}
 	}
 
 	public void setWinchPower(double percent){
-		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(percent));
+		if (!brake.get()) {
+			winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(percent));
+		}
+	}
+	
+	public boolean isTopSwitchTripped() {
+		return winchPrimary.getSensorCollection().isFwdLimitSwitchClosed();
+	}
+	
+	public boolean isBottomSwitchTripped() {
+		return winchPrimary.getSensorCollection().isRevLimitSwitchClosed();
 	}
 
 	public int getWinchPosition(){
-		return winchPrimary.getSensorCollection().getAnalogIn();
+		return winchPrimary.getSelectedSensorPosition(0);
 	}
 
 	public double getWinchVelocity(){
-		return winchPrimary.getSensorCollection().getAnalogInVel();
+		return winchPrimary.getSelectedSensorVelocity(0);
 	}
 	
 	public void setTransmission(boolean elevator) {
@@ -84,6 +103,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	}
 	
 	public void setBrake(boolean enabled) {
+		winchPrimary.set(ControlMode.Disabled, 0);
 		brake.set(enabled);
 	}
 

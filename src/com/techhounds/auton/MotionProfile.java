@@ -1,7 +1,14 @@
 package com.techhounds.auton;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ctre.phoenix.motion.TrajectoryPoint;
+import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
 
 /**
  * This class represents a motion profile to be loaded into
@@ -41,30 +48,50 @@ public enum MotionProfile {
 	
 	public List<TrajectoryPointPair> getPoints() {
 		List<TrajectoryPointPair> points = new ArrayList<>();
+
+		try {
+
+			BufferedReader file = new BufferedReader(new FileReader(new File(filename)));
+			
+			String line;
+			while ((line = file.readLine()) != null) {
+				String[] fields = line.split(",");
+				
+				if (fields.length != 4) continue;
+				
+				TrajectoryPoint right = makeTrajectoryPoint(Double.parseDouble(fields[0]), Double.parseDouble(fields[1]));
+				TrajectoryPoint left = makeTrajectoryPoint(Double.parseDouble(fields[2]), Double.parseDouble(fields[3]));
+				TrajectoryPointPair point = new TrajectoryPointPair(right, left);
+				
+				points.add(point);
+			}		
+			
+			file.close();
+		} catch (IOException e) {
+			System.err.println("Failed to Load Profile at: " + filename);
+		}
 		
-		// TODO: read file, push points to right/left points
+		points.get(0).right.zeroPos = true;
+		points.get(0).left.zeroPos = true;
 		
-		//for each line in file
-		
-//			TrajectoryPoint point = new TrajectoryPoint();
-		
-//			double positionRot = profilePoints[i][0];
-//			double velocityRPM = profilePoints[i][1];
-//			
-//			//need to manipulate the numbers below in order to convert to proper units
-//			point.position = positionRot * 1024;
-//			point.velocity = velocityRPM * 1024 / 600;
-//			point.profileSlotSelect0 = 0;
-//			point.profileSlotSelect1 = 0;
-//			
-//			TrajectoryDuration td = TrajectoryDuration.Trajectory_Duration_5ms;
-//			point.timeDur = td.valueOf((int)profile[i][2]);
-//			point.timeDur = td;
-//			point.zeroPos = (i == 0);
-//			point.isLastPoint = (i + 1 == profilePoints.length);
-		
-//			points.push(point);
+		points.get(points.size() - 1).right.isLastPoint = true;
+		points.get(points.size() - 1).left.isLastPoint = true;
 		
 		return points;
+	}
+	
+	public static TrajectoryPoint makeTrajectoryPoint(double position, double velocity) {
+		TrajectoryPoint point = new TrajectoryPoint();
+				
+		//I think the 'recorder' saves them in talon units (encoder counts per 100 ms) so no conversion necessary
+		point.position = position;
+		point.velocity = velocity;
+		point.profileSlotSelect0 = 0;
+		point.profileSlotSelect1 = 0;
+		point.timeDur = TrajectoryDuration.Trajectory_Duration_5ms;
+		point.zeroPos = false;
+		point.isLastPoint = false;
+		
+		return point;
 	}
 }

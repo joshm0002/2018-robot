@@ -25,7 +25,6 @@ public class MotionProfileExecutor extends Command {
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Disable);
     	
     	// TODO: will this hang us too much?
-    	    	
     	for(TrajectoryPointPair point : profile.getPoints()) {
     		Robot.drivetrain.pushPoint(point);
     	}

@@ -33,7 +33,6 @@ public class AutonLauncher {
 	}
 
 	public static void runAuton() {
-		// TODO Auto-generated method stub
-		
+		new CenterToLeftSwitch().start();;
 	}
 }

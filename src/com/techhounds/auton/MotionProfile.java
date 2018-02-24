@@ -1,7 +1,14 @@
 package com.techhounds.auton;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ctre.phoenix.motion.TrajectoryPoint;
 
 /**
  * This class represents a motion profile to be loaded into
@@ -32,12 +39,48 @@ import java.util.List;
  */
 public enum MotionProfile {
 		
-	Test("test.csv");
+	Test("test.csv"),
+	CenterToLeftSwitch("centerToLeftSwitch.csv");
 	
 	private List<TrajectoryPointPair> points;
 	
 	MotionProfile(String filename) {
 		points = new ArrayList<>();
+		
+		try {
+			BufferedReader buff = new BufferedReader(new FileReader(new File(filename)));
+			buff.readLine();
+			int lines = Integer.parseInt(buff.readLine());
+			
+			TrajectoryPoint[] left = new TrajectoryPoint[lines];
+			TrajectoryPoint[] right = new TrajectoryPoint[lines];
+
+			for (int i = 0; i < lines; i++) {
+				left[i] = new TrajectoryPoint();
+				
+				String[] line = buff.readLine().split(",");
+				left[i].position = Double.parseDouble(line[5-1]);
+				left[i].velocity = Double.parseDouble(line[6-1]);
+			}
+			
+			for (int i = 0; i < lines; i++) {
+				right[i] = new TrajectoryPoint();
+				
+				String[] line = buff.readLine().split(",");
+				right[i].position = Double.parseDouble(line[5-1]);
+				right[i].velocity = Double.parseDouble(line[6-1]);
+			}
+			
+			for (int i = 0; i < lines; i++) {
+				points.add(new TrajectoryPointPair(left[i], right[i]));
+			}		
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// TODO: read file, push points to right/left points
 		

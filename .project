@@ -15,4 +15,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>edu.wpi.first.wpilib.plugins.core.nature.FRCProjectNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>lib</name>
+			<type>2</type>
+			<location>/Users/armaangoel/wpilib/user/java/lib/CTRE_Phoenix_FRCLibs_NON-WINDOWS_v5.2.1.1/java/lib</location>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -32,6 +32,8 @@ public class OI {
 
 	public static final XboxController driver = new XboxController(0);
 	public static final XboxController operator = new XboxController(1);
+	
+	public static final double CONTROLLER_DEADBAND = 0.1;
 
 	public OI() {}
 

@@ -1,5 +1,6 @@
 package com.techhounds.drivetrain;
 
+import com.techhounds.OI;
 import com.techhounds.Robot;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -29,6 +30,14 @@ public class ArcadeDrive extends Command {
     protected void execute() {
     	double forward = -controller.getRawAxis(forwardAxis); //negatives are intentional
     	double turn = -controller.getRawAxis(turnAxis);
+    	
+    	if (Math.abs(forward) < OI.CONTROLLER_DEADBAND) {
+    		forward = 0;
+    	}
+    	
+    	if (Math.abs(turn) < OI.CONTROLLER_DEADBAND) {
+    		turn = 0;
+    	}
     	
     	Robot.drivetrain.setPower(forward+turn, forward-turn);
     }

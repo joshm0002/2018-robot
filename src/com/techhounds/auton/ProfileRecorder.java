@@ -29,6 +29,7 @@ public class ProfileRecorder extends Command {
     }
 
     protected void initialize() {
+    	recorder.saveInitialCounts();
     	notifier.startPeriodic(period);
     	System.out.println("Recording Profile");
     }
@@ -57,15 +58,22 @@ public class ProfileRecorder extends Command {
     	 * { RIGHT_DIST, RIGHT_VEL, LEFT_DIST, LEFT_VEL }
     	 */
     	List<double[]> data = new ArrayList<double[]>();
+    	double rightInitialCounts = 0;
+    	double leftInitialCounts = 0;
 
 		@Override
 		public void run() {
 			double[] point = new double[4];
-			point[0] = Robot.drivetrain.getRightDistance();
+			point[0] = Robot.drivetrain.getRightDistance() - rightInitialCounts;
 			point[1] = Robot.drivetrain.getRightVelocity();
-			point[2] = Robot.drivetrain.getLeftDistance();
+			point[2] = Robot.drivetrain.getLeftDistance() - leftInitialCounts;
 			point[3] = Robot.drivetrain.getLeftVelocity();
 			data.add(point);
+		}
+		
+		public void saveInitialCounts() {
+			rightInitialCounts = Robot.drivetrain.getRightDistance();
+			leftInitialCounts = Robot.drivetrain.getLeftDistance();
 		}
 		
 		public void writeToFile(String filename) {

@@ -1,7 +1,6 @@
 package com.techhounds.powerpack;
 
 import com.techhounds.Robot;
-import com.techhounds.powerpack.PowerPack.PowerPackState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -33,8 +32,7 @@ public class SetElevatorPosition extends Command {
     }
 
     protected void initialize() {
-    	Robot.powerPack.setState(PowerPackState.ELEVATOR);
-    	Robot.powerPack.setWinchPosition(setpoint);
+    	Robot.powerPack.setElevatorPosition(setpoint);
     }
 
     protected void execute() {}

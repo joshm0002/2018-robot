@@ -23,12 +23,6 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	private final int PID_TOLERANCE = 3;
 
-	public enum PowerPackState {
-		CLIMBER,
-		ELEVATOR,
-		BRAKE
-	}
-
 	public PowerPack() {
 		transmission = new Solenoid(RobotMap.WINCH_TRANSMISSION);
 		brake = new Solenoid(RobotMap.WINCH_BRAKE);
@@ -68,18 +62,33 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		talon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
 	}
 	
-	// TODO: refactor set* to have only: setBrake, setElevatorPower, setElevatorPos, setClimberPower, setClimberPos
-
-	public void setWinchPosition(double position){
-		if (!brake.get()) {
-			winchPrimary.set(ControlMode.Position, position);
-		}
+	public void setElevatorPower(double power) {
+		brake.set(false);
+		transmission.set(true);
+		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 	}
-
-	public void setWinchPower(double percent){
-		if (!brake.get()) {
-			winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(percent));
-		}
+	
+	public void setElevatorPosition(double position) {
+		brake.set(false);
+		transmission.set(true);
+		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
+	}
+	
+	public void setClimberPower(double power) {
+		brake.set(false);
+		transmission.set(false);
+		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
+	}
+	
+	public void setClimberPosition(double position) {
+		brake.set(false);
+		transmission.set(false);
+		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
+	}
+	
+	public void setBrake() {
+		winchPrimary.set(ControlMode.Disabled, 0);
+		brake.set(true);
 	}
 	
 	public boolean isTopSwitchTripped() {
@@ -96,32 +105,6 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	public double getWinchVelocity(){
 		return winchPrimary.getSelectedSensorVelocity(0);
-	}
-	
-	public void setTransmission(boolean elevator) {
-		transmission.set(elevator);
-	}
-	
-	public void setBrake(boolean enabled) {
-		winchPrimary.set(ControlMode.Disabled, 0);
-		brake.set(enabled);
-	}
-
-	public void setState(PowerPackState state) {
-		switch(state) {
-		case ELEVATOR:
-			setTransmission(true);
-			setBrake(false);
-			break;
-		case CLIMBER:
-			setTransmission(false);
-			setBrake(false);
-			break;
-		case BRAKE:
-		default:
-			setBrake(true);
-			break;
-		}
 	}
 
 	/**

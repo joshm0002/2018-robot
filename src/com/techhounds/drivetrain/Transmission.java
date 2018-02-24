@@ -7,26 +7,22 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * TODO: why do we bother storing the state variable?
- * Why not implement this subsystem just like Arm?
+ *
  */
 public class Transmission extends Subsystem implements DashboardUpdatable {
 
     private Solenoid shifter = new Solenoid(RobotMap.DRIVE_TRANSMISSION);
-    private boolean state = false; //is this actually the default? should we call get()?
     
     public void toggle() {
-    	shift(!state);
+    	setHighGear(!isHighGear());
     }
     
-    public void shift(boolean highGear) {
-    	if(highGear && !state) {
-    		shifter.set(true);
-    	} else if (!highGear && state) {
-    		shifter.set(false);
-    	}
-    	
-    	state = highGear;
+    public void setHighGear(boolean highGear) {
+    	shifter.set(highGear);
+    }
+    
+    public boolean isHighGear() {
+    	return shifter.get();
     }
 
     /**

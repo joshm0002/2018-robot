@@ -22,7 +22,7 @@ public class SetTransmission extends Command {
     }
 
     protected void initialize() {
-    	Robot.transmission.shift(state);
+    	Robot.transmission.setHighGear(state);
     }
 
     protected void execute() {}

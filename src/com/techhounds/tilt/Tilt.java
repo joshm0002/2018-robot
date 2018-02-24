@@ -9,6 +9,7 @@ import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Tilt extends Subsystem implements DashboardUpdatable {
 	
@@ -16,7 +17,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	
 	private double P = 0, I = 0, D = 0;
 	
-	public void tiltMotor() {
+	public Tilt() {
 		tiltMotor = RobotUtilities.getTalonSRX(RobotMap.TILT);
 		configure(tiltMotor);
 	}
@@ -56,8 +57,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	protected void initDefaultCommand() {
-		// FIXME both causes Scheduler hangs
-//		setDefaultCommand(new SetTiltHold());
+		setDefaultCommand(new SetTiltHold());
 //		setDefaultCommand(new SetTiltPower(0));
 	}
 
@@ -80,8 +80,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateDebugSD() {
-		// FIXME: this hangs!
-//		SmartDashboard.putNumber("Tilt Angle", tiltMotor.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Tilt Angle", tiltMotor.getSelectedSensorPosition(0));
 	}
 	
 }

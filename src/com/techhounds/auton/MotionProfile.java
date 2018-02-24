@@ -39,7 +39,7 @@ import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
  */
 public enum MotionProfile {
 		
-	Test("test.csv");
+	Test("Test.csv");
 	
 	public final String filename;
 	MotionProfile(String filename) {
@@ -51,7 +51,7 @@ public enum MotionProfile {
 
 		try {
 
-			BufferedReader file = new BufferedReader(new FileReader(new File(filename)));
+			BufferedReader file = new BufferedReader(new FileReader(new File("/home/lvuser/" + filename)));
 			
 			String line;
 			while ((line = file.readLine()) != null) {
@@ -71,11 +71,13 @@ public enum MotionProfile {
 			System.err.println("Failed to Load Profile at: " + filename);
 		}
 		
-		points.get(0).right.zeroPos = true;
-		points.get(0).left.zeroPos = true;
-		
-		points.get(points.size() - 1).right.isLastPoint = true;
-		points.get(points.size() - 1).left.isLastPoint = true;
+		if (!points.isEmpty()) {
+			points.get(0).right.zeroPos = true;
+			points.get(0).left.zeroPos = true;
+			
+			points.get(points.size() - 1).right.isLastPoint = true;
+			points.get(points.size() - 1).left.isLastPoint = true;
+		}
 		
 		return points;
 	}

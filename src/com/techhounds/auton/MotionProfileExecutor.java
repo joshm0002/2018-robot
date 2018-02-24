@@ -28,11 +28,14 @@ public class MotionProfileExecutor extends Command {
     	for(TrajectoryPointPair point : profile.getPoints()) {
     		Robot.drivetrain.pushPoint(point);
     	}
+    	
+    	System.out.println("Starting Profile: " + profile.toString());
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//if(getStatus().btmBufferCnt < 10) return;
+    	if (Robot.drivetrain.getLeftProfileStatus().btmBufferCnt < 10) return;
     	//if(getStatus().isUnderrun) return;
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Enable);
     }

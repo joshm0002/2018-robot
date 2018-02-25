@@ -69,24 +69,28 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	public void setElevatorPower(double power) {
 		brake.set(true);
 		transmission.set(false);
+		winchPrimary.overrideLimitSwitchesEnable(false);
 		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 	}
 	
 	public void setElevatorPosition(double position) {
 		brake.set(true);
 		transmission.set(false);
+		winchPrimary.overrideLimitSwitchesEnable(false);
 		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
 	}
 	
 	public void setClimberPower(double power) {
 		brake.set(true);
 		transmission.set(true);
+		winchPrimary.overrideLimitSwitchesEnable(true);
 		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 	}
 	
 	public void setClimberPosition(double position) {
 		brake.set(true);
 		transmission.set(true);
+		winchPrimary.overrideLimitSwitchesEnable(true);
 		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
 	}
 	
@@ -112,7 +116,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	}
 
 	/**
-	 * @return whether the elevator is enabled
+	 * @return whether the climber is enabled
 	 */
 	public boolean getTransmission() {
 		return transmission.get();

@@ -32,23 +32,23 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	private void configure(WPI_TalonSRX talon) {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, RobotUtilities.CONFIG_TIMEOUT);
 		
-		talon.enableCurrentLimit(true);
-		talon.configContinuousCurrentLimit(20, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configPeakCurrentLimit(40, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configPeakCurrentDuration(250, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.enableCurrentLimit(true);
+//		talon.configContinuousCurrentLimit(20, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configPeakCurrentLimit(40, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configPeakCurrentDuration(250, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setNeutralMode(NeutralMode.Brake);
 		
 		// forward is down, backwards is up
 		talon.setSensorPhase(true);
 		
-//		talon.configPeakOutputForward(20, 0);
-//		talon.configPeakOutputReverse(-40, 0);
+		talon.configPeakOutputForward(0.5, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakOutputReverse(0.5, RobotUtilities.CONFIG_TIMEOUT);
 		// TODO nominal limits
 		
 		talon.config_kP(0, P, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kI(0, I, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kD(0, D, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configClosedloopRamp(0.5, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configClosedloopRamp(0.5, RobotUtilities.CONFIG_TIMEOUT);
 	}
 
 	public void setPosition(double position) {

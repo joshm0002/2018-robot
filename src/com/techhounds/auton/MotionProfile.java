@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
+import com.techhounds.Constants;
 
 /**
  * This class represents a motion profile to be loaded into
@@ -38,7 +39,7 @@ import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
  * side in a single file.
  */
 public enum MotionProfile {
-		
+			
 	Test("Test.csv");
 	
 	public final String filename;
@@ -51,7 +52,7 @@ public enum MotionProfile {
 
 		try {
 
-			BufferedReader file = new BufferedReader(new FileReader(new File("/home/lvuser/" + filename)));
+			BufferedReader file = new BufferedReader(new FileReader(new File(Constants.PROFILE_PATH + filename)));
 			
 			String line;
 			while ((line = file.readLine()) != null) {

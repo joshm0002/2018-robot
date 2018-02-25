@@ -19,7 +19,6 @@ public class MotionProfileExecutor extends Command {
     	this.profile = profile;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.resetProfile();
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Disable);
@@ -32,30 +31,36 @@ public class MotionProfileExecutor extends Command {
     	System.out.println("Starting Profile: " + profile.toString());
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//if(getStatus().btmBufferCnt < 10) return;
-    	if (Robot.drivetrain.getLeftProfileStatus().btmBufferCnt < 10) return;
+    	if (Robot.drivetrain.getLeftProfileStatus().btmBufferCnt < 10 ||
+    	    Robot.drivetrain.getLeftProfileStatus().isUnderrun ||
+    	    Robot.drivetrain.getRightProfileStatus().btmBufferCnt < 10 ||
+    	    Robot.drivetrain.getRightProfileStatus().isUnderrun) {
+    		return;
+    	}
     	//if(getStatus().isUnderrun) return;
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Enable);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * TODO: check all four conditions in an AND
+     */
     protected boolean isFinished() {
-    	MotionProfileStatus status = Robot.drivetrain.getLeftProfileStatus(); //TODO: check right status
+    	MotionProfileStatus status = Robot.drivetrain.getLeftProfileStatus();
     	if (status.activePointValid && status.isLast) {
 			return true;
+    	}
+    	status = Robot.drivetrain.getRightProfileStatus();
+    	if (status.activePointValid && status.isLast) {
+    		return true;
     	}
     	return false;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Hold);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Disable);
     }

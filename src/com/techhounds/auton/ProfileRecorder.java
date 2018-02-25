@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.techhounds.Constants;
 import com.techhounds.Robot;
 
 import edu.wpi.first.wpilibj.Notifier;
@@ -78,7 +79,7 @@ public class ProfileRecorder extends Command {
 		
 		public void writeToFile(String filename) {
 			try {
-				BufferedWriter file = new BufferedWriter(new FileWriter("/home/lvuser/" + filename + ".csv"));
+				BufferedWriter file = new BufferedWriter(new FileWriter(Constants.PROFILE_PATH + filename + ".csv"));
 				
 				file.write(filename + "\n" + data.size() + "\n");
 				

@@ -1,5 +1,6 @@
 package com.techhounds.auton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ctre.phoenix.motion.MotionProfileStatus;
@@ -9,7 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class MotionProfileUploader implements Runnable {
 	
 	private final TalonSRX talon;
-	private List<TrajectoryPoint> points;
+	private List<TrajectoryPoint> points = new ArrayList<TrajectoryPoint>();
 	private MotionProfileStatus status = new MotionProfileStatus();
 	
 	public MotionProfileUploader(TalonSRX talon) {

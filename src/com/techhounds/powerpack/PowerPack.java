@@ -6,9 +6,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
+import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
+import com.techhounds.powerpack.basic.SetElevatorBottom;
+import com.techhounds.powerpack.basic.SetElevatorMiddle;
+import com.techhounds.powerpack.basic.SetElevatorTop;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Default (false) is elevator
@@ -148,14 +153,28 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void initDebugSD() {
-		// TODO Auto-generated method stub
-		
+		SmartDashboard.putData(this);
+		SmartDashboard.putData("Climber Up", new SetClimberPower(0.7));
+		SmartDashboard.putData("Climber Down", new SetClimberPower(-0.3));
+		SmartDashboard.putData("Elevator Scale", new SetElevatorPosition(ElevatorPosition.SCALE));
+		SmartDashboard.putData("Elevator Switch", new SetElevatorPosition(ElevatorPosition.SWITCH));
+		SmartDashboard.putData("Elevator Collect", new SetElevatorPosition(ElevatorPosition.COLLECT));
+		SmartDashboard.putData("Elevator Scale Basic", new SetElevatorTop());
+		SmartDashboard.putData("Elevator Switch Basic", new SetElevatorMiddle());
+		SmartDashboard.putData("Elevator Collect Basic", new SetElevatorBottom());
+		SmartDashboard.putData("Power Pack Hold", new SetPowerPackHold());
 	}
 
 	@Override
 	public void updateDebugSD() {
-		// TODO Auto-generated method stub
-		
+//		SmartDashboard.putNumber("Power Pack Position", winchPrimary.getSelectedSensorPosition(0));
+//		SmartDashboard.putNumber("Power Pack Velocity", winchPrimary.getSelectedSensorVelocity(0));
+		SmartDashboard.putNumber("Power Pack Power", winchPrimary.getMotorOutputPercent());
+		SmartDashboard.putNumber("Power Pack Current", winchPrimary.getOutputCurrent());
+		SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
+		SmartDashboard.putBoolean("Elevator Bottom Limit", isBottomSwitchTripped());
+		SmartDashboard.putBoolean("Power Pack Brake Enabled", !getBrake());
+		SmartDashboard.putBoolean("Power Pack Climber State", getTransmission());
 	}
 }
 

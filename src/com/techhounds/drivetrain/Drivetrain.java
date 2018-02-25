@@ -144,18 +144,18 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	public void updateDebugSD() {
 		SmartDashboard.putNumber("Drive Right Distance", getRightDistance());
 		SmartDashboard.putNumber("Drive Right Velocity", getRightVelocity());
-//		SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
+		SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
 		// FIXME: getStatus() is causing hangs!!
 //		SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
-//		SmartDashboard.putNumber("Drive Right Power", motorRightMain.getMotorOutputPercent());
-//		SmartDashboard.putNumber("Drive Right Current", motorRightMain.getOutputCurrent());
+		SmartDashboard.putNumber("Drive Right Power", motorRightMain.getMotorOutputPercent());
+		SmartDashboard.putNumber("Drive Right Current", motorRightMain.getOutputCurrent());
 		
 		SmartDashboard.putNumber("Drive Left Distance", getLeftDistance());
 		SmartDashboard.putNumber("Drive Left Velocity", getLeftVelocity());
-//		SmartDashboard.putNumber("Drive Left Profile Top Buffer", motorLeftMain.getMotionProfileTopLevelBufferCount());
+		SmartDashboard.putNumber("Drive Left Profile Top Buffer", motorLeftMain.getMotionProfileTopLevelBufferCount());
 //		SmartDashboard.putNumber("Drive Left Profile Bottom Buffer", getLeftProfileStatus().btmBufferCnt);
-//		SmartDashboard.putNumber("Drive Left Power", motorLeftMain.getMotorOutputPercent());
-//		SmartDashboard.putNumber("Drive Left Current", motorLeftMain.getOutputCurrent());
+		SmartDashboard.putNumber("Drive Left Power", motorLeftMain.getMotorOutputPercent());
+		SmartDashboard.putNumber("Drive Left Current", motorLeftMain.getOutputCurrent());
 	}
 }
 

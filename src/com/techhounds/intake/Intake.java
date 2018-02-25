@@ -65,12 +65,15 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void initDebugSD() {
-		// TODO Auto-generated method stub
-		
+		SmartDashboard.putData(this);
+		SmartDashboard.putData("Intake In", new SetIntakePower(1));
+		SmartDashboard.putData("Intake Out", new SetIntakePower(-1));
 	}
 
 	@Override
 	public void updateDebugSD() {
+		SmartDashboard.putNumber("Intake Power", intakeLeft.getMotorOutputPercent());
+		SmartDashboard.putNumber("Intake Current", intakeLeft.getOutputCurrent());
 		SmartDashboard.putNumber("IR Sensor", intakeLeft.getSensorCollection().getAnalogIn());
 	}
 }

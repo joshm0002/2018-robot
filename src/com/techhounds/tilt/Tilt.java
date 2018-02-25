@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
+import com.techhounds.tilt.SetTiltPosition.TiltPosition;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -70,23 +71,30 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	@Override
 	public void initSD() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void updateSD() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void initDebugSD() {
+		SmartDashboard.putData(this);
+		SmartDashboard.putData("Tilt Up", new SetTiltPosition(TiltPosition.UP));
+		SmartDashboard.putData("Tilt Middle", new SetTiltPosition(TiltPosition.MIDDLE));
+		SmartDashboard.putData("Tilt Down", new SetTiltPosition(TiltPosition.DOWN));
+		SmartDashboard.putData("Tilt Hold", new SetTiltHold());
 		
 	}
 
 	@Override
 	public void updateDebugSD() {
 		SmartDashboard.putNumber("Tilt Angle", tiltMotor.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Tilt Power", tiltMotor.getMotorOutputPercent());
+		SmartDashboard.putNumber("Tilt Error", tiltMotor.getClosedLoopError(0));
+		SmartDashboard.putNumber("Tilt Current", tiltMotor.getOutputCurrent());
+		
 	}
 	
 }

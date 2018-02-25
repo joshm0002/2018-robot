@@ -2,11 +2,12 @@ package com.techhounds.hook;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
-import com.techhounds.Dashboard.DashboardUpdatable;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -46,14 +47,12 @@ public class Hook extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void initDebugSD() {
-		// TODO Auto-generated method stub
-		
+		SmartDashboard.putData(this);
 	}
 
 	@Override
 	public void updateDebugSD() {
-		// TODO Auto-generated method stub
-		
+		SmartDashboard.putNumber("Hook Motor Power", hookMotor.getMotorOutputPercent());
 	}
 }
 

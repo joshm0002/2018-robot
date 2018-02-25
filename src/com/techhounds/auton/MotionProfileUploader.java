@@ -31,6 +31,7 @@ public class MotionProfileUploader implements Runnable {
 		talon.getMotionProfileStatus(status);
 		while (points.size() > 0 && status.topBufferRem > 0) {
 			talon.pushMotionProfileTrajectory(points.remove(0));
+			talon.getMotionProfileStatus(status);
 		}
 		
 		// TODO call this in loop while btmBufferCnt isn't at max (128)?

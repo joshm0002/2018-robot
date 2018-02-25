@@ -48,12 +48,12 @@ public enum MotionProfile {
 		
 		if (!points.rightPoints.isEmpty()) {
 			points.rightPoints.get(0).zeroPos = true;
-			points.rightPoints.get(0).isLastPoint = true;
+			points.rightPoints.get(points.rightPoints.size()-1).isLastPoint = true;
 		}
 		
 		if (!points.leftPoints.isEmpty()) {
 			points.leftPoints.get(0).zeroPos = true;
-			points.leftPoints.get(0).isLastPoint = true;
+			points.leftPoints.get(points.leftPoints.size()-1).isLastPoint = true;
 		}
 		
 		return points;

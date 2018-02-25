@@ -65,7 +65,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setSensorPhase(true); // TODO: why both here and in the constructor??
 		
-		talon.config_kP(0, 1, RobotUtilities.CONFIG_TIMEOUT); // FIXME: find values
+		talon.config_kP(0, 5, RobotUtilities.CONFIG_TIMEOUT); // FIXME: find values
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		
@@ -152,18 +152,24 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateDebugSD() {
+		getRightProfileStatus();
 		SmartDashboard.putNumber("Drive Right Distance", getRightDistance());
 		SmartDashboard.putNumber("Drive Right Velocity", getRightVelocity());
 		SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
+		SmartDashboard.putNumber("Drive Right Top Buf Rem", getRightProfileStatus().topBufferRem);
 		// FIXME: getStatus() is causing hangs!!
-//		SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
+		SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
 		SmartDashboard.putNumber("Drive Right Power", motorRightMain.getMotorOutputPercent());
 		SmartDashboard.putNumber("Drive Right Current", motorRightMain.getOutputCurrent());
+		SmartDashboard.putBoolean("Drive Right Active Point Valid", status.activePointValid);
+		SmartDashboard.putNumber("Drive Right Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
+		SmartDashboard.putBoolean("Drive Right Active Point is Last", status.isLast);
+		SmartDashboard.putBoolean("Drive Right Active Point is Underrrun", status.isUnderrun);
 		
 		SmartDashboard.putNumber("Drive Left Distance", getLeftDistance());
 		SmartDashboard.putNumber("Drive Left Velocity", getLeftVelocity());
 		SmartDashboard.putNumber("Drive Left Profile Top Buffer", motorLeftMain.getMotionProfileTopLevelBufferCount());
-//		SmartDashboard.putNumber("Drive Left Profile Bottom Buffer", getLeftProfileStatus().btmBufferCnt);
+		SmartDashboard.putNumber("Drive Left Profile Bottom Buffer", getLeftProfileStatus().btmBufferCnt);
 		SmartDashboard.putNumber("Drive Left Power", motorLeftMain.getMotorOutputPercent());
 		SmartDashboard.putNumber("Drive Left Current", motorLeftMain.getOutputCurrent());
 	}

@@ -63,7 +63,7 @@ public class ProfileRecorder extends Command {
     	double leftInitialCounts = 0;
 
 		@Override
-		public void run() {
+		public synchronized void run() {
 			double[] point = new double[4];
 			point[0] = Robot.drivetrain.getRightDistance() - rightInitialCounts;
 			point[1] = Robot.drivetrain.getRightVelocity();
@@ -77,7 +77,7 @@ public class ProfileRecorder extends Command {
 			leftInitialCounts = Robot.drivetrain.getLeftDistance();
 		}
 		
-		public void writeToFile(String filename) {
+		public synchronized void writeToFile(String filename) {
 			try {
 				BufferedWriter file = new BufferedWriter(new FileWriter(Constants.PROFILE_PATH + filename + ".csv"));
 				

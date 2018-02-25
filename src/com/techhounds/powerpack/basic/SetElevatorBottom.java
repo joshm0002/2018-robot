@@ -20,7 +20,7 @@ public class SetElevatorBottom extends Command {
     }
 
     protected boolean isFinished() {
-        return Robot.powerPack.isTopSwitchTripped();
+        return Robot.powerPack.isBottomSwitchTripped();
     }
 
     protected void end() {}

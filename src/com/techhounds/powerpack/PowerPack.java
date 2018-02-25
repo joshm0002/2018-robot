@@ -74,28 +74,28 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	public void setElevatorPower(double power) {
 		brake.set(true);
 		transmission.set(false);
-		winchPrimary.overrideLimitSwitchesEnable(false);
+		winchPrimary.overrideLimitSwitchesEnable(true);
 		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 	}
 	
 	public void setElevatorPosition(double position) {
 		brake.set(true);
 		transmission.set(false);
-		winchPrimary.overrideLimitSwitchesEnable(false);
+		winchPrimary.overrideLimitSwitchesEnable(true);
 		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
 	}
 	
 	public void setClimberPower(double power) {
 		brake.set(true);
 		transmission.set(true);
-		winchPrimary.overrideLimitSwitchesEnable(true);
+		winchPrimary.overrideLimitSwitchesEnable(false);
 		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 	}
 	
 	public void setClimberPosition(double position) {
 		brake.set(true);
 		transmission.set(true);
-		winchPrimary.overrideLimitSwitchesEnable(true);
+		winchPrimary.overrideLimitSwitchesEnable(false);
 		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
 	}
 	
@@ -104,11 +104,11 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		brake.set(false);
 	}
 	
-	public boolean isTopSwitchTripped() {
+	public boolean isBottomSwitchTripped() {
 		return winchPrimary.getSensorCollection().isFwdLimitSwitchClosed();
 	}
 	
-	public boolean isBottomSwitchTripped() {
+	public boolean isTopSwitchTripped() {
 		return winchPrimary.getSensorCollection().isRevLimitSwitchClosed();
 	}
 
@@ -123,8 +123,12 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	/**
 	 * @return whether the climber is enabled
 	 */
-	public boolean getTransmission() {
+	public boolean isClimber() {
 		return transmission.get();
+	}
+	
+	public boolean isElevator() {
+		return !isClimber();
 	}
 
 	public boolean getBrake() {
@@ -171,10 +175,10 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 //		SmartDashboard.putNumber("Power Pack Velocity", winchPrimary.getSelectedSensorVelocity(0));
 		SmartDashboard.putNumber("Power Pack Power", winchPrimary.getMotorOutputPercent());
 		SmartDashboard.putNumber("Power Pack Current", winchPrimary.getOutputCurrent());
-		SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
 		SmartDashboard.putBoolean("Elevator Bottom Limit", isBottomSwitchTripped());
+		SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
 		SmartDashboard.putBoolean("Power Pack Brake Enabled", !getBrake());
-		SmartDashboard.putBoolean("Power Pack Climber State", getTransmission());
+		SmartDashboard.putBoolean("Power Pack Climber State", isClimber());
 	}
 }
 

@@ -20,11 +20,11 @@ public class SetElevatorMiddle extends Command {
 
     protected void initialize() {
     	timer.start();
-    	if (Robot.powerPack.isBottomSwitchTripped()) {
+    	if (Robot.powerPack.isTopSwitchTripped()) {
     		power = 0.5;
     		time = 0.3;
     		
-    	} else if (Robot.powerPack.isTopSwitchTripped()) {
+    	} else if (Robot.powerPack.isBottomSwitchTripped()) {
     		power = 0.1;
     		time = 0.3;
     	}

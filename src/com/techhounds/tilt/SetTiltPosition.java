@@ -34,8 +34,7 @@ public class SetTiltPosition extends Command {
 
     protected void initialize() {}
 
-    // TODO: scale based on position - ie if going up, we can
-    // slow down as we near our setpoint
+    // TODO: do proportional on all of them
     protected void execute() {
     	double position = Robot.tilt.getPosition();
     	double error = setpoint - position;
@@ -44,11 +43,13 @@ public class SetTiltPosition extends Command {
     		if (error > 15) { // need to move up
     			Robot.tilt.setPower(0.65);
     		} else if (error < -15) { //need to go down
-    			Robot.tilt.setPower(-0.1);
+    			Robot.tilt.setPower(-0.2);
     		}
     	} else { //going down
     		if (error < -15) { //need to go down
-    			Robot.tilt.setPower(-0.15);
+    			double proportion = (position - TiltPosition.DOWN.setpoint) / (TiltPosition.UP.setpoint - TiltPosition.DOWN.setpoint);
+    			double power = -0.15 - (proportion * 0.3);
+    			Robot.tilt.setPower(power);
     		}
     	}
     }

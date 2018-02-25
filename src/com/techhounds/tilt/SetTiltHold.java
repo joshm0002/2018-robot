@@ -17,7 +17,7 @@ public class SetTiltHold extends Command {
 
     protected void execute() {
     	if (Robot.tilt.getPosition() > -550) {
-    		Robot.tilt.setPower(0.15);
+    		Robot.tilt.setPower(0.18);
     	} else {
     		Robot.tilt.setPower(0);
     	}

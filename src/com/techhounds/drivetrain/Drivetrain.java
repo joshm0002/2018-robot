@@ -1,5 +1,7 @@
 package com.techhounds.drivetrain;
 
+import java.util.ArrayList;
+
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -9,7 +11,7 @@ import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
 import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.auton.MotionProfileUploader;
-import com.techhounds.auton.TrajectoryPointPair;
+import com.techhounds.auton.TrajectoryPointSequence;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -93,9 +95,9 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
     	return status;
     }
     
-    public void pushPoint(TrajectoryPointPair point) {
-    	motorRightMain.pushMotionProfileTrajectory(point.right);
-    	motorLeftMain.pushMotionProfileTrajectory(point.left);
+    public void uploadMotionProfile(TrajectoryPointSequence points) {
+    	rightUploader.setPoints(points.rightPoints);
+    	leftUploader.setPoints(points.leftPoints);
     }
     
     public double getLeftDistance() {
@@ -114,7 +116,12 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
     	return motorRightMain.getSelectedSensorVelocity(0);
     }
     
+    /**
+     * TODO: would it be easier to do this in the Uploader thread?
+     */
     public void resetProfile() {
+    	rightUploader.setPoints(new ArrayList<>());
+    	leftUploader.setPoints(new ArrayList<>());
     	motorRightMain.clearMotionProfileTrajectories();
     	motorLeftMain.clearMotionProfileTrajectories();
     	if(getRightProfileStatus().hasUnderrun) {

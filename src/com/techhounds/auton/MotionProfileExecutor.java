@@ -23,22 +23,19 @@ public class MotionProfileExecutor extends Command {
     	Robot.drivetrain.resetProfile();
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Disable);
     	
-    	// TODO: will this hang us too much?
-    	for(TrajectoryPointPair point : profile.getPoints()) {
-    		Robot.drivetrain.pushPoint(point);
-    	}
+    	Robot.drivetrain.uploadMotionProfile(profile.getPoints());
     	
     	System.out.println("Starting Profile: " + profile.toString());
     }
 
     protected void execute() {
+    	// TODO: add Drivetrain.isProfileReady method for this?
     	if (Robot.drivetrain.getLeftProfileStatus().btmBufferCnt < 10 ||
     	    Robot.drivetrain.getLeftProfileStatus().isUnderrun ||
     	    Robot.drivetrain.getRightProfileStatus().btmBufferCnt < 10 ||
     	    Robot.drivetrain.getRightProfileStatus().isUnderrun) {
     		return;
     	}
-    	//if(getStatus().isUnderrun) return;
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Enable);
     }
 

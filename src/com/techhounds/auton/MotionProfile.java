@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
@@ -47,8 +45,8 @@ public enum MotionProfile {
 		this.filename = filename;
 	}
 	
-	public List<TrajectoryPointPair> getPoints() {
-		List<TrajectoryPointPair> points = new ArrayList<>();
+	public TrajectoryPointSequence getPoints() {
+		TrajectoryPointSequence points = new TrajectoryPointSequence();
 
 		try {
 
@@ -62,9 +60,8 @@ public enum MotionProfile {
 				
 				TrajectoryPoint right = makeTrajectoryPoint(Double.parseDouble(fields[0]), Double.parseDouble(fields[1]));
 				TrajectoryPoint left = makeTrajectoryPoint(Double.parseDouble(fields[2]), Double.parseDouble(fields[3]));
-				TrajectoryPointPair point = new TrajectoryPointPair(right, left);
 				
-				points.add(point);
+				points.addPointPair(left, right);
 			}		
 			
 			file.close();
@@ -72,12 +69,14 @@ public enum MotionProfile {
 			System.err.println("Failed to Load Profile at: " + filename);
 		}
 		
-		if (!points.isEmpty()) {
-			points.get(0).right.zeroPos = true;
-			points.get(0).left.zeroPos = true;
-			
-			points.get(points.size() - 1).right.isLastPoint = true;
-			points.get(points.size() - 1).left.isLastPoint = true;
+		if (!points.rightPoints.isEmpty()) {
+			points.rightPoints.get(0).zeroPos = true;
+			points.rightPoints.get(0).isLastPoint = true;
+		}
+		
+		if (!points.leftPoints.isEmpty()) {
+			points.leftPoints.get(0).zeroPos = true;
+			points.leftPoints.get(0).isLastPoint = true;
 		}
 		
 		return points;

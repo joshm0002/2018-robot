@@ -40,11 +40,11 @@ public class RobotUtilities {
 		// OUTPUTS
 		talon.setInverted(false);
 		talon.setNeutralMode(NeutralMode.Coast);
-		talon.configPeakOutputForward(100, CONFIG_TIMEOUT);
-		talon.configPeakOutputReverse(-100, CONFIG_TIMEOUT);
-//		talon.configNeutralDeadband(0, CONFIG_TIMEOUT); // -1 to 1
-//		talon.configNominalOutputForward(100, CONFIG_TIMEOUT);
-//		talon.configNominalOutputReverse(-100, CONFIG_TIMEOUT);
+		talon.configPeakOutputForward(1, CONFIG_TIMEOUT);
+		talon.configPeakOutputReverse(-1, CONFIG_TIMEOUT);
+		talon.configNeutralDeadband(0.05, CONFIG_TIMEOUT);
+		talon.configNominalOutputForward(0, CONFIG_TIMEOUT);
+		talon.configNominalOutputReverse(0, CONFIG_TIMEOUT);
 		
 		// POWER CONTROL
 		talon.enableCurrentLimit(false);

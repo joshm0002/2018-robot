@@ -41,8 +41,8 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 		// forward is down, backwards is up
 		talon.setSensorPhase(true);
 		
-		talon.configPeakOutputForward(0.5, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configPeakOutputReverse(0.5, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configPeakOutputForward(0.5, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configPeakOutputReverse(0.5, RobotUtilities.CONFIG_TIMEOUT);
 		// TODO nominal limits
 		
 		talon.config_kP(0, P, RobotUtilities.CONFIG_TIMEOUT);
@@ -60,7 +60,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	}
 	
 	public double getPosition() {
-		return tiltMotor.getSensorCollection().getAnalogIn();
+		return tiltMotor.getSelectedSensorPosition(0);
 	}
 
 	@Override

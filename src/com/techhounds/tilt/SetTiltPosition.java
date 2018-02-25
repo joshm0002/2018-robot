@@ -1,25 +1,19 @@
 package com.techhounds.tilt;
+
 import com.techhounds.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-
 /**
- * TODO: when we set it to UP, we'll want to maintain the
- * position (in case we get bumped and the arms get knocked
- * down) When we set it to DOWN, once we get near our setpoint we
- * want to cut power, so that our motors aren't stalling and
- * the arms are resting on the hard stops.
+ * Range: -610, -490, -400
+ * TODO: use RobotPreferences for range values
  */
 public class SetTiltPosition extends Command {
-	
-	/**
-	 * FIXME find the actual setpoint values
-	 */
+
     public enum TiltPosition {
-    	UP(-375),
-    	MIDDLE(-500),
-    	DOWN(-625);
+    	UP(-400),
+    	MIDDLE(-490),
+    	DOWN(-610);
 
     	public final double setpoint;
     	TiltPosition(double setpoint) {
@@ -27,28 +21,40 @@ public class SetTiltPosition extends Command {
     	}
     }
 	
-	private final double setpoint;
-	
-    public SetTiltPosition(TiltPosition tilt) {
-    	this(tilt.setpoint);
+    private double setpoint;
+    
+    public SetTiltPosition(TiltPosition position) {
+    	this(position.setpoint);
     }
 
-    public SetTiltPosition(double setpoint) {
-        requires(Robot.tilt);
+	public SetTiltPosition(double setpoint) {
     	this.setpoint = setpoint;
+    	requires(Robot.tilt);
     }
 
-    protected void initialize() {
-    	Robot.tilt.setPosition(setpoint);
+    protected void initialize() {}
+
+    // TODO: scale based on position - ie if going up, we can
+    // slow down as we near our setpoint
+    protected void execute() {
+    	double position = Robot.tilt.getPosition();
+    	double error = setpoint - position;
+    	
+    	if (setpoint > -550) { // going up
+    		if (error > 15) { // need to move up
+    			Robot.tilt.setPower(0.65);
+    		} else if (error < -15) { //need to go down
+    			Robot.tilt.setPower(-0.1);
+    		}
+    	} else { //going down
+    		if (error < -15) { //need to go down
+    			Robot.tilt.setPower(-0.15);
+    		}
+    	}
     }
 
-    protected void execute() {}
-
-    /**
-     * TODO: finish when we're on-target?
-     */
     protected boolean isFinished() {
-        return false;
+        return Math.abs(Robot.tilt.getPosition() - setpoint) < 15;
     }
 
     protected void end() {}

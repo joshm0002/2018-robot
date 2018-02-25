@@ -7,21 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SetTiltHold extends Command {
+public class SetTiltHoldPID extends Command {
 
-    public SetTiltHold() {
+    public SetTiltHoldPID() {
     	requires(Robot.tilt);
     }
 
-    protected void initialize() {}
-
-    protected void execute() {
-    	if (Robot.tilt.getPosition() > -550) {
-    		Robot.tilt.setPower(0.15);
-    	} else {
-    		Robot.tilt.setPower(0);
-    	}
+    protected void initialize() {
+    	Robot.tilt.setPosition(Robot.tilt.getPosition());
     }
+
+    protected void execute() {}
 
     protected boolean isFinished() {
         return false;

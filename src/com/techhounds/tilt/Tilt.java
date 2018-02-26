@@ -16,9 +16,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Tilt extends Subsystem implements DashboardUpdatable {
 	
 	// FIXME: non-cont. values
-	public static final double POS_UP = 650;
-	public static final double POS_MID = 510;
-	public static final double POS_DOWN = 400;
+	public static final double POS_UP = 650; //658
+	public static final double POS_MID = 525; //551 is max
+	public static final double POS_DOWN = 415; //413
 	public static final double POS_RANGE = POS_UP - POS_DOWN;
 	
 	private WPI_TalonSRX tiltMotor;
@@ -57,7 +57,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	}
 	
 	public double getPosition() {
-		return tiltMotor.getSelectedSensorPosition(0);
+		return Math.floorMod(tiltMotor.getSelectedSensorPosition(0), 1023);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateDebugSD() {
-		SmartDashboard.putNumber("Tilt Angle", tiltMotor.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Tilt Angle", getPosition());
 		SmartDashboard.putNumber("Tilt Power", tiltMotor.getMotorOutputPercent());
 		SmartDashboard.putNumber("Tilt Error", tiltMotor.getClosedLoopError(0));
 		SmartDashboard.putNumber("Tilt Current", tiltMotor.getOutputCurrent());

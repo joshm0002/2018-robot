@@ -12,4 +12,6 @@ public class Constants {
 	
 	public static final String PROFILE_PATH = "/home/lvuser/";
 
+	public static final double IR_THRESHOLD = 400;
+
 }

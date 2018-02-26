@@ -2,9 +2,10 @@ package com.techhounds.intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.techhounds.Constants;
+import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
-import com.techhounds.Dashboard.DashboardUpdatable;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,6 +46,10 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	 */
 	public double getIRSensor() {
 		return intakeLeft.getSensorCollection().getAnalogIn();
+	}
+	
+	public boolean isCubeDetected() {
+		return getIRSensor() > Constants.IR_THRESHOLD;
 	}
 
     public void initDefaultCommand() {

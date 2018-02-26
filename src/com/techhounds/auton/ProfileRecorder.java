@@ -65,16 +65,16 @@ public class ProfileRecorder extends Command {
 		@Override
 		public synchronized void run() {
 			double[] point = new double[4];
-			point[0] = Robot.drivetrain.getRightDistance() - rightInitialCounts;
-			point[1] = Robot.drivetrain.getRightVelocity();
-			point[2] = Robot.drivetrain.getLeftDistance() - leftInitialCounts;
-			point[3] = Robot.drivetrain.getLeftVelocity();
+			point[0] = Robot.drivetrain.getRawRightDistance() - rightInitialCounts;
+			point[1] = Robot.drivetrain.getRawRightVelocity();
+			point[2] = Robot.drivetrain.getRawLeftDistance() - leftInitialCounts;
+			point[3] = Robot.drivetrain.getRawLeftVelocity();
 			data.add(point);
 		}
 		
 		public void saveInitialCounts() {
-			rightInitialCounts = Robot.drivetrain.getRightDistance();
-			leftInitialCounts = Robot.drivetrain.getLeftDistance();
+			rightInitialCounts = Robot.drivetrain.getRawRightDistance();
+			leftInitialCounts = Robot.drivetrain.getRawLeftDistance();
 		}
 		
 		public synchronized void writeToFile(String filename) {

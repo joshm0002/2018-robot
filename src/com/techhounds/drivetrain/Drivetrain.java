@@ -31,6 +31,9 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	public final MotionProfileUploader leftUploader;
 	
 	private MotionProfileStatus status;
+	
+	// TODO move to Constants.java
+	public static final double COUNTS_PER_INCH = 4096 / Math.PI * 6; // TODO: find experimentally
 		
 	public Drivetrain() {
 		
@@ -100,20 +103,28 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
     	leftUploader.setPoints(points.leftPoints);
     }
     
-    public double getLeftDistance() {
+    public double getRawLeftDistance() {
     	return motorLeftMain.getSelectedSensorPosition(0);
     }
     
-    public double getLeftVelocity() {
+    public double getRawLeftVelocity() {
     	return motorLeftMain.getSelectedSensorVelocity(0);
     }
     
-    public double getRightDistance() {
+    public double getRawRightDistance() {
     	return motorRightMain.getSelectedSensorPosition(0);
     }
     
-    public double getRightVelocity() {
+    public double getRawRightVelocity() {
     	return motorRightMain.getSelectedSensorVelocity(0);
+    }
+    
+    public double getRawAverageDistance() {
+    	return (getRawRightDistance() + getRawLeftDistance()) / 2;
+    }
+    
+    public double getScaledAverageDistance() {
+    	return getRawAverageDistance() / COUNTS_PER_INCH;
     }
     
     /**
@@ -131,6 +142,12 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
     	if (getLeftProfileStatus().hasUnderrun) {
     		motorLeftMain.clearMotionProfileHasUnderrun(0);
     	}
+    }
+    
+    public void zeroEncoders() {
+		motorRightMain.setSelectedSensorPosition(0, 0, 0);
+		motorLeftMain.setSelectedSensorPosition(0, 0, 0);
+
     }
 
     public void initDefaultCommand() {
@@ -153,8 +170,8 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	@Override
 	public void updateDebugSD() {
 		getRightProfileStatus();
-		SmartDashboard.putNumber("Drive Right Distance", getRightDistance());
-		SmartDashboard.putNumber("Drive Right Velocity", getRightVelocity());
+		SmartDashboard.putNumber("Drive Right Distance", getRawRightDistance());
+		SmartDashboard.putNumber("Drive Right Velocity", getRawRightVelocity());
 		SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
 		SmartDashboard.putNumber("Drive Right Top Buf Rem", getRightProfileStatus().topBufferRem);
 		// FIXME: getStatus() is causing hangs!!
@@ -166,8 +183,8 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putBoolean("Drive Right Active Point is Last", status.isLast);
 		SmartDashboard.putBoolean("Drive Right Active Point is Underrrun", status.isUnderrun);
 		
-		SmartDashboard.putNumber("Drive Left Distance", getLeftDistance());
-		SmartDashboard.putNumber("Drive Left Velocity", getLeftVelocity());
+		SmartDashboard.putNumber("Drive Left Distance", getRawLeftDistance());
+		SmartDashboard.putNumber("Drive Left Velocity", getRawLeftVelocity());
 		SmartDashboard.putNumber("Drive Left Profile Top Buffer", motorLeftMain.getMotionProfileTopLevelBufferCount());
 		SmartDashboard.putNumber("Drive Left Profile Bottom Buffer", getLeftProfileStatus().btmBufferCnt);
 		SmartDashboard.putNumber("Drive Left Power", motorLeftMain.getMotorOutputPercent());

@@ -1,36 +1,40 @@
 package com.techhounds.auton.paths;
 
-import edu.wpi.first.wpilibj.command.Command;
+import com.techhounds.Robot;
+
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
- *
+ * TODO: add TalonPID-based distance command
  */
-public class DriveDistance extends Command {
+public class DriveDistance extends TimedCommand {
+	
+	private final double inches;
 
-    public DriveDistance() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public DriveDistance(double inches, double timeout) {
+    	super(timeout);
+    	requires(Robot.drivetrain);
+    	this.inches = inches;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.drivetrain.zeroEncoders();
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    // TODO: use Constants for max/min
     protected void execute() {
+    	Robot.drivetrain.setPower(0.4, 0.4);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.drivetrain.getScaledAverageDistance() > inches;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
+    	Robot.drivetrain.setPower(0, 0);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

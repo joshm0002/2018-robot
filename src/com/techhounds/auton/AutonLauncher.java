@@ -1,5 +1,8 @@
 package com.techhounds.auton;
 
+import com.techhounds.auton.paths.DriveDistance;
+import com.techhounds.auton.paths.StraightSwitch;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -39,14 +42,30 @@ public class AutonLauncher {
 	}
 	
 	public static void runBaseline() {
-		
+		new DriveDistance(150, 3).start();
 	}
 	
 	public static void runStraightSwitch(FieldState field) {
 		if (field.getRobotPosition() == field.getSwitchPosition()) {
-			
+			new StraightSwitch().start();
 		} else {
 			runBaseline();
 		}
+	}
+	
+	public static void runSwitch(FieldState field) {
+		
+	}
+	
+	public static void runScale(FieldState field) {
+		
+	}
+	
+	public static void runSwitchOrScale(FieldState field) {
+		
+	}
+	
+	public static void runScaleOrSwitch(FieldState field) {
+		
 	}
 }

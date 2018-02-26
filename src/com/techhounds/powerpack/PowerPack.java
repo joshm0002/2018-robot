@@ -1,5 +1,6 @@
 package com.techhounds.powerpack;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -51,7 +52,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	/**
 	 */
 	private void configure(WPI_TalonSRX talon) {
-//		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 
 //		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
 //		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);
@@ -171,8 +172,8 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateDebugSD() {
-//		SmartDashboard.putNumber("Power Pack Position", winchPrimary.getSelectedSensorPosition(0));
-//		SmartDashboard.putNumber("Power Pack Velocity", winchPrimary.getSelectedSensorVelocity(0));
+		SmartDashboard.putNumber("Power Pack Position", winchPrimary.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Power Pack Velocity", winchPrimary.getSelectedSensorVelocity(0));
 		SmartDashboard.putNumber("Power Pack Power", winchPrimary.getMotorOutputPercent());
 		SmartDashboard.putNumber("Power Pack Current", winchPrimary.getOutputCurrent());
 		SmartDashboard.putBoolean("Elevator Bottom Limit", isBottomSwitchTripped());

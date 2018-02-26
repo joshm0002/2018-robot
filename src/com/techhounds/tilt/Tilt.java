@@ -1,5 +1,6 @@
 package com.techhounds.tilt;
 
+import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -14,8 +15,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Tilt extends Subsystem implements DashboardUpdatable {
 	
-	private WPI_TalonSRX tiltMotor;
+	// FIXME: non-cont. values
+	public static final double POS_UP = 650;
+	public static final double POS_MID = 510;
+	public static final double POS_DOWN = 400;
+	public static final double POS_RANGE = POS_UP - POS_DOWN;
 	
+	private WPI_TalonSRX tiltMotor;
+
 	public Tilt() {
 		tiltMotor = RobotUtilities.getTalonSRX(RobotMap.TILT);
 		configure(tiltMotor);
@@ -38,14 +45,11 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 		
 		// forward is down, backwards is up
 		talon.setSensorPhase(true);
+		talon.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
 		
 //		talon.configPeakOutputForward(0.5, RobotUtilities.CONFIG_TIMEOUT);
 //		talon.configPeakOutputReverse(0.5, RobotUtilities.CONFIG_TIMEOUT);
 		// TODO nominal limits
-	}
-
-	public void setPosition(double position) {
-		tiltMotor.set(ControlMode.Position, position);
 	}
 	
 	public void setPower(double power) {
@@ -58,7 +62,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new SetTiltHold());
+		setDefaultCommand(new SetTiltPosition(TiltPosition.DOWN));
 	}
 
 	@Override
@@ -72,9 +76,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putData(this);
 		SmartDashboard.putData("Tilt Up", new SetTiltPosition(TiltPosition.UP));
 		SmartDashboard.putData("Tilt Middle", new SetTiltPosition(TiltPosition.MIDDLE));
-		SmartDashboard.putData("Tilt Down", new SetTiltPosition(TiltPosition.DOWN));
-		SmartDashboard.putData("Tilt Hold", new SetTiltHold());
-		
+		SmartDashboard.putData("Tilt Down", new SetTiltPosition(TiltPosition.DOWN));		
 	}
 
 	@Override
@@ -83,7 +85,5 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putNumber("Tilt Power", tiltMotor.getMotorOutputPercent());
 		SmartDashboard.putNumber("Tilt Error", tiltMotor.getClosedLoopError(0));
 		SmartDashboard.putNumber("Tilt Current", tiltMotor.getOutputCurrent());
-		
 	}
-	
 }

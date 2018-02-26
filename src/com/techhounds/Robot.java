@@ -8,6 +8,7 @@
 package com.techhounds;
 
 import com.techhounds.arm.Arm;
+import com.techhounds.auton.AutonLauncher;
 import com.techhounds.auton.FieldState;
 import com.techhounds.auton.MotionProfile;
 import com.techhounds.auton.MotionProfileExecutor;
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		Dashboard.initDashboard();
+		AutonLauncher.addChoices();
 		OI.setupDriver();
 		OI.setupOperator();
 		System.out.println("Robot Initialized!");
@@ -89,7 +91,8 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		Scheduler.getInstance().removeAll();
 		field.pollData();
-//		AutonLauncher.runAuton();
+//		AutonLauncher.runAuton(field);
+		
 		// FIXME temporary for testing
 		new MotionProfileExecutor(MotionProfile.Test).start();
 	}

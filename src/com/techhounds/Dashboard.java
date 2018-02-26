@@ -31,6 +31,7 @@ public class Dashboard {
 		subsystems.add(Robot.transmission);
 		subsystems.add(Robot.tilt);
 		subsystems.add(Robot.hook);
+		subsystems.add(Robot.field);
 		
 		for (DashboardUpdatable subsystem : subsystems) {
 			subsystem.initSD();

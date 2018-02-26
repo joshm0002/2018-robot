@@ -1,10 +1,10 @@
 
 package com.techhounds.auton;
 
+import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.gyro.Gyroscope;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -35,7 +35,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * FIXME: Since this is never require()'d by commands, and doesn't do anything like
  * initDefaultCommand, it doesn't really need to extend Subsystem.
  */
-public class FieldSetup extends Subsystem {
+public class FieldState implements DashboardUpdatable {
 
 	/**
 	 * Possible starting positions for robots and side of field for switch/scale.
@@ -66,60 +66,32 @@ public class FieldSetup extends Subsystem {
 	}
 
 	/**
-	 * Set to true to see diagnostic information on SmartDashboard.
-	 */
-	private static final boolean DEBUG = true;
-
-	/**
 	 * Allows user to specify starting position of robot.
 	 */
-	private final SendableChooser<Position> robotPositionChooser;
+	private final SendableChooser<Position> robotPositionChooser = new SendableChooser<>();
 
 	/**
 	 * Will be true once we know the field setup state.
 	 */
-	private boolean stateKnown;
+	private boolean stateKnown = false;;
 
 	/**
 	 * Position of our side of the switch (Unknown, Left or Right).
 	 */
-	private Position switchPos;
+	private Position switchPos = Position.Unknown;
 
 	/**
 	 * Position of our side of the scale (Unknown, Left or Right).
 	 */
-	private Position scalePos;
+	private Position scalePos = Position.Unknown;
 
 	/**
 	 * Position of the robot (where the drive team told us they placed it).
 	 */
-	private Position robotStartPos;
-	
+	private Position robotStartPos = Position.Unknown;
 	
 	// distance from center line
-	private double DFCL;
-
-	/**
-	 * Constructs a new instance in an unknown state - until the {@link #update()}
-	 * method is invoked by disabledPeriodic().
-	 */
-	public FieldSetup() {
-		super("FieldSetup");
-
-		// We don't know the state of the field set up until
-		// until update() is called and completes successfully
-		stateKnown = false;
-
-		// Setup SmartDashboard widget user interacts with to indicate where
-		// the heck they placed the robot
-		robotPositionChooser = new SendableChooser<>();
-		robotPositionChooser.addDefault("Unknown", Position.Unknown);
-		robotPositionChooser.addObject("Left", Position.Left);
-		robotPositionChooser.addObject("Middle", Position.Middle);
-		robotPositionChooser.addObject("Right", Position.Right);
-		SmartDashboard.putData(robotPositionChooser);
-		SmartDashboard.putNumber("Distance From Center Line (- is from left wall, + is from right wall)", 0.0);
-	}
+	private double DFCL = 0;;
 
 	/**
 	 * Indicates whether we know the field setup state yet.
@@ -223,16 +195,11 @@ public class FieldSetup extends Subsystem {
 		return DFCL;
 	}
 
-	@Override
-	protected void initDefaultCommand() {
-
-	}
-
 	/**
 	 * Updates the internal state based on current information from the
 	 * SmartDashboard and DriverStation.
 	 */
-	public void update() {
+	public void pollData() {
 		// Will be something like "LLL", "LRL", "RRR", etc where
 		// first character is our switch ("L" if on left, "R" if on right)
 		// second character is scale ("L" if on left, "R" if on right)
@@ -260,14 +227,34 @@ public class FieldSetup extends Subsystem {
 		} else {
 			stateKnown = true;
 		}
-		// If debug output enabled, then show post information about the field setup
+	}
+
+	@Override
+	public void initSD() {
+		// Setup SmartDashboard widget user interacts with to indicate where
+		// the heck they placed the robot
+		robotPositionChooser.addDefault("Unknown", Position.Unknown);
+		robotPositionChooser.addObject("Left", Position.Left);
+		robotPositionChooser.addObject("Middle", Position.Middle);
+		robotPositionChooser.addObject("Right", Position.Right);
+		SmartDashboard.putData(robotPositionChooser);
+		SmartDashboard.putNumber("Distance From Center Line (- is from left wall, + is from right wall)", 0.0);
+	}
+
+	@Override
+	public void updateSD() {
 		SmartDashboard.putBoolean("Field State", isStateKnown());
-		if (DEBUG) {
-			SmartDashboard.putString("Switch Side", getSwitchPosition().name());
-			SmartDashboard.putString("Scale Side", getScalePosition().name());
-			SmartDashboard.putBoolean("Switch ahead", isSwitchStraightAhead());
-			SmartDashboard.putBoolean("Scale ahead", isScaleStraightAhead());
-			SmartDashboard.putNumber("debug: DFW", getCenterPosition());
-		}
+	}
+
+	@Override
+	public void initDebugSD() {}
+
+	@Override
+	public void updateDebugSD() {
+		SmartDashboard.putString("Switch Side", getSwitchPosition().name());
+		SmartDashboard.putString("Scale Side", getScalePosition().name());
+		SmartDashboard.putBoolean("Switch ahead", isSwitchStraightAhead());
+		SmartDashboard.putBoolean("Scale ahead", isScaleStraightAhead());
+		SmartDashboard.putNumber("debug: DFW", getCenterPosition());
 	}
 }

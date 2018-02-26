@@ -8,7 +8,7 @@
 package com.techhounds;
 
 import com.techhounds.arm.Arm;
-import com.techhounds.auton.AutonLauncher;
+import com.techhounds.auton.FieldState;
 import com.techhounds.auton.MotionProfile;
 import com.techhounds.auton.MotionProfileExecutor;
 import com.techhounds.drivetrain.Drivetrain;
@@ -44,6 +44,7 @@ public class Robot extends TimedRobot {
 	public static final Hook hook = new Hook();
 	public static final PullVision vision = new PullVision();
 	public static final Compressor compressor = new Compressor();
+	public static final FieldState field = new FieldState();
 			
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -51,7 +52,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		AutonLauncher.addAutonChoices();
 		Dashboard.initDashboard();
 		OI.setupDriver();
 		OI.setupOperator();
@@ -88,6 +88,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Scheduler.getInstance().removeAll();
+		field.pollData();
 //		AutonLauncher.runAuton();
 		// FIXME temporary for testing
 		new MotionProfileExecutor(MotionProfile.Test).start();

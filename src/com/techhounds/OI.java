@@ -15,6 +15,7 @@ import com.techhounds.drivetrain.ToggleTransmission;
 import com.techhounds.hook.GamepadHookControl;
 import com.techhounds.intake.GamepadIntakeControl;
 import com.techhounds.oi.CubeDetectedTrigger;
+import com.techhounds.oi.MatchTimeTrigger;
 import com.techhounds.oi.RumbleDriver;
 import com.techhounds.powerpack.GamepadClimberControl;
 import com.techhounds.powerpack.GamepadElevatorControl;
@@ -74,6 +75,9 @@ public class OI {
 		cubeRumble.whenActive(new RumbleDriver(1));
 		// alternatively, rumble constantly while cube is in
 		//cubeRumble.whileActive(new RumbleDriver());
+		
+		Trigger timeRumble = new MatchTimeTrigger(75); //aka 60 seconds remaining
+		timeRumble.whenActive(new RumbleDriver(2));
 	}
 
 	/**

@@ -3,6 +3,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.RobotMap;
@@ -46,13 +47,14 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		winchQuaternary.follow(winchPrimary);
 
 		configure(winchPrimary);
-		
 	}
 
 	/**
 	 */
 	private void configure(WPI_TalonSRX talon) {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
+		
+		talon.setNeutralMode(NeutralMode.Brake);
 
 //		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
 //		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);

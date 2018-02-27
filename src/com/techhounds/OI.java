@@ -14,6 +14,8 @@ import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.ToggleTransmission;
 import com.techhounds.hook.GamepadHookControl;
 import com.techhounds.intake.GamepadIntakeControl;
+import com.techhounds.oi.RumbleDriver;
+import com.techhounds.oi.RumbleWithCube;
 import com.techhounds.powerpack.GamepadClimberControl;
 import com.techhounds.powerpack.GamepadElevatorControl;
 import com.techhounds.powerpack.SetElevatorPosition;
@@ -22,9 +24,11 @@ import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.SetTiltPosition.TiltPosition;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -64,6 +68,12 @@ public class OI {
 		
 		Button select = new JoystickButton(driver, 7);
 		select.whenPressed(new FlipDriveDirection());
+
+		Trigger cubeRumble = new RumbleWithCube();
+		// rumble when we first get a cube
+		cubeRumble.whenActive(new RumbleDriver(1));
+		// alternatively, rumble constantly while cube is in
+		//cubeRumble.whileActive(new RumbleDriver());
 	}
 
 	/**
@@ -130,5 +140,15 @@ public class OI {
 				return controller.getPOV() == angle;
 			}
 		};
+	}
+	
+	public static void rumbleDriver(boolean rumble) {
+		if (rumble) {
+			driver.setRumble(RumbleType.kLeftRumble, 1);
+			driver.setRumble(RumbleType.kRightRumble, 1);
+		} else {
+			driver.setRumble(RumbleType.kLeftRumble, 0);
+			driver.setRumble(RumbleType.kRightRumble, 0);
+		}
 	}
 }

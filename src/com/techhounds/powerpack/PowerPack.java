@@ -74,38 +74,56 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		talon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
 	}
 	
+	// ========== SETTERS ==========
+	
 	public void setElevatorPower(double power) {
-		brake.set(true);
-		transmission.set(false);
-		winchPrimary.overrideLimitSwitchesEnable(true);
-		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
+		setElevator();
+		setPower(power);
 	}
 	
 	public void setElevatorPosition(double position) {
-		brake.set(true);
-		transmission.set(false);
-		winchPrimary.overrideLimitSwitchesEnable(true);
-		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
+		setElevator();
+		setPosition(position);
 	}
 	
 	public void setClimberPower(double power) {
-		brake.set(true);
-		transmission.set(true);
-		winchPrimary.overrideLimitSwitchesEnable(false);
-		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
+		setClimber();
+		setPower(power);
 	}
 	
 	public void setClimberPosition(double position) {
-		brake.set(true);
-		transmission.set(true);
-		winchPrimary.overrideLimitSwitchesEnable(false);
-		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
+		setClimber();
+		setPosition(position);
 	}
 	
 	public void setBrake() {
 		winchPrimary.set(ControlMode.Disabled, 0);
 		brake.set(false);
 	}
+	
+	private void setElevator() {
+		brake.set(true);
+		transmission.set(false);
+		winchPrimary.overrideLimitSwitchesEnable(true);
+	}
+	
+	private void setClimber() {
+		brake.set(true);
+		transmission.set(true);
+		winchPrimary.overrideLimitSwitchesEnable(false);
+	}
+	
+	private void setPower(double power) {
+		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
+	}
+	
+	private void setPosition(double position) {
+		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
+	}
+	
+	
+	
+	// ========== GETTERS ==========
 	
 	public boolean isBottomSwitchTripped() {
 		return winchPrimary.getSensorCollection().isFwdLimitSwitchClosed();
@@ -145,6 +163,8 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	public void initDefaultCommand() {
 		setDefaultCommand(new SetPowerPackHold());
 	}
+	
+	// ========== DASHBOARD ==========
 
 	@Override
 	public void initSD() {

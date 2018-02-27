@@ -22,9 +22,11 @@ public class GamepadClimberControl extends Command {
     protected void initialize() {}
 
     protected void execute() {
-    	double forward = -controller.getRawAxis(axis);
+    	double power = -controller.getRawAxis(axis);
     	
-    	Robot.powerPack.setClimberPower(forward);
+    	power = (power > 0) ? (power * PowerPack.PEAK_CLIMBER_FWD) : (power * PowerPack.PEAK_CLIMBER_REV);
+    	
+    	Robot.powerPack.setClimberPower(power);
     }
 
     protected boolean isFinished() {

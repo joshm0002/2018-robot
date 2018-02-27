@@ -22,9 +22,11 @@ public class GamepadElevatorControl extends Command {
     protected void initialize() {}
 
     protected void execute() {
-    	double forward = Math.pow(controller.getRawAxis(axis), 3);
+    	double power = Math.pow(controller.getRawAxis(axis), 3);
+    	
+    	power = (power > 0) ? (power * PowerPack.PEAK_ELEVATOR_FWD) : (power * PowerPack.PEAK_ELEVATOR_REV);
    
-    	Robot.powerPack.setElevatorPower(forward);
+    	Robot.powerPack.setElevatorPower(power);
     }
 
     protected boolean isFinished() {

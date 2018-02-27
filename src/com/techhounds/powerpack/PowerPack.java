@@ -9,9 +9,6 @@ import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
-import com.techhounds.powerpack.basic.SetElevatorBottom;
-import com.techhounds.powerpack.basic.SetElevatorMiddle;
-import com.techhounds.powerpack.basic.SetElevatorTop;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -31,7 +28,11 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	private WPI_TalonSRX winchTertiary;
 	private WPI_TalonSRX winchQuaternary;
 
-	private final int PID_TOLERANCE = 3;
+	public static final int PID_TOLERANCE = 3;
+	public static final double PEAK_ELEVATOR_FWD = 0.75;
+	public static final double PEAK_ELEVATOR_REV = -0.5;
+	public static final double PEAK_CLIMBER_FWD = 1.0;
+	public static final double PEAK_CLIMBER_REV = -0.5;
 
 	public PowerPack() {
 		transmission = new Solenoid(RobotMap.WINCH_TRANSMISSION);
@@ -55,14 +56,17 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 		
 		talon.setNeutralMode(NeutralMode.Brake);
-
+		
+		// TODO: limit current?
 //		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
 //		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);
 //		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
 //		talon.enableCurrentLimit(true);
+		
+		// TODO: do we want to ramp the power as well?
 
-//		talon.configPeakOutputForward(100, RobotUtilities.CONFIG_TIMEOUT);
-//		talon.configPeakOutputReverse(0, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakOutputForward(PEAK_ELEVATOR_FWD, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakOutputReverse(PEAK_ELEVATOR_REV, RobotUtilities.CONFIG_TIMEOUT);
 
 		talon.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT); // FIXME
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
@@ -105,12 +109,16 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		brake.set(true);
 		transmission.set(false);
 		winchPrimary.overrideLimitSwitchesEnable(true);
+		winchPrimary.configPeakOutputForward(PEAK_ELEVATOR_FWD, 0);
+		winchPrimary.configPeakOutputReverse(PEAK_ELEVATOR_REV, 0);
 	}
 	
 	private void setClimber() {
 		brake.set(true);
 		transmission.set(true);
 		winchPrimary.overrideLimitSwitchesEnable(false);
+		winchPrimary.configPeakOutputForward(PEAK_CLIMBER_FWD, 0);
+		winchPrimary.configPeakOutputReverse(PEAK_CLIMBER_REV, 0);
 	}
 	
 	private void setPower(double power) {
@@ -152,8 +160,8 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		return !isClimber();
 	}
 
-	public boolean getBrake() {
-		return brake.get();
+	public boolean isBrakeEngaged() {
+		return !brake.get();
 	}
 
 	public boolean onTarget() {
@@ -186,9 +194,6 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putData("Elevator Scale", new SetElevatorPosition(ElevatorPosition.SCALE));
 		SmartDashboard.putData("Elevator Switch", new SetElevatorPosition(ElevatorPosition.SWITCH));
 		SmartDashboard.putData("Elevator Collect", new SetElevatorPosition(ElevatorPosition.COLLECT));
-		SmartDashboard.putData("Elevator Scale Basic", new SetElevatorTop());
-		SmartDashboard.putData("Elevator Switch Basic", new SetElevatorMiddle());
-		SmartDashboard.putData("Elevator Collect Basic", new SetElevatorBottom());
 		SmartDashboard.putData("Power Pack Hold", new SetPowerPackHold());
 	}
 
@@ -200,7 +205,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putNumber("Power Pack Current", winchPrimary.getOutputCurrent());
 		SmartDashboard.putBoolean("Elevator Bottom Limit", isBottomSwitchTripped());
 		SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
-		SmartDashboard.putBoolean("Power Pack Brake Enabled", !getBrake());
+		SmartDashboard.putBoolean("Power Pack Brake Enabled", isBrakeEngaged());
 		SmartDashboard.putBoolean("Power Pack Climber State", isClimber());
 	}
 }

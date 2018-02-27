@@ -16,8 +16,6 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	
 	private WPI_TalonSRX tiltMotor;
 	
-	private double P = 0, I = 0, D = 0;
-	
 	public Tilt() {
 		tiltMotor = RobotUtilities.getTalonSRX(RobotMap.TILT);
 		configure(tiltMotor);
@@ -44,11 +42,6 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 //		talon.configPeakOutputForward(0.5, RobotUtilities.CONFIG_TIMEOUT);
 //		talon.configPeakOutputReverse(0.5, RobotUtilities.CONFIG_TIMEOUT);
 		// TODO nominal limits
-		
-		talon.config_kP(0, P, RobotUtilities.CONFIG_TIMEOUT);
-		talon.config_kI(0, I, RobotUtilities.CONFIG_TIMEOUT);
-		talon.config_kD(0, D, RobotUtilities.CONFIG_TIMEOUT);
-//		talon.configClosedloopRamp(0.5, RobotUtilities.CONFIG_TIMEOUT);
 	}
 
 	public void setPosition(double position) {
@@ -69,14 +62,10 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	}
 
 	@Override
-	public void initSD() {
-		// TODO Auto-generated method stub
-	}
+	public void initSD() {}
 
 	@Override
-	public void updateSD() {
-		// TODO Auto-generated method stub
-	}
+	public void updateSD() {}
 
 	@Override
 	public void initDebugSD() {

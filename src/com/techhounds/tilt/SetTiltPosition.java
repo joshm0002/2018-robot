@@ -33,22 +33,25 @@ public class SetTiltPosition extends Command {
 
 	protected void initialize() {}
 
-	// TODO: Math.floorMod on the position?
 	protected void execute() {
 		double position = Robot.tilt.getPosition();
 		double error = setpoint - position;
 
-		if (setpoint > -550) { // going up
+		if (setpoint > Tilt.POS_DOWN + 50) { // going up
 			if (error > 15) { // need to move up
 				Robot.tilt.setPower(0.65);
 			} else if (error < -15) { //need to go down
 				Robot.tilt.setPower(-0.2);
+			} else {
+				Robot.tilt.setPower(0.15);
 			}
 		} else { //going down
 			if (error < -15) { //need to go down
-				double proportion = (position - TiltPosition.DOWN.setpoint) / (TiltPosition.UP.setpoint - TiltPosition.DOWN.setpoint);
+				double proportion = (position - Tilt.POS_DOWN) / (Tilt.POS_RANGE);
 				double power = -0.15 - (proportion * 0.3);
 				Robot.tilt.setPower(power);
+			} else {
+				Robot.tilt.setPower(0);
 			}
 		}
 

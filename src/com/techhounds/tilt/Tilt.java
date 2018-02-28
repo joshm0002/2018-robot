@@ -29,8 +29,6 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	}
 	
 	/**
-	 * TODO: setup soft limits
-	 * 
 	 * Note: we won't need hard limit switches, since it'll be
 	 * an analog potentiometer (we won't need to zero it)
 	 */
@@ -47,9 +45,12 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 		talon.setSensorPhase(true);
 		talon.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
 		
-//		talon.configPeakOutputForward(0.5, RobotUtilities.CONFIG_TIMEOUT);
-//		talon.configPeakOutputReverse(0.5, RobotUtilities.CONFIG_TIMEOUT);
-		// TODO nominal limits
+		// TODO enable soft limits
+//		talon.overrideSoftLimitsEnable(true);
+//		talon.configForwardSoftLimitEnable(true, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configReverseSoftLimitThreshold((int) (POS_UP+10), RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configForwardSoftLimitEnable(true, RobotUtilities.CONFIG_TIMEOUT);
+//		talon.configReverseSoftLimitThreshold((int) (POS_DOWN-10), RobotUtilities.CONFIG_TIMEOUT);
 	}
 	
 	public void setPower(double power) {

@@ -177,10 +177,10 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
 		SmartDashboard.putNumber("Drive Right Power", motorRightMain.getMotorOutputPercent());
 		SmartDashboard.putNumber("Drive Right Current", motorRightMain.getOutputCurrent());
-		SmartDashboard.putBoolean("Drive Right Active Point Valid", status.activePointValid);
-		SmartDashboard.putNumber("Drive Right Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
-		SmartDashboard.putBoolean("Drive Right Active Point is Last", status.isLast);
-		SmartDashboard.putBoolean("Drive Right Active Point is Underrrun", status.isUnderrun);
+//		SmartDashboard.putBoolean("Drive Right Active Point Valid", status.activePointValid);
+//		SmartDashboard.putNumber("Drive Right Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
+//		SmartDashboard.putBoolean("Drive Right Active Point is Last", status.isLast);
+//		SmartDashboard.putBoolean("Drive Right Active Point is Underrrun", status.isUnderrun);
 		
 		SmartDashboard.putNumber("Drive Left Distance", getRawLeftDistance());
 		SmartDashboard.putNumber("Drive Left Velocity", getRawLeftVelocity());

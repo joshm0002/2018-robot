@@ -59,7 +59,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setSensorPhase(true);
 		
-		talon.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT); // FIXME: find values
+		talon.config_kP(1, 0, RobotUtilities.CONFIG_TIMEOUT); // FIXME: find values
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT); // TODO: do we want different PID for velocity/motion profiling modes?
 		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		

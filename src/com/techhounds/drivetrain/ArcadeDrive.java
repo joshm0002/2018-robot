@@ -25,7 +25,7 @@ public class ArcadeDrive extends Command {
     protected void initialize() {}
 
     /**
-     * TODO: do we want to square/cube input?
+     *
      */
     protected void execute() {
     	double forward = -controller.getRawAxis(forwardAxis); //negatives are intentional

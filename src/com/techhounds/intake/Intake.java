@@ -57,16 +57,10 @@ public class Intake extends Subsystem implements DashboardUpdatable {
     }
 
 	@Override
-	public void initSD() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void initSD() {}
 
 	@Override
-	public void updateSD() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void updateSD() {}
 
 	@Override
 	public void initDebugSD() {

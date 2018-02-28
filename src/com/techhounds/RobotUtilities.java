@@ -8,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class RobotUtilities {
 	
-	// TODO will this hang us too much?
 	public static final int CONFIG_TIMEOUT = 10;
 	
 	/**
@@ -32,7 +31,7 @@ public class RobotUtilities {
 	 * 
 	 * FIXME: we get Error -200: no new response errors pretty much
 	 * every time on some Talon, but on different/random talons
-	 * and different config calls.
+	 * and different config calls. Might need longer timeout.
 	 *
 	 * @param talon The TalonSRX to configure
 	 */

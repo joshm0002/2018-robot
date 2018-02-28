@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class SetTiltPosition extends Command {
 
-	public enum TiltPosition { // FIXME non-cont. values
+	public enum TiltPosition {
 		UP(Tilt.POS_UP),
 		MIDDLE(Tilt.POS_MID),
 		DOWN(Tilt.POS_DOWN);

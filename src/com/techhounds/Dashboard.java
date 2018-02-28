@@ -48,15 +48,15 @@ public class Dashboard {
 			subsystem.updateSD();
 			if (DEBUG) {
 				subsystem.updateDebugSD();
+				
+				// TODO: possibly move to some subsystem?
+				SmartDashboard.putBoolean("Compressor Closed Loop Control", Robot.compressor.getClosedLoopControl());
+				SmartDashboard.putBoolean("Compressor Enabled", Robot.compressor.enabled());
+				SmartDashboard.putBoolean("Compressor Pressure Switch", Robot.compressor.getPressureSwitchValue());
 			}
 		}
 		
-		// FIXME: appears to never get here, possibly Drive or Intake (IR sensor)
 		SmartDashboard.putNumber("Dashboard Update Counts", updateCounts++);
-		
-		SmartDashboard.putBoolean("Compressor Closed Loop Control", Robot.compressor.getClosedLoopControl());
-		SmartDashboard.putBoolean("Compressor Enabled", Robot.compressor.enabled());
-		SmartDashboard.putBoolean("Compressor Pressure Switch", Robot.compressor.getPressureSwitchValue());
 	}
 	
 	public interface DashboardUpdatable {

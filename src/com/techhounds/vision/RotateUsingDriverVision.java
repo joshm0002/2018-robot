@@ -1,6 +1,5 @@
 package com.techhounds.vision;
 
-import com.techhounds.Constants;
 import com.techhounds.Robot;
 import com.techhounds.RobotUtilities;
 import com.techhounds.drivetrain.Drivetrain;
@@ -45,10 +44,10 @@ public class RotateUsingDriverVision extends Command {
     		}
     	}, new PIDOutput() {
     		public void pidWrite(double output) {
-    			if (output > .05 && output < Constants.DRIVE_MIN_SPEED)
-    				output = Constants.DRIVE_MIN_SPEED;
-    			if (output < -0.5 && output > -Constants.DRIVE_MIN_SPEED)
-    				output = -Constants.DRIVE_MIN_SPEED;
+    			if (output > .05 && output < Drivetrain.MIN_DRIVE_SPEED)
+    				output = Drivetrain.MIN_DRIVE_SPEED;
+    			if (output < -0.5 && output > -Drivetrain.MIN_DRIVE_SPEED)
+    				output = -Drivetrain.MIN_DRIVE_SPEED;
     			motors.setPower(RobotUtilities.constrain(-output), RobotUtilities.constrain(output));
     		}
     	});

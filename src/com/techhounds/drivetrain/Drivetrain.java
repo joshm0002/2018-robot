@@ -32,7 +32,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	
 	private MotionProfileStatus status;
 	
-	// TODO move to Constants.java
+	public static final double MIN_DRIVE_SPEED = 0.3; // TODO: set deadband?
 	public static final double COUNTS_PER_INCH = 4096 / Math.PI * 6; // TODO: find experimentally
 		
 	public Drivetrain() {
@@ -68,7 +68,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setSensorPhase(true); // TODO: why both here and in the constructor??
 		
-		talon.config_kP(0, 5, RobotUtilities.CONFIG_TIMEOUT); // FIXME: find values
+		talon.config_kP(0, 5, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		
@@ -174,7 +174,6 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putNumber("Drive Right Velocity", getRawRightVelocity());
 		SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
 		SmartDashboard.putNumber("Drive Right Top Buf Rem", getRightProfileStatus().topBufferRem);
-		// FIXME: getStatus() is causing hangs!!
 		SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
 		SmartDashboard.putNumber("Drive Right Power", motorRightMain.getMotorOutputPercent());
 		SmartDashboard.putNumber("Drive Right Current", motorRightMain.getOutputCurrent());

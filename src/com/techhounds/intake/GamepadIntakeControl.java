@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * TODO refactor to take controller & axis arguments
+ *
  */
 public class GamepadIntakeControl extends Command {
 

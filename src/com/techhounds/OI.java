@@ -52,7 +52,7 @@ public class OI {
 
 		Button RB = new JoystickButton(driver, 6);
 		RB.whenPressed(new ToggleTransmission());
-//		RB.whenReleased(new ToggleTransmission()); // TODO
+		RB.whenReleased(new ToggleTransmission());
 		
 		Button LB = new JoystickButton(driver, 5);
 		LB.whenPressed(new ToggleArm());

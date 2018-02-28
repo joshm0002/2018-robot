@@ -68,7 +68,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		talon.configPeakOutputForward(PEAK_ELEVATOR_FWD, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configPeakOutputReverse(PEAK_ELEVATOR_REV, RobotUtilities.CONFIG_TIMEOUT);
 
-		talon.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT); // FIXME
+		talon.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kF(0, 0, RobotUtilities.CONFIG_TIMEOUT);

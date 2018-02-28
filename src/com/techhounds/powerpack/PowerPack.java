@@ -134,11 +134,11 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	// ========== GETTERS ==========
 	
 	public boolean isBottomSwitchTripped() {
-		return winchPrimary.getSensorCollection().isFwdLimitSwitchClosed();
+		return winchPrimary.getSensorCollection().isRevLimitSwitchClosed();
 	}
 	
 	public boolean isTopSwitchTripped() {
-		return winchPrimary.getSensorCollection().isRevLimitSwitchClosed();
+		return winchPrimary.getSensorCollection().isFwdLimitSwitchClosed();
 	}
 
 	public int getWinchPosition(){

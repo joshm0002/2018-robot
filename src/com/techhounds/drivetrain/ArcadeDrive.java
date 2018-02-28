@@ -28,8 +28,13 @@ public class ArcadeDrive extends Command {
      *
      */
     protected void execute() {
-    	double forward = -controller.getRawAxis(forwardAxis); //negatives are intentional
-    	double turn = -controller.getRawAxis(turnAxis);
+    	double forward = controller.getRawAxis(forwardAxis);
+    	
+    	if (OI.driveDirection) {
+    		forward *= -1;
+    	}
+    	
+    	double turn = -controller.getRawAxis(turnAxis); //negative is intentional
     	
     	if (Math.abs(forward) < OI.CONTROLLER_DEADBAND) {
     		forward = 0;

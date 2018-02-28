@@ -10,6 +10,7 @@ package com.techhounds;
 import com.techhounds.arm.ToggleArm;
 import com.techhounds.auton.ProfileRecorder;
 import com.techhounds.drivetrain.ArcadeDrive;
+import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.ToggleTransmission;
 import com.techhounds.hook.GamepadHookControl;
 import com.techhounds.intake.GamepadIntakeControl;
@@ -33,6 +34,7 @@ public class OI {
 
 	public static final XboxController driver = new XboxController(0);
 	public static final XboxController operator = new XboxController(1);
+	public static boolean driveDirection = true;
 	
 	// TODO tune this, 5% to 10%
 	public static final double CONTROLLER_DEADBAND = 0.1;
@@ -59,6 +61,9 @@ public class OI {
 		
 		Button start = new JoystickButton(driver, 8);
 		start.toggleWhenPressed(new ProfileRecorder(0.005));
+		
+		Button select = new JoystickButton(driver, 7);
+		select.whenPressed(new FlipDriveDirection());
 	}
 
 	/**

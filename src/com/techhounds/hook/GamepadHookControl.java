@@ -25,7 +25,7 @@ public class GamepadHookControl extends Command {
 
     protected void execute() {
     	double forward = Math.pow(controller.getRawAxis(forwardAxis), 2) * Hook.PEAK_FWD;
-    	double reverse = Math.pow(controller.getRawAxis(reverseAxis), 2) * Hook.PEAK_REV;
+    	double reverse = Math.pow(controller.getRawAxis(reverseAxis), 2) * -Hook.PEAK_REV;
     	
     	Robot.hook.setPower(forward - reverse);
     }

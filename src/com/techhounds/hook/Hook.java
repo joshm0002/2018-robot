@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Hook extends Subsystem implements DashboardUpdatable {
 	
 	private WPI_TalonSRX hookMotor;
-	public static final double PEAK_FWD = 0.5;
-	public static final double PEAK_REV = -0.5;
+	public static final double PEAK_FWD = 0.35;
+	public static final double PEAK_REV = -0.35;
 	
 	public Hook() {
 		hookMotor = RobotUtilities.getTalonSRX(RobotMap.HOOK_MOTOR, "Hook", "Hook");

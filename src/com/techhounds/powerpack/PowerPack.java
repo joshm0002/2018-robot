@@ -49,13 +49,20 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		winchQuaternary.follow(winchPrimary);
 
 		configure(winchPrimary);
+		configure(winchSecondary);
+		configure(winchTertiary);
+		configure(winchQuaternary);
+		
+		// Primary-specific sensor configs
+		winchPrimary.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);		
+		winchPrimary.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
+		winchPrimary.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
+		winchPrimary.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0, RobotUtilities.CONFIG_TIMEOUT);
 	}
 
 	/**
 	 */
-	private void configure(WPI_TalonSRX talon) {
-		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
-		
+	private void configure(WPI_TalonSRX talon) {		
 		talon.setNeutralMode(NeutralMode.Brake);
 		
 		// TODO: limit current?
@@ -68,18 +75,16 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 		talon.configPeakOutputForward(PEAK_ELEVATOR_FWD, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configPeakOutputReverse(PEAK_ELEVATOR_REV, RobotUtilities.CONFIG_TIMEOUT);
+		// TODO use constants for these
 		talon.configNominalOutputForward(0.25, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configNominalOutputReverse(-0.15, RobotUtilities.CONFIG_TIMEOUT);
 
+		// TODO use constants for these
 		talon.config_kP(0, 0.002, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kF(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configAllowableClosedloopError(0, PID_TOLERANCE, RobotUtilities.CONFIG_TIMEOUT);
-		
-		talon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0, RobotUtilities.CONFIG_TIMEOUT);
 	}
 	
 	// ========== SETTERS ==========

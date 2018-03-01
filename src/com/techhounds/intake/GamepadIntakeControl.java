@@ -25,7 +25,7 @@ public class GamepadIntakeControl extends Command {
 
     protected void execute() {
     	double forward = Math.pow(controller.getRawAxis(forwardAxis), 2);
-    	double reverse = Math.pow(controller.getRawAxis(reverseAxis), 2);
+    	double reverse = Math.pow(controller.getRawAxis(reverseAxis), 2) * 0.75; // limit max power
     	
     	Robot.intake.setPower(forward - reverse);
     }

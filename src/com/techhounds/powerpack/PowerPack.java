@@ -47,6 +47,10 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		winchSecondary.follow(winchPrimary);
 		winchTertiary.follow(winchPrimary);
 		winchQuaternary.follow(winchPrimary);
+		
+		winchSecondary.setInverted(true);
+		winchTertiary.setInverted(true);
+		winchQuaternary.setInverted(true);
 
 		configure(winchPrimary);
 		configure(winchSecondary);

@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Tilt extends Subsystem implements DashboardUpdatable {
 	
-	public static final double POS_UP = 650; //658
-	public static final double POS_MID = 525; //551 is max
-	public static final double POS_DOWN = 415; //413
+	public static final double POS_UP = 875; //658
+	public static final double POS_MID = 750; //551 is max
+	public static final double POS_DOWN = 613; //413
 	public static final double POS_RANGE = POS_UP - POS_DOWN;
 	
 	private WPI_TalonSRX tiltMotor;

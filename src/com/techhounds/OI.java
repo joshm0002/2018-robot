@@ -14,7 +14,6 @@ import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.ToggleTransmission;
 import com.techhounds.hook.GamepadHookControl;
 import com.techhounds.intake.GamepadIntakeControl;
-import com.techhounds.oi.CubeDetectedTrigger;
 import com.techhounds.oi.MatchTimeTrigger;
 import com.techhounds.oi.RumbleDriver;
 import com.techhounds.powerpack.GamepadClimberControl;
@@ -70,9 +69,9 @@ public class OI {
 		Button select = new JoystickButton(driver, 7);
 		select.whenPressed(new FlipDriveDirection());
 
-		Trigger cubeRumble = new CubeDetectedTrigger();
+//		Trigger cubeRumble = new CubeDetectedTrigger();
 		// rumble when we first get a cube
-		cubeRumble.whenActive(new RumbleDriver(1));
+//		cubeRumble.whenActive(new RumbleDriver(1));
 		// alternatively, rumble constantly while cube is in
 		//cubeRumble.whileActive(new RumbleDriver());
 		

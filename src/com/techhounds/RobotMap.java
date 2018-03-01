@@ -17,8 +17,8 @@ public class RobotMap {
 	// Motors (CAN)
 	public static final int DRIVE_LEFT_PRIMARY = 25;
 	public static final int DRIVE_LEFT_SECONDARY = 24;
-	public static final int DRIVE_RIGHT_PRIMARY = 10;
-	public static final int DRIVE_RIGHT_SECONDARY = 11;
+	public static final int DRIVE_RIGHT_PRIMARY = 11;
+	public static final int DRIVE_RIGHT_SECONDARY = 10;
 	public static final int INTAKE_LEFT = 14;
 	public static final int INTAKE_RIGHT = 15;
 	public static final int POWER_PACK_PRIMARY = 23;

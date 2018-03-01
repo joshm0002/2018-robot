@@ -36,24 +36,31 @@ public class SetTiltPosition extends Command {
 	protected void execute() {
 		double position = Robot.tilt.getPosition();
 		double error = setpoint - position;
+		double power = 0;
 
 		if (setpoint > Tilt.POS_DOWN + 50) { // going up
 			if (error > 15) { // need to move up
-				Robot.tilt.setPower(0.65);
+				power = 0.65;
 			} else if (error < -15) { //need to go down
-				Robot.tilt.setPower(-0.2);
+				power = -0.2;
 			} else {
-				Robot.tilt.setPower(0.15);
+				power = 0.15;
 			}
 		} else { //going down
 			if (error < -15) { //need to go down
 				double proportion = (position - Tilt.POS_DOWN) / (Tilt.POS_RANGE);
-				double power = -0.15 - (proportion * 0.3);
-				Robot.tilt.setPower(power);
+				power = -0.15 - (proportion * 0.3);
 			} else {
-				Robot.tilt.setPower(0);
+				power = 0;
 			}
 		}
+		
+		// HACK for broken sensor
+		if (position > Tilt.POS_UP + 50 || position < Tilt.POS_DOWN - 50) {
+			power = 0;
+		}
+		
+		Robot.tilt.setPower(power);
 
 //    	// power needed to hold us at that setpoint
 //    	double holdPower;

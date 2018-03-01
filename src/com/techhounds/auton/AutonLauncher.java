@@ -1,6 +1,7 @@
 package com.techhounds.auton;
 
 import com.techhounds.auton.paths.DriveDistance;
+import com.techhounds.auton.paths.StraightScale;
 import com.techhounds.auton.paths.StraightSwitch;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -16,7 +17,8 @@ public class AutonLauncher {
 	
 	enum Auton {
 		BASELINE,
-		STRAIGHT_SWITCH
+		STRAIGHT_SWITCH,
+		STRAIGHT_SCALE
 	}
 	
 	public static final SendableChooser<Auton> autonChoices = new SendableChooser<>();
@@ -24,6 +26,7 @@ public class AutonLauncher {
 	public static void addChoices() {
 		autonChoices.addDefault("Baseline", Auton.BASELINE);
 		autonChoices.addObject("Straight Switch", Auton.STRAIGHT_SWITCH);
+		autonChoices.addObject("Straight Scale", Auton.STRAIGHT_SCALE);
 		SmartDashboard.putData("Auton Chooser", autonChoices);
 	}
 	
@@ -31,6 +34,9 @@ public class AutonLauncher {
 		switch(autonChoices.getSelected()) {
 		case STRAIGHT_SWITCH:
 			runStraightSwitch(field);
+			break;
+		case STRAIGHT_SCALE:
+			runStraightScale(field);
 			break;
 		case BASELINE:
 			runBaseline();
@@ -53,6 +59,14 @@ public class AutonLauncher {
 		}
 	}
 	
+	public static void runStraightScale(FieldState field) {
+		if (field.getRobotPosition() == field.getScalePosition()) {
+			new StraightScale().start();
+		} else {
+			runBaseline();
+		}
+	}
+	
 	public static void runSwitch(FieldState field) {
 		
 	}
@@ -66,6 +80,18 @@ public class AutonLauncher {
 	}
 	
 	public static void runScaleOrSwitch(FieldState field) {
+		
+	}
+	
+	public static void runScaleSwitch(FieldState field) {
+		
+	}
+	
+	public static void runScaleSwitchSwitch(FieldState field) {
+		
+	}
+	
+	public static void runScaleSwitchScale(FieldState field) {
 		
 	}
 }

@@ -10,8 +10,6 @@ package com.techhounds;
 import com.techhounds.arm.Arm;
 import com.techhounds.auton.AutonLauncher;
 import com.techhounds.auton.FieldState;
-import com.techhounds.auton.MotionProfile;
-import com.techhounds.auton.MotionProfileExecutor;
 import com.techhounds.drivetrain.Drivetrain;
 import com.techhounds.drivetrain.Transmission;
 import com.techhounds.gyro.Gyroscope;
@@ -91,10 +89,10 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		Scheduler.getInstance().removeAll();
 		field.pollData();
-//		AutonLauncher.runAuton(field);
+		AutonLauncher.runAuton(field);
 		
 		// FIXME temporary for testing
-		new MotionProfileExecutor(MotionProfile.Test).start();
+//		new MotionProfileExecutor(MotionProfile.Test).start();
 	}
 
 	/**

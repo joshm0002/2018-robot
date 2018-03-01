@@ -59,7 +59,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		configure(winchSecondary);
 		configure(winchTertiary);
 		configure(winchQuaternary);
-		
+
 		// Primary-specific sensor configs
 		winchPrimary.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);		
 		winchPrimary.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
@@ -71,13 +71,13 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	 */
 	private void configure(WPI_TalonSRX talon) {		
 		talon.setNeutralMode(NeutralMode.Brake);
-		
+
 		// TODO: limit current?
-//		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
-//		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);
-//		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
-//		talon.enableCurrentLimit(true);
-		
+		//		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
+		//		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);
+		//		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
+		//		talon.enableCurrentLimit(true);
+
 		// TODO: do we want to ramp the power as well?
 
 		talon.configPeakOutputForward(PEAK_ELEVATOR_FWD, RobotUtilities.CONFIG_TIMEOUT);
@@ -93,34 +93,38 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		talon.config_kF(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configAllowableClosedloopError(0, PID_TOLERANCE, RobotUtilities.CONFIG_TIMEOUT);
 	}
-	
+
 	// ========== SETTERS ==========
-	
+
 	public void setElevatorPower(double power) {
 		setElevator();
 		setPower(power);
 	}
-	
+
 	public void setElevatorPosition(double position) {
 		setElevator();
 		setPosition(position);
 	}
-	
+
 	public void setClimberPower(double power) {
-		setClimber();
-		setPower(power);
+		if (isBottomSwitchTripped()) {
+			setClimber();
+			setPower(power);
+		}
 	}
-	
+
 	public void setClimberPosition(double position) {
-		setClimber();
-		setPosition(position);
+		if (isBottomSwitchTripped()) {
+			setClimber();
+			setPosition(position);
+		}
 	}
-	
+
 	public void setBrake() {
 		winchPrimary.set(ControlMode.Disabled, 0);
 		brakeDisengage.set(false);
 	}
-	
+
 	public void setOverrideLimits(boolean override) {
 		overrideLimits = override;
 		winchPrimary.overrideLimitSwitchesEnable(overrideLimits);
@@ -133,7 +137,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		winchPrimary.configPeakOutputForward(PEAK_ELEVATOR_FWD, 0);
 		winchPrimary.configPeakOutputReverse(PEAK_ELEVATOR_REV, 0);
 	}
-	
+
 	private void setClimber() {
 		brakeDisengage.set(true);
 		climberEngage.set(true);
@@ -141,21 +145,25 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		winchPrimary.configPeakOutputForward(PEAK_CLIMBER_FWD, 0);
 		winchPrimary.configPeakOutputReverse(PEAK_CLIMBER_REV, 0);
 	}
-	
+
 	private void setPower(double power) {
 		winchPrimary.set(ControlMode.PercentOutput, RobotUtilities.constrain(power));
 	}
-	
+
 	private void setPosition(double position) {
 		winchPrimary.set(ControlMode.Position, position);
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> Implement PowerPack Climber Shifting Safety
 	// ========== GETTERS ==========
-	
+
 	public boolean isBottomSwitchTripped() {
 		return winchPrimary.getSensorCollection().isRevLimitSwitchClosed();
 	}
-	
+
 	public boolean isTopSwitchTripped() {
 		return winchPrimary.getSensorCollection().isFwdLimitSwitchClosed();
 	}
@@ -174,7 +182,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	public boolean isClimberEngaged() {
 		return climberEngage.get();
 	}
-	
+
 	public boolean isElevatorEngaged() {
 		return !isClimberEngaged();
 	}
@@ -194,7 +202,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	public void initDefaultCommand() {
 		setDefaultCommand(new SetPowerPackHold());
 	}
-	
+
 	// ========== DASHBOARD ==========
 
 	@Override

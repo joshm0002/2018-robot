@@ -17,6 +17,7 @@ public class SetClimberPower extends Command {
     }
 
     protected void initialize() {
+    	Robot.powerPack.setElevatorPosition(0); // TODO: uh oh, after lifting it the bottom pos tends to become ~-2000
     	Robot.powerPack.setClimberPower(power);
     }
 

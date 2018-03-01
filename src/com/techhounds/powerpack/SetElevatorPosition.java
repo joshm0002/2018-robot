@@ -11,8 +11,8 @@ public class SetElevatorPosition extends Command {
 	
 	public enum ElevatorPosition {
 		COLLECT(0),
-		SWITCH(200),
-		SCALE(1000);
+		SWITCH(300000),
+		SCALE(750000);
 		
 		public final double setpoint;
 		private ElevatorPosition(double value) {

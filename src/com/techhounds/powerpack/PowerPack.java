@@ -1,4 +1,5 @@
 package com.techhounds.powerpack;
+import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
@@ -28,7 +29,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	private WPI_TalonSRX winchTertiary;
 	private WPI_TalonSRX winchQuaternary;
 
-	public static final int PID_TOLERANCE = 3;
+	public static final int PID_TOLERANCE = 5000;
 	public static final double PEAK_ELEVATOR_FWD = 0.75;
 	public static final double PEAK_ELEVATOR_REV = -0.5;
 	public static final double PEAK_CLIMBER_FWD = 1.0;
@@ -67,8 +68,10 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 		talon.configPeakOutputForward(PEAK_ELEVATOR_FWD, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configPeakOutputReverse(PEAK_ELEVATOR_REV, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configNominalOutputForward(0.25, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configNominalOutputReverse(-0.15, RobotUtilities.CONFIG_TIMEOUT);
 
-		talon.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		talon.config_kP(0, 0.002, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kF(0, 0, RobotUtilities.CONFIG_TIMEOUT);
@@ -76,6 +79,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		
 		talon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0, RobotUtilities.CONFIG_TIMEOUT);
 	}
 	
 	// ========== SETTERS ==========
@@ -126,7 +130,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	}
 	
 	private void setPosition(double position) {
-		winchPrimary.set(ControlMode.Position, RobotUtilities.constrain(position));
+		winchPrimary.set(ControlMode.Position, position);
 	}
 	
 	
@@ -176,8 +180,6 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void initSD() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -207,6 +209,8 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
 		SmartDashboard.putBoolean("Power Pack Brake Enabled", isBrakeEngaged());
 		SmartDashboard.putBoolean("Power Pack Climber State", isClimber());
+		SmartDashboard.putNumber("Power Pack Error", winchPrimary.getClosedLoopError(0));
+		SmartDashboard.putNumber("Power Pack Setpoint", winchPrimary.getClosedLoopTarget(0));
 	}
 }
 

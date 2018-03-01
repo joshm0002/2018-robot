@@ -19,7 +19,7 @@ public class Hook extends Subsystem implements DashboardUpdatable {
 	public static final double PEAK_REV = -0.5;
 	
 	public Hook() {
-		hookMotor = RobotUtilities.getTalonSRX(RobotMap.HOOK_MOTOR);
+		hookMotor = RobotUtilities.getTalonSRX(RobotMap.HOOK_MOTOR, "Hook", "Hook");
 		configure(hookMotor);
 	}
 	

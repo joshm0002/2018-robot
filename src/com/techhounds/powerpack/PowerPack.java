@@ -39,10 +39,10 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		climberEngage = new Solenoid(RobotMap.WINCH_TRANSMISSION);
 		brakeDisengage = new Solenoid(RobotMap.WINCH_BRAKE);
 
-		winchPrimary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_PRIMARY);
-		winchSecondary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_SECONDARY);
-		winchTertiary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_TERTIARY);
-		winchQuaternary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_QUATERNARY);
+		winchPrimary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_PRIMARY, "Power Pack", "Primary");
+		winchSecondary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_SECONDARY, "Power Pack", "Secondary");
+		winchTertiary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_TERTIARY, "Power Pack", "Tertiary");
+		winchQuaternary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_QUATERNARY, "Power Pack", "Quaternary");
 
 		winchSecondary.follow(winchPrimary);
 		winchTertiary.follow(winchPrimary);

@@ -39,10 +39,10 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 
 		status = new MotionProfileStatus();
 
-		motorRightMain = RobotUtilities.getTalonSRX(RobotMap.DRIVE_RIGHT_PRIMARY);
-		motorRightFollower = RobotUtilities.getTalonSRX(RobotMap.DRIVE_RIGHT_SECONDARY);
-		motorLeftMain = RobotUtilities.getTalonSRX(RobotMap.DRIVE_LEFT_PRIMARY);
-		motorLeftFollower = RobotUtilities.getTalonSRX(RobotMap.DRIVE_LEFT_SECONDARY);
+		motorRightMain = RobotUtilities.getTalonSRX(RobotMap.DRIVE_RIGHT_PRIMARY, "Drivetrain", "Right Main");
+		motorRightFollower = RobotUtilities.getTalonSRX(RobotMap.DRIVE_RIGHT_SECONDARY, "Drivetrain", "Right Follower");
+		motorLeftMain = RobotUtilities.getTalonSRX(RobotMap.DRIVE_LEFT_PRIMARY, "Drivetrain", "Left Main");
+		motorLeftFollower = RobotUtilities.getTalonSRX(RobotMap.DRIVE_LEFT_SECONDARY, "Drivetrain", "Left Follower");
 
 		rightUploader = new MotionProfileUploader(motorRightMain);
 		leftUploader  = new MotionProfileUploader(motorLeftMain);

@@ -16,8 +16,8 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	private WPI_TalonSRX intakeRight;
 	
 	public Intake() {
-		intakeLeft = RobotUtilities.getTalonSRX(RobotMap.INTAKE_LEFT);
-		intakeRight = RobotUtilities.getTalonSRX(RobotMap.INTAKE_RIGHT);
+		intakeLeft = RobotUtilities.getTalonSRX(RobotMap.INTAKE_LEFT, "Intake", "Left (Breakout)");
+		intakeRight = RobotUtilities.getTalonSRX(RobotMap.INTAKE_RIGHT, "Intake", "Right");
 		configure(intakeLeft);
 		configure(intakeRight);
 	}

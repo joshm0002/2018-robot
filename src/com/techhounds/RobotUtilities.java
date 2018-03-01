@@ -20,8 +20,9 @@ public class RobotUtilities {
 		return Math.min(Math.max(value, -1), 1);
 	}
 	
-	public static WPI_TalonSRX getTalonSRX(int port) {
+	public static WPI_TalonSRX getTalonSRX(int port, String subsystem, String name) {
 		WPI_TalonSRX talon = new WPI_TalonSRX(port);
+		talon.setName(subsystem, name);
 		configureDefaults(talon);
 		return talon;
 	}

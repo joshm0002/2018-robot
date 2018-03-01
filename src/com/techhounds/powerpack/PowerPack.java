@@ -202,6 +202,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateDebugSD() {
+		// TODO: call subsystem methods, not winchPrimary.*
 		SmartDashboard.putNumber("Power Pack Position", winchPrimary.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Power Pack Velocity", winchPrimary.getSelectedSensorVelocity(0));
 		SmartDashboard.putNumber("Power Pack Power", winchPrimary.getMotorOutputPercent());
@@ -210,8 +211,10 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
 		SmartDashboard.putBoolean("Power Pack Brake Enabled", isBrakeEngaged());
 		SmartDashboard.putBoolean("Power Pack Climber State", isClimberEngaged());
-		SmartDashboard.putNumber("Power Pack Error", winchPrimary.getClosedLoopError(0));
-		SmartDashboard.putNumber("Power Pack Setpoint", winchPrimary.getClosedLoopTarget(0));
+		if (winchPrimary.getControlMode() == ControlMode.Position) {
+			SmartDashboard.putNumber("Power Pack Error", winchPrimary.getClosedLoopError(0));
+			SmartDashboard.putNumber("Power Pack Setpoint", winchPrimary.getClosedLoopTarget(0));
+		}
 	}
 }
 

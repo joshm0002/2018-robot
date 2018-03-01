@@ -21,8 +21,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PowerPack extends Subsystem implements DashboardUpdatable {
 
-	private Solenoid transmission;
-	private Solenoid brake;
+	private Solenoid climberEngage;
+	private Solenoid brakeDisengage;
 
 	private WPI_TalonSRX winchPrimary;
 	private WPI_TalonSRX winchSecondary;
@@ -36,8 +36,8 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	public static final double PEAK_CLIMBER_REV = -0.5;
 
 	public PowerPack() {
-		transmission = new Solenoid(RobotMap.WINCH_TRANSMISSION);
-		brake = new Solenoid(RobotMap.WINCH_BRAKE);
+		climberEngage = new Solenoid(RobotMap.WINCH_TRANSMISSION);
+		brakeDisengage = new Solenoid(RobotMap.WINCH_BRAKE);
 
 		winchPrimary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_PRIMARY);
 		winchSecondary = RobotUtilities.getTalonSRX(RobotMap.POWER_PACK_SECONDARY);
@@ -111,20 +111,20 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	
 	public void setBrake() {
 		winchPrimary.set(ControlMode.Disabled, 0);
-		brake.set(false);
+		brakeDisengage.set(false);
 	}
 	
 	private void setElevator() {
-		brake.set(true);
-		transmission.set(false);
+		brakeDisengage.set(true);
+		climberEngage.set(false);
 		winchPrimary.overrideLimitSwitchesEnable(true);
 		winchPrimary.configPeakOutputForward(PEAK_ELEVATOR_FWD, 0);
 		winchPrimary.configPeakOutputReverse(PEAK_ELEVATOR_REV, 0);
 	}
 	
 	private void setClimber() {
-		brake.set(true);
-		transmission.set(true);
+		brakeDisengage.set(true);
+		climberEngage.set(true);
 		winchPrimary.overrideLimitSwitchesEnable(false);
 		winchPrimary.configPeakOutputForward(PEAK_CLIMBER_FWD, 0);
 		winchPrimary.configPeakOutputReverse(PEAK_CLIMBER_REV, 0);
@@ -161,16 +161,16 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	/**
 	 * @return whether the climber is enabled
 	 */
-	public boolean isClimber() {
-		return transmission.get();
+	public boolean isClimberEngaged() {
+		return climberEngage.get();
 	}
 	
-	public boolean isElevator() {
-		return !isClimber();
+	public boolean isElevatorEngaged() {
+		return !isClimberEngaged();
 	}
 
 	public boolean isBrakeEngaged() {
-		return !brake.get();
+		return !brakeDisengage.get();
 	}
 
 	public boolean onTarget() {
@@ -184,14 +184,10 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	// ========== DASHBOARD ==========
 
 	@Override
-	public void initSD() {
-	}
+	public void initSD() {}
 
 	@Override
-	public void updateSD() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void updateSD() {}
 
 	@Override
 	public void initDebugSD() {
@@ -213,7 +209,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		SmartDashboard.putBoolean("Elevator Bottom Limit", isBottomSwitchTripped());
 		SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
 		SmartDashboard.putBoolean("Power Pack Brake Enabled", isBrakeEngaged());
-		SmartDashboard.putBoolean("Power Pack Climber State", isClimber());
+		SmartDashboard.putBoolean("Power Pack Climber State", isClimberEngaged());
 		SmartDashboard.putNumber("Power Pack Error", winchPrimary.getClosedLoopError(0));
 		SmartDashboard.putNumber("Power Pack Setpoint", winchPrimary.getClosedLoopTarget(0));
 	}

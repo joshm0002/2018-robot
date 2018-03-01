@@ -34,11 +34,16 @@ public class SetTiltPosition extends Command {
 	protected void initialize() {}
 
 	protected void execute() {
+		double currentSetpoint = setpoint;
+		if (Robot.powerPack.getWinchPosition() > 400000 && Robot.powerPack.getWinchPosition() < 600000) {
+			currentSetpoint = Tilt.POS_DOWN;
+		}
+		
 		double position = Robot.tilt.getPosition();
-		double error = setpoint - position;
 		double power = 0;
+		double error = currentSetpoint - position;
 
-		if (setpoint > Tilt.POS_DOWN + 20) { // going up
+		if (currentSetpoint > Tilt.POS_DOWN + 20) { // going up
 			if (error > 5) { // need to move up
 				power = 0.65;
 			} else if (error < -5) { //need to go down

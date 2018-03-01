@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Tilt extends Subsystem implements DashboardUpdatable {
 	
-	public static final double POS_UP = 525; //658
-	public static final double POS_MID = 425; //551 is max
-	public static final double POS_DOWN = 265; //413
+	public static final double POS_UP = 600; //658
+	public static final double POS_MID = 500; //551 is max
+	public static final double POS_DOWN = 345; //413
 	public static final double POS_RANGE = POS_UP - POS_DOWN;
 	
 	private WPI_TalonSRX tiltMotor;
@@ -41,8 +41,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 //		talon.configPeakCurrentDuration(250, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setNeutralMode(NeutralMode.Brake);
 		
-		// forward is down, backwards is up
-		talon.setSensorPhase(true);
+		talon.setSensorPhase(false);
 		talon.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
 		
 		// TODO enable soft limits

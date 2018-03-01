@@ -41,7 +41,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 //		talon.configPeakCurrentDuration(250, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setNeutralMode(NeutralMode.Brake);
 		
-		talon.setSensorPhase(false);
+		talon.setSensorPhase(true);
 		talon.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
 		
 		// TODO enable soft limits

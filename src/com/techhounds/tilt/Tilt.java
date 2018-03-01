@@ -25,7 +25,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	public Tilt() {
 		tiltMotor = RobotUtilities.getTalonSRX(RobotMap.TILT, "Tilt", "Tilt");
 		configure(tiltMotor);
-		tiltMotor.setInverted(true);
+		tiltMotor.setInverted(false);
 	}
 	
 	/**

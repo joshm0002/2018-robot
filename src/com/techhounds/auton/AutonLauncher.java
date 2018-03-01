@@ -48,7 +48,7 @@ public class AutonLauncher {
 	}
 	
 	public static void runBaseline() {
-		new DriveDistance(150, 3).start();
+		new DriveDistance(100, 3).start();
 	}
 	
 	public static void runStraightSwitch(FieldState field) {

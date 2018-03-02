@@ -55,6 +55,7 @@ public class Robot extends TimedRobot {
 		AutonLauncher.addChoices();
 		OI.setupDriver();
 		OI.setupOperator();
+		Robot.hook.zeroEncoders();
 		System.out.println("Robot Initialized!");
 	}
 

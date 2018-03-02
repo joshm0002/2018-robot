@@ -48,6 +48,10 @@ public class Hook extends Subsystem implements DashboardUpdatable {
 		return hookMotor.getSelectedSensorPosition(0);
 	}
 	
+	public void zeroEncoders() {
+		hookMotor.setSelectedSensorPosition(0, 0, 0);
+	}
+	
     public void initDefaultCommand() {
     	// GamepadHookControl set in OI
     }

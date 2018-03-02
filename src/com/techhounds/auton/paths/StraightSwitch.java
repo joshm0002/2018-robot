@@ -8,6 +8,7 @@ import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.SetTiltPosition.TiltPosition;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -20,5 +21,9 @@ public class StraightSwitch extends CommandGroup {
     	addSequential(new DriveDistance(110, 3));
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));
     	addSequential(new DelayedCommand(new SetArm(true), 0.5));
+    	addSequential(new WaitCommand(1));
+    	addSequential(new DriveDistance(-20, 2));
+    	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
+    	addParallel(new SetArm(false));
     }
 }

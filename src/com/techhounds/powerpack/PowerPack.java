@@ -178,7 +178,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	}
 
 	public boolean onTarget() {
-		return Math.abs(winchPrimary.getClosedLoopError(0)) < PID_TOLERANCE;
+		return Math.abs(winchPrimary.getSelectedSensorPosition(0) - winchPrimary.getClosedLoopTarget(0)) < PID_TOLERANCE;
 	}
 
 	public void initDefaultCommand() {

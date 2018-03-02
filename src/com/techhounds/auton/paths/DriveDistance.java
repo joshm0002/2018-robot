@@ -9,25 +9,34 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
  */
 public class DriveDistance extends TimedCommand {
 	
-	private final double inches;
+	private final double target;
+	private double initial;
 
     public DriveDistance(double inches, double timeout) {
     	super(timeout);
     	requires(Robot.drivetrain);
-    	this.inches = inches;
+    	this.target = inches;
     }
 
     protected void initialize() {
-    	Robot.drivetrain.zeroEncoders();
+    	initial = Robot.drivetrain.getScaledAverageDistance();
     }
 
     // TODO: use Constants for max/min
     protected void execute() {
+    	if (target > 0) {
     	Robot.drivetrain.setPower(0.4, 0.4);
+    	} else {
+    		Robot.drivetrain.setPower(-0.4, -0.4);
+    	}
     }
 
     protected boolean isFinished() {
-        return Robot.drivetrain.getScaledAverageDistance() > inches;
+    	if (target > 0) { //drive forward
+    		return (Robot.drivetrain.getScaledAverageDistance() - initial) > target;
+    	} else { //drive backwards
+    		return (Robot.drivetrain.getScaledAverageDistance() - initial) < target;
+    	}
     }
 
     protected void end() {

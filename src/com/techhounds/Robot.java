@@ -89,7 +89,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Scheduler.getInstance().removeAll();
-		drivetrain.zeroEncoders();
 		field.pollData();
 		AutonLauncher.runAuton(field);
 		

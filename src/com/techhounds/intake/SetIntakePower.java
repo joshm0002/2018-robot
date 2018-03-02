@@ -24,4 +24,12 @@ public class SetIntakePower extends Command {
     protected boolean isFinished() {
         return false;
     }
+    
+    public void end() {
+    	Robot.intake.setPower(0);
+    }
+    
+    public void interrupted() {
+    	end();
+    }
 }

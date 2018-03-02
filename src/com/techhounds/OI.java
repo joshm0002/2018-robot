@@ -14,6 +14,7 @@ import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.ToggleTransmission;
 import com.techhounds.hook.GamepadHookControl;
 import com.techhounds.intake.GamepadIntakeControl;
+import com.techhounds.oi.CubeDetectedTrigger;
 import com.techhounds.oi.MatchTimeTrigger;
 import com.techhounds.oi.RumbleDriver;
 import com.techhounds.powerpack.GamepadClimberControl;
@@ -22,6 +23,7 @@ import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.SetTiltPosition.TiltPosition;
+import com.techhounds.tilt.Tilt;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -92,8 +94,8 @@ public class OI {
 		
 		Robot.intake.setDefaultCommand(new GamepadIntakeControl(operator, 3, 2));
 		
-//		Trigger cubeDetected = new CubeDetectedTrigger();
-//		cubeDetected.whenActive(new SetTiltPosition(Tilt.POS_MID));
+		Trigger cubeDetected = new CubeDetectedTrigger();
+		cubeDetected.whenActive(new SetTiltPosition(Tilt.POS_MID));
 
 		Button bA = new JoystickButton(operator, 1);
 		// Set elevator to DOWN position

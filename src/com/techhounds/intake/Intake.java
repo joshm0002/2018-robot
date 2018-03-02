@@ -26,6 +26,7 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	private void configure(WPI_TalonSRX talon) {
 		talon.configOpenloopRamp(0.1, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, RobotUtilities.CONFIG_TIMEOUT);
+		talon.overrideLimitSwitchesEnable(false);
 	}
 	
 	public void setPower(double power){

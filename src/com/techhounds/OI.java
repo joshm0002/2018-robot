@@ -62,6 +62,7 @@ public class OI {
 		
 		Button LB = new JoystickButton(driver, 5);
 		LB.whenPressed(new ToggleArm());
+		LB.whenReleased(new ToggleArm());
 		
 		Button start = new JoystickButton(driver, 8);
 		start.toggleWhenPressed(new ProfileRecorder(0.005));

@@ -25,9 +25,9 @@ public class DriveDistance extends TimedCommand {
     // TODO: use Constants for max/min
     protected void execute() {
     	if (target > 0) {
-    	Robot.drivetrain.setPower(0.4, 0.4);
+    	Robot.drivetrain.setPower(0.4 * 0.88, 0.4);
     	} else {
-    		Robot.drivetrain.setPower(-0.4, -0.4);
+    		Robot.drivetrain.setPower(-0.4 * 0.88, -0.4);
     	}
     }
 

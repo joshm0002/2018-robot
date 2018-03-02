@@ -218,6 +218,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		if (winchPrimary.getControlMode() == ControlMode.Position) {
 			SmartDashboard.putNumber("Power Pack Error", winchPrimary.getClosedLoopError(0));
 			SmartDashboard.putNumber("Power Pack Setpoint", winchPrimary.getClosedLoopTarget(0));
+			SmartDashboard.putBoolean("Power Pack On Target", onTarget());
 		}
 	}
 }

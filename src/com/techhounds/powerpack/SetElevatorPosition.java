@@ -2,12 +2,12 @@ package com.techhounds.powerpack;
 
 import com.techhounds.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
  *
  */
-public class SetElevatorPosition extends Command {
+public class SetElevatorPosition extends TimedCommand {
 	
 	public enum ElevatorPosition {
 		COLLECT(0),
@@ -23,10 +23,15 @@ public class SetElevatorPosition extends Command {
 	private final double setpoint;
 	
 	public SetElevatorPosition(ElevatorPosition position) {
-		this(position.setpoint);
+		this(position.setpoint, 5);
+	}
+	
+	public SetElevatorPosition(ElevatorPosition position, double timeout) {
+		this(position.setpoint, timeout);
 	}
 
-    public SetElevatorPosition(double setpoint) {
+    public SetElevatorPosition(double setpoint, double timeoutSecs) {
+    	super(timeoutSecs);
     	requires(Robot.powerPack);
     	this.setpoint = setpoint;
     }
@@ -42,9 +47,10 @@ public class SetElevatorPosition extends Command {
     }
 
     protected void end() {
-    	// Don't need to do anything, because powerPack's default command is
-    	// to hold position!
+    	Robot.powerPack.setBrake();
     }
 
-    protected void interrupted() {}
+    protected void interrupted() {
+    	end();
+    }
 }

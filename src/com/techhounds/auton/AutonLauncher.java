@@ -1,6 +1,6 @@
 package com.techhounds.auton;
 
-import com.techhounds.auton.paths.DriveDistance;
+import com.techhounds.auton.paths.Baseline;
 import com.techhounds.auton.paths.StraightScale;
 import com.techhounds.auton.paths.StraightSwitch;
 
@@ -48,7 +48,7 @@ public class AutonLauncher {
 	}
 	
 	public static void runBaseline() {
-		new DriveDistance(100, 3).start();
+		new Baseline().start();
 	}
 	
 	public static void runStraightSwitch(FieldState field) {

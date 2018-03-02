@@ -62,7 +62,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new SetTiltPosition(TiltPosition.UP));
+		setDefaultCommand(new SetTiltPosition(TiltPosition.DOWN));
 	}
 
 	@Override

@@ -54,7 +54,9 @@ public class OI {
 		Robot.drivetrain.setDefaultCommand(new ArcadeDrive(driver, 1, 4));
 
 		// Intake Default is DriverIntakeControl
-		Robot.intake.setDefaultCommand(new GamepadIntakeControl(driver, 3, 2));
+//		Robot.intake.setDefaultCommand(new GamepadIntakeControl(driver, 3, 2));
+		
+		Robot.hook.setDefaultCommand(new GamepadHookControl(driver, 3, 2));
 
 		Button RB = new JoystickButton(driver, 6);
 		RB.whenPressed(new ToggleTransmission());
@@ -86,7 +88,9 @@ public class OI {
 	public static void setupOperator() {
 
 		// Hook default command
-		Robot.hook.setDefaultCommand(new GamepadHookControl(operator, 3, 2));
+//		Robot.hook.setDefaultCommand(new GamepadHookControl(operator, 3, 2));
+		
+		Robot.intake.setDefaultCommand(new GamepadIntakeControl(operator, 3, 2));
 
 		Button bA = new JoystickButton(operator, 1);
 		// Set elevator to DOWN position

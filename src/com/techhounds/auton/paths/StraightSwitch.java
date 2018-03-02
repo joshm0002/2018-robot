@@ -1,7 +1,7 @@
 package com.techhounds.auton.paths;
 
-import com.techhounds.arm.SetArm;
 import com.techhounds.auton.util.DelayedCommand;
+import com.techhounds.intake.SetIntakePower;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 import com.techhounds.tilt.SetTiltPosition;
@@ -20,10 +20,9 @@ public class StraightSwitch extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
     	addSequential(new DriveDistance(110, 3));
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));
-    	addSequential(new DelayedCommand(new SetArm(true), 0.5));
+    	addSequential(new DelayedCommand(new SetIntakePower(-0.5), 1), 1);
     	addSequential(new WaitCommand(1));
     	addSequential(new DriveDistance(-20, 2));
     	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
-    	addParallel(new SetArm(false));
     }
 }

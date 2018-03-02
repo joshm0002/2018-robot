@@ -1,8 +1,9 @@
 package com.techhounds.intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.techhounds.Constants;
 import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
@@ -24,6 +25,7 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	
 	private void configure(WPI_TalonSRX talon) {
 		talon.configOpenloopRamp(0.1, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, RobotUtilities.CONFIG_TIMEOUT);
 	}
 	
 	public void setPower(double power){
@@ -39,17 +41,8 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 		return intakeRight.get();
 	}
 	
-	/**
-	 * NOTE: the reading tends to peak around the center of the blue collector
-	 * wheels, then drops off to ~400 when you get up to the metal bar.
-	 * @return value approx 180 to 750
-	 */
-	public double getIRSensor() {
-		return intakeLeft.getSensorCollection().getAnalogIn();
-	}
-	
 	public boolean isCubeDetected() {
-		return getIRSensor() > Constants.IR_THRESHOLD;
+		return intakeLeft.getSensorCollection().isFwdLimitSwitchClosed();
 	}
 
     public void initDefaultCommand() {
@@ -73,6 +66,6 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	public void updateDebugSD() {
 		SmartDashboard.putNumber("Intake Power", intakeLeft.getMotorOutputPercent());
 		SmartDashboard.putNumber("Intake Current", intakeLeft.getOutputCurrent());
-		SmartDashboard.putNumber("IR Sensor", intakeLeft.getSensorCollection().getAnalogIn());
+		SmartDashboard.putBoolean("Cube Detected", isCubeDetected());
 	}
 }

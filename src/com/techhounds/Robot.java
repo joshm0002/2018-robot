@@ -92,8 +92,8 @@ public class Robot extends TimedRobot {
 		field.pollData();
 		AutonLauncher.runAuton(field);
 		
-		// FIXME temporary for testing
-//		new MotionProfileExecutor(MotionProfile.Test).start();
+//		 FIXME temporary for testing
+//		new MotionProfileExecutor(MotionProfile.StraightLine).start();
 	}
 
 	/**

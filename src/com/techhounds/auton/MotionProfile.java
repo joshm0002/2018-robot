@@ -15,7 +15,8 @@ import com.techhounds.Constants;
  */
 public enum MotionProfile {
 			
-	Test("Test.csv");
+	Test("Test.csv"),
+	StraightLine("Straight Line.csv");
 	
 	public final String filename;
 	MotionProfile(String filename) {

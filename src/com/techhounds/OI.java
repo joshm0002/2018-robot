@@ -91,6 +91,9 @@ public class OI {
 //		Robot.hook.setDefaultCommand(new GamepadHookControl(operator, 3, 2));
 		
 		Robot.intake.setDefaultCommand(new GamepadIntakeControl(operator, 3, 2));
+		
+//		Trigger cubeDetected = new CubeDetectedTrigger();
+//		cubeDetected.whenActive(new SetTiltPosition(Tilt.POS_MID));
 
 		Button bA = new JoystickButton(operator, 1);
 		// Set elevator to DOWN position

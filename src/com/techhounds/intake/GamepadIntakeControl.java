@@ -24,10 +24,19 @@ public class GamepadIntakeControl extends Command {
     protected void initialize() {}
 
     protected void execute() {
-    	double forward = Math.pow(controller.getRawAxis(forwardAxis), 2);
-    	double reverse = Math.pow(controller.getRawAxis(reverseAxis), 2) * 0.4; // limit max power
     	
-    	Robot.intake.setPower(0.15 + forward - reverse);
+    	double outMult;
+    	//prevent over-shooting switch/scale
+    	if (Robot.powerPack.isBottomSwitchTripped()) {
+    		outMult = 1;
+    	} else {
+    		outMult = 0.35;
+    	}
+    	
+    	double forward = Math.pow(controller.getRawAxis(forwardAxis), 2);
+    	double reverse = Math.pow(controller.getRawAxis(reverseAxis), 2) * outMult;
+    	
+    	Robot.intake.setPower(forward - reverse);
     }
 
     protected boolean isFinished() {

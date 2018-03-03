@@ -59,6 +59,16 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		motorRightMain.setInverted(true);
 		motorRightFollower.setInverted(true);
 		motorRightMain.setSensorPhase(true);
+		
+		motorRightMain.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		motorRightMain.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		motorRightMain.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		motorRightMain.config_kF(0, 0.19864, RobotUtilities.CONFIG_TIMEOUT);
+		
+		motorLeftMain.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.config_kF(0, 0.21882, RobotUtilities.CONFIG_TIMEOUT);
 	}
 
 	/**
@@ -67,10 +77,6 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	private void configure(WPI_TalonSRX talon) {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setSensorPhase(true); // TODO: why both here and in the constructor??
-
-		talon.config_kP(0, 5, RobotUtilities.CONFIG_TIMEOUT);
-		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
-		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 
 		talon.enableCurrentLimit(true);
 		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
@@ -171,7 +177,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	public void updateDebugSD() {
 		getRightProfileStatus();
 		SmartDashboard.putNumber("Drive Right Distance", getRawRightDistance());
-		SmartDashboard.putNumber("Drive Right Velocity", getRawRightVelocity());
+		SmartDashboard.putNumber("Drive Right Raw Velocity", getRawRightVelocity());
 		SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
 		SmartDashboard.putNumber("Drive Right Top Buf Rem", getRightProfileStatus().topBufferRem);
 		SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
@@ -185,7 +191,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		}
 
 		SmartDashboard.putNumber("Drive Left Distance", getRawLeftDistance());
-		SmartDashboard.putNumber("Drive Left Velocity", getRawLeftVelocity());
+		SmartDashboard.putNumber("Drive Left Raw Velocity", getRawLeftVelocity());
 		SmartDashboard.putNumber("Drive Left Profile Top Buffer", motorLeftMain.getMotionProfileTopLevelBufferCount());
 		SmartDashboard.putNumber("Drive Left Profile Bottom Buffer", getLeftProfileStatus().btmBufferCnt);
 		SmartDashboard.putNumber("Drive Left Power", motorLeftMain.getMotorOutputPercent());

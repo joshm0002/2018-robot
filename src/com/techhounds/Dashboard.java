@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Dashboard {
 	
 	private static List<DashboardUpdatable> subsystems = new ArrayList<DashboardUpdatable>();
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	private static int updateCounts = 0;
 	
 	public static void clearDashboard() {

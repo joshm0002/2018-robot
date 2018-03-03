@@ -54,7 +54,9 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	public void initSD() {}
 
 	@Override
-	public void updateSD() {}
+	public void updateSD() {
+		SmartDashboard.putBoolean("Cube Detected", isCubeDetected());
+	}
 
 	@Override
 	public void initDebugSD() {
@@ -67,6 +69,5 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	public void updateDebugSD() {
 		SmartDashboard.putNumber("Intake Power", intakeLeft.getMotorOutputPercent());
 		SmartDashboard.putNumber("Intake Current", intakeLeft.getOutputCurrent());
-		SmartDashboard.putBoolean("Cube Detected", isCubeDetected());
 	}
 }

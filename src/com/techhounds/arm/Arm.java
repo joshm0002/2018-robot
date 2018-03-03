@@ -51,7 +51,7 @@ public class Arm extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateSD() {
-		
+		SmartDashboard.putBoolean("Arm Actuator State", arm.get());
 	}
 
 	@Override
@@ -63,7 +63,5 @@ public class Arm extends Subsystem implements DashboardUpdatable {
 	}
 
 	@Override
-	public void updateDebugSD() {
-		SmartDashboard.putBoolean("Arm Actuator State", arm.get());
-	}
+	public void updateDebugSD() {}
 }

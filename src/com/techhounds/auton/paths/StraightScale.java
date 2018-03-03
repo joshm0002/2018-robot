@@ -1,7 +1,5 @@
 package com.techhounds.auton.paths;
 
-import com.techhounds.auton.MotionProfile;
-import com.techhounds.auton.MotionProfileExecutor;
 import com.techhounds.auton.util.DelayedCommand;
 import com.techhounds.intake.SetIntakePower;
 import com.techhounds.powerpack.SetElevatorPosition;
@@ -19,7 +17,8 @@ public class StraightScale extends CommandGroup {
 
     public StraightScale() {
     	addParallel(new SetTiltPosition(TiltPosition.MIDDLE));
-    	addSequential(new MotionProfileExecutor(MotionProfile.RightScaleRight));
+    	// TODO slightly curved drive distance
+//    	addSequential(new MotionProfileExecutor(MotionProfile.RightScaleRight));
     	addSequential(new SetElevatorPosition(ElevatorPosition.SCALE));
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));
     	addSequential(new DelayedCommand(new SetIntakePower(-1), 0.5), 3);

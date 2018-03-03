@@ -13,14 +13,10 @@ import com.techhounds.Constants;
  * This class represents a motion profile to be loaded into
  * a MotionProfileExecutor command.
  */
-public enum MotionProfile {
-			
-	Test("TestStraight.csv"),
-	StraightLine("Straight Line.csv"),
-	RightScaleRight("RightScaleRight.csv");
+public class MotionProfile {
 	
 	public final String filename;
-	MotionProfile(String filename) {
+	public MotionProfile(String filename) {
 		this.filename = filename;
 	}
 	

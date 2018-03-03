@@ -37,7 +37,6 @@ public class MotionProfileExecutor extends Command {
 //    	    Robot.drivetrain.getRightProfileStatus().isUnderrun) {
 //    		return;
 //    	}
-    	System.out.println("Enabling Profile!");
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Enable);
     }
 

@@ -9,6 +9,7 @@ package com.techhounds;
 
 import com.techhounds.arm.ToggleArm;
 import com.techhounds.auton.ProfileRecorder;
+import com.techhounds.auton.util.DelayedCommand;
 import com.techhounds.drivetrain.ArcadeDrive;
 import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.ToggleTransmission;
@@ -95,7 +96,7 @@ public class OI {
 		Robot.intake.setDefaultCommand(new GamepadIntakeControl(operator, 3, 2));
 		
 		Trigger cubeDetected = new CubeDetectedTrigger();
-		cubeDetected.whenActive(new SetTiltPosition(Tilt.POS_MID));
+		cubeDetected.whenActive(new DelayedCommand(new SetTiltPosition(Tilt.POS_MID), 0.5));
 
 		Button bA = new JoystickButton(operator, 1);
 		// Set elevator to DOWN position

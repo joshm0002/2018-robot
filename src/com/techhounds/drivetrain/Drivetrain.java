@@ -60,15 +60,17 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		motorRightFollower.setInverted(true);
 		motorRightMain.setSensorPhase(true);
 		
-		motorRightMain.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		motorRightMain.config_kP(0, 0.05, RobotUtilities.CONFIG_TIMEOUT);
 		motorRightMain.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		motorRightMain.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
-		motorRightMain.config_kF(0, 0.19864, RobotUtilities.CONFIG_TIMEOUT);
+		motorRightMain.config_kF(0, 0.19864, RobotUtilities.CONFIG_TIMEOUT); //0.19864
+		motorRightMain.configNominalOutputForward(0.1, RobotUtilities.CONFIG_TIMEOUT);
 		
-		motorLeftMain.config_kP(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.config_kP(0, 0.05, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
-		motorLeftMain.config_kF(0, 0.21882, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.config_kF(0, 0.21882 * 1.065, RobotUtilities.CONFIG_TIMEOUT); //0.21882
+		motorLeftMain.configNominalOutputForward(0.1, RobotUtilities.CONFIG_TIMEOUT);
 	}
 
 	/**
@@ -166,6 +168,12 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateSD() {
+		SmartDashboard.putNumber("Drive Right Active Point Velocity", motorRightMain.getActiveTrajectoryVelocity());
+		SmartDashboard.putNumber("Drive Left Active Point Velocity", motorRightMain.getActiveTrajectoryVelocity());
+		SmartDashboard.putNumber("Drive Right Raw Velocity", getRawRightVelocity());
+		SmartDashboard.putNumber("Drive Left Raw Velocity", getRawLeftVelocity());
+		SmartDashboard.putBoolean("Drive is Active Valid", getRightProfileStatus().activePointValid);
+		SmartDashboard.putBoolean("Drive is Last", getRightProfileStatus().isLast);
 	}
 
 	@Override
@@ -177,25 +185,27 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	public void updateDebugSD() {
 		getRightProfileStatus();
 		SmartDashboard.putNumber("Drive Right Distance", getRawRightDistance());
-		SmartDashboard.putNumber("Drive Right Raw Velocity", getRawRightVelocity());
 		SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
 		SmartDashboard.putNumber("Drive Right Top Buf Rem", getRightProfileStatus().topBufferRem);
 		SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
 		SmartDashboard.putNumber("Drive Right Power", motorRightMain.getMotorOutputPercent());
 		SmartDashboard.putNumber("Drive Right Current", motorRightMain.getOutputCurrent());
-		if (motorRightMain.getControlMode() == ControlMode.MotionProfile) {
+//		if (motorRightMain.getControlMode() == ControlMode.MotionProfile) {
 			SmartDashboard.putBoolean("Drive Right Active Point Valid", status.activePointValid);
 			SmartDashboard.putNumber("Drive Right Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
 			SmartDashboard.putBoolean("Drive Right Active Point is Last", status.isLast);
 			SmartDashboard.putBoolean("Drive Right Active Point is Underrrun", status.isUnderrun);
-		}
+//		}
 
 		SmartDashboard.putNumber("Drive Left Distance", getRawLeftDistance());
-		SmartDashboard.putNumber("Drive Left Raw Velocity", getRawLeftVelocity());
 		SmartDashboard.putNumber("Drive Left Profile Top Buffer", motorLeftMain.getMotionProfileTopLevelBufferCount());
 		SmartDashboard.putNumber("Drive Left Profile Bottom Buffer", getLeftProfileStatus().btmBufferCnt);
 		SmartDashboard.putNumber("Drive Left Power", motorLeftMain.getMotorOutputPercent());
 		SmartDashboard.putNumber("Drive Left Current", motorLeftMain.getOutputCurrent());
+		SmartDashboard.putBoolean("Drive Left Active Point Valid", status.activePointValid);
+		SmartDashboard.putNumber("Drive Left Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
+		SmartDashboard.putBoolean("Drive Left Active Point is Last", status.isLast);
+		SmartDashboard.putBoolean("Drive Left Active Point is Underrrun", status.isUnderrun);
 	}
 }
 

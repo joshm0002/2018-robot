@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
 		AutonLauncher.runAuton(field);
 		
 //		 FIXME temporary for testing
-//		new MotionProfileExecutor(MotionProfile.StraightLine).start();
+//		new MotionProfileExecutor(MotionProfile.Test).start();
 	}
 
 	/**

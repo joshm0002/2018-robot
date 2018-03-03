@@ -31,6 +31,7 @@ public class AutonLauncher {
 	}
 	
 	public static void runAuton(FieldState field) {
+		System.out.println("Running Auton " + autonChoices.getSelected().toString());
 		switch(autonChoices.getSelected()) {
 		case STRAIGHT_SWITCH:
 			runStraightSwitch(field);

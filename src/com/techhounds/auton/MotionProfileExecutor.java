@@ -1,5 +1,6 @@
 package com.techhounds.auton;
 
+import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.techhounds.Robot;
 
@@ -15,6 +16,7 @@ public class MotionProfileExecutor extends Command {
 	private final MotionProfile profile;
 		
     public MotionProfileExecutor(MotionProfile profile) {
+    	requires(Robot.drivetrain);
     	this.profile = profile;
     }
 
@@ -35,6 +37,7 @@ public class MotionProfileExecutor extends Command {
 //    	    Robot.drivetrain.getRightProfileStatus().isUnderrun) {
 //    		return;
 //    	}
+    	System.out.println("Enabling Profile!");
     	Robot.drivetrain.setMotionProfile(SetValueMotionProfile.Enable);
     }
 
@@ -42,14 +45,14 @@ public class MotionProfileExecutor extends Command {
      * TODO: check all four conditions in an AND
      */
     protected boolean isFinished() {
-//    	MotionProfileStatus status = Robot.drivetrain.getLeftProfileStatus();
-//    	if (status.activePointValid && status.isLast) {
-//			return true;
-//    	}
-//    	status = Robot.drivetrain.getRightProfileStatus();
-//    	if (status.activePointValid && status.isLast) {
-//    		return true;
-//    	}
+    	MotionProfileStatus status = Robot.drivetrain.getLeftProfileStatus();
+    	if (status.activePointValid && status.isLast) {
+			return true;
+    	}
+    	status = Robot.drivetrain.getRightProfileStatus();
+    	if (status.activePointValid && status.isLast) {
+    		return true;
+    	}
     	return false;
     }
 

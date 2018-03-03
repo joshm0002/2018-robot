@@ -14,8 +14,10 @@ import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.ToggleTransmission;
 import com.techhounds.hook.GamepadHookControl;
 import com.techhounds.intake.GamepadIntakeControl;
+import com.techhounds.oi.CubeDetectedTrigger;
 import com.techhounds.oi.MatchTimeTrigger;
 import com.techhounds.oi.RumbleDriver;
+import com.techhounds.oi.RumbleOperator;
 import com.techhounds.powerpack.GamepadClimberControl;
 import com.techhounds.powerpack.GamepadElevatorControl;
 import com.techhounds.powerpack.SetElevatorPosition;
@@ -94,6 +96,11 @@ public class OI {
 		
 //		Trigger cubeDetected = new CubeDetectedTrigger();
 //		cubeDetected.whenActive(new DelayedCommand(new SetTiltPosition(Tilt.POS_MID), 0.75));
+		
+		Trigger cubeRumble = new CubeDetectedTrigger();
+		// rumble when we first get a cube
+		cubeRumble.whenActive(new RumbleOperator(1));
+		cubeRumble.whenActive(new RumbleDriver(1));
 
 		Button bA = new JoystickButton(operator, 1);
 		// Set elevator to DOWN position
@@ -160,6 +167,16 @@ public class OI {
 		} else {
 			driver.setRumble(RumbleType.kLeftRumble, 0);
 			driver.setRumble(RumbleType.kRightRumble, 0);
+		}
+	}	
+	
+	public static void rumbleOperator(boolean rumble) {
+		if (rumble) {
+			operator.setRumble(RumbleType.kLeftRumble, 1);
+			operator.setRumble(RumbleType.kRightRumble, 1);
+		} else {
+			operator.setRumble(RumbleType.kLeftRumble, 0);
+			operator.setRumble(RumbleType.kRightRumble, 0);
 		}
 	}
 }

@@ -113,6 +113,7 @@ public class OI {
 		Button bX = new JoystickButton(operator, 3);
 		// Actuate collector arms
 		bX.whenPressed(new ToggleArm());
+		bX.whenReleased(new ToggleArm());
 
 		Button bY = new JoystickButton(operator, 4);
 		// Set elevator to SCALE position

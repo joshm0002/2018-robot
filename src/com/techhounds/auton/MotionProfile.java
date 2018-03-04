@@ -65,7 +65,7 @@ public class MotionProfile {
 		point.velocity = velocity;
 		point.profileSlotSelect0 = 0;
 		point.profileSlotSelect1 = 0;
-		point.timeDur = TrajectoryDuration.Trajectory_Duration_5ms;
+		point.timeDur = TrajectoryDuration.Trajectory_Duration_20ms;
 		point.zeroPos = false;
 		point.isLastPoint = false;
 		

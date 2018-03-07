@@ -34,6 +34,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 
 	public static final double MIN_DRIVE_SPEED = 0.3; // TODO: set deadband?
 	public static final double COUNTS_PER_INCH = 437; //4096 / Math.PI * 6;
+	public static final boolean DEBUG = true;
 
 	public Drivetrain() {
 
@@ -164,48 +165,43 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void initSD() {
+		if (DEBUG) {
+			SmartDashboard.putData(this);
+		}
 	}
 
 	@Override
 	public void updateSD() {
-		SmartDashboard.putNumber("Drive Right Active Point Velocity", motorRightMain.getActiveTrajectoryVelocity());
-		SmartDashboard.putNumber("Drive Left Active Point Velocity", motorRightMain.getActiveTrajectoryVelocity());
-		SmartDashboard.putNumber("Drive Right Raw Velocity", getRawRightVelocity());
-		SmartDashboard.putNumber("Drive Left Raw Velocity", getRawLeftVelocity());
-		SmartDashboard.putBoolean("Drive is Active Valid", getRightProfileStatus().activePointValid);
-		SmartDashboard.putBoolean("Drive is Last", getRightProfileStatus().isLast);
-	}
-
-	@Override
-	public void initDebugSD() {
-		SmartDashboard.putData(this);
-	}
-
-	@Override
-	public void updateDebugSD() {
-		getRightProfileStatus();
 		SmartDashboard.putNumber("Drive Right Distance", getRawRightDistance());
-		SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
-		SmartDashboard.putNumber("Drive Right Top Buf Rem", getRightProfileStatus().topBufferRem);
-		SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
-		SmartDashboard.putNumber("Drive Right Power", motorRightMain.getMotorOutputPercent());
-		SmartDashboard.putNumber("Drive Right Current", motorRightMain.getOutputCurrent());
-//		if (motorRightMain.getControlMode() == ControlMode.MotionProfile) {
-			SmartDashboard.putBoolean("Drive Right Active Point Valid", status.activePointValid);
-			SmartDashboard.putNumber("Drive Right Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
-			SmartDashboard.putBoolean("Drive Right Active Point is Last", status.isLast);
-			SmartDashboard.putBoolean("Drive Right Active Point is Underrrun", status.isUnderrun);
-//		}
-
 		SmartDashboard.putNumber("Drive Left Distance", getRawLeftDistance());
-		SmartDashboard.putNumber("Drive Left Profile Top Buffer", motorLeftMain.getMotionProfileTopLevelBufferCount());
-		SmartDashboard.putNumber("Drive Left Profile Bottom Buffer", getLeftProfileStatus().btmBufferCnt);
-		SmartDashboard.putNumber("Drive Left Power", motorLeftMain.getMotorOutputPercent());
-		SmartDashboard.putNumber("Drive Left Current", motorLeftMain.getOutputCurrent());
-		SmartDashboard.putBoolean("Drive Left Active Point Valid", status.activePointValid);
-		SmartDashboard.putNumber("Drive Left Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
-		SmartDashboard.putBoolean("Drive Left Active Point is Last", status.isLast);
-		SmartDashboard.putBoolean("Drive Left Active Point is Underrrun", status.isUnderrun);
+		SmartDashboard.putNumber("Drive Right Velocity", getRawRightVelocity());
+		SmartDashboard.putNumber("Drive Left Velocity", getRawLeftVelocity());
+
+
+		
+		if (DEBUG) {
+			getRightProfileStatus();
+			SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
+			SmartDashboard.putNumber("Drive Right Top Buf Rem", getRightProfileStatus().topBufferRem);
+			SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);
+			SmartDashboard.putNumber("Drive Right Power", motorRightMain.getMotorOutputPercent());
+			SmartDashboard.putNumber("Drive Right Current", motorRightMain.getOutputCurrent());
+//			if (motorRightMain.getControlMode() == ControlMode.MotionProfile) {
+				SmartDashboard.putBoolean("Drive Right Active Point Valid", status.activePointValid);
+				SmartDashboard.putNumber("Drive Right Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
+				SmartDashboard.putBoolean("Drive Right Active Point is Last", status.isLast);
+				SmartDashboard.putBoolean("Drive Right Active Point is Underrrun", status.isUnderrun);
+//			}
+
+			SmartDashboard.putNumber("Drive Left Profile Top Buffer", motorLeftMain.getMotionProfileTopLevelBufferCount());
+			SmartDashboard.putNumber("Drive Left Profile Bottom Buffer", getLeftProfileStatus().btmBufferCnt);
+			SmartDashboard.putNumber("Drive Left Power", motorLeftMain.getMotorOutputPercent());
+			SmartDashboard.putNumber("Drive Left Current", motorLeftMain.getOutputCurrent());
+			SmartDashboard.putBoolean("Drive Left Active Point Valid", status.activePointValid);
+			SmartDashboard.putNumber("Drive Left Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
+			SmartDashboard.putBoolean("Drive Left Active Point is Last", status.isLast);
+			SmartDashboard.putBoolean("Drive Left Active Point is Underrrun", status.isUnderrun);
+		}
 	}
 }
 

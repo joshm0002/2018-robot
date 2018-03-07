@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Dashboard {
 	
 	private static List<DashboardUpdatable> subsystems = new ArrayList<DashboardUpdatable>();
-	public static final boolean DEBUG = false;
 	private static int updateCounts = 0;
 	
 	public static void clearDashboard() {
@@ -35,9 +34,6 @@ public class Dashboard {
 		
 		for (DashboardUpdatable subsystem : subsystems) {
 			subsystem.initSD();
-			if (DEBUG) {
-				subsystem.initDebugSD();
-			}
 		}
 		
 		SmartDashboard.putData("Toggle Compressor", new ToggleCompressor());
@@ -46,14 +42,6 @@ public class Dashboard {
 	public static void updateDashboard() {
 		for (DashboardUpdatable subsystem : subsystems) {
 			subsystem.updateSD();
-			if (DEBUG) {
-				subsystem.updateDebugSD();
-				
-				// TODO: possibly move to some subsystem?
-				SmartDashboard.putBoolean("Compressor Closed Loop Control", Robot.compressor.getClosedLoopControl());
-				SmartDashboard.putBoolean("Compressor Enabled", Robot.compressor.enabled());
-				SmartDashboard.putBoolean("Compressor Pressure Switch", Robot.compressor.getPressureSwitchValue());
-			}
 		}
 		
 		SmartDashboard.putNumber("Dashboard Update Counts", updateCounts++);
@@ -62,7 +50,5 @@ public class Dashboard {
 	public interface DashboardUpdatable {
 		public void initSD();
 		public void updateSD();
-		public void initDebugSD();
-		public void updateDebugSD();
 	}
 }

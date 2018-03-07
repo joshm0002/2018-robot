@@ -16,8 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Hook extends Subsystem implements DashboardUpdatable {
 	
 	private WPI_TalonSRX hookMotor;
+	
 	public static final double PEAK_FWD = 0.35;
 	public static final double PEAK_REV = -0.35;
+	public static final boolean DEBUG = false;
 	
 	public Hook() {
 		hookMotor = RobotUtilities.getTalonSRX(RobotMap.HOOK_MOTOR, "Hook", "Hook");
@@ -57,21 +59,18 @@ public class Hook extends Subsystem implements DashboardUpdatable {
     }
 
 	@Override
-	public void initSD() {}
-
-	@Override
-	public void updateSD() {}
-
-	@Override
-	public void initDebugSD() {
-		SmartDashboard.putData(this);
+	public void initSD() {
+		if (DEBUG) {
+			SmartDashboard.putData(this);
+		}
 	}
 
 	@Override
-	public void updateDebugSD() {
-		SmartDashboard.putNumber("Hook Motor Power", hookMotor.getMotorOutputPercent());
-		SmartDashboard.putNumber("Hook Motor Current", hookMotor.getOutputCurrent());
-		SmartDashboard.putNumber("Hook Motor Position", getPosition());
+	public void updateSD() {
+		if (DEBUG) {
+			SmartDashboard.putNumber("Hook Motor Power", hookMotor.getMotorOutputPercent());
+			SmartDashboard.putNumber("Hook Motor Current", hookMotor.getOutputCurrent());
+			SmartDashboard.putNumber("Hook Motor Position", getPosition());
+		}
 	}
 }
-

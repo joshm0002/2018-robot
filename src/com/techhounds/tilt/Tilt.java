@@ -19,6 +19,7 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	public static final double POS_MID = 500; //551 is max
 	public static final double POS_DOWN = 345; //413
 	public static final double POS_RANGE = POS_UP - POS_DOWN;
+	public static final boolean DEBUG = false;
 	
 	private WPI_TalonSRX tiltMotor;
 
@@ -66,24 +67,22 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 	}
 
 	@Override
-	public void initSD() {}
-
-	@Override
-	public void updateSD() {}
-
-	@Override
-	public void initDebugSD() {
-		SmartDashboard.putData(this);
-		SmartDashboard.putData("Tilt Up", new SetTiltPosition(TiltPosition.UP));
-		SmartDashboard.putData("Tilt Middle", new SetTiltPosition(TiltPosition.MIDDLE));
-		SmartDashboard.putData("Tilt Down", new SetTiltPosition(TiltPosition.DOWN));		
+	public void initSD() {
+		if (DEBUG) {
+			SmartDashboard.putData(this);
+			SmartDashboard.putData("Tilt Up", new SetTiltPosition(TiltPosition.UP));
+			SmartDashboard.putData("Tilt Middle", new SetTiltPosition(TiltPosition.MIDDLE));
+			SmartDashboard.putData("Tilt Down", new SetTiltPosition(TiltPosition.DOWN));
+		}
 	}
 
 	@Override
-	public void updateDebugSD() {
-		SmartDashboard.putNumber("Tilt Angle", getPosition());
-		SmartDashboard.putNumber("Tilt Power", tiltMotor.getMotorOutputPercent());
-		SmartDashboard.putNumber("Tilt Error", tiltMotor.getClosedLoopError(0));
-		SmartDashboard.putNumber("Tilt Current", tiltMotor.getOutputCurrent());
+	public void updateSD() {
+		if (DEBUG) {
+			SmartDashboard.putNumber("Tilt Angle", getPosition());
+			SmartDashboard.putNumber("Tilt Power", tiltMotor.getMotorOutputPercent());
+			SmartDashboard.putNumber("Tilt Error", tiltMotor.getClosedLoopError(0));
+			SmartDashboard.putNumber("Tilt Current", tiltMotor.getOutputCurrent());
+		}
 	}
 }

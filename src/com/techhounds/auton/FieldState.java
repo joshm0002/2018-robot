@@ -36,6 +36,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * initDefaultCommand, it doesn't really need to extend Subsystem.
  */
 public class FieldState implements DashboardUpdatable {
+	
+	public static final boolean DEBUG = false;
 
 	/**
 	 * Possible starting positions for robots and side of field for switch/scale.
@@ -244,17 +246,13 @@ public class FieldState implements DashboardUpdatable {
 	@Override
 	public void updateSD() {
 		SmartDashboard.putBoolean("Field State", isStateKnown());
-	}
-
-	@Override
-	public void initDebugSD() {}
-
-	@Override
-	public void updateDebugSD() {
-		SmartDashboard.putString("Switch Side", getSwitchPosition().name());
-		SmartDashboard.putString("Scale Side", getScalePosition().name());
-		SmartDashboard.putBoolean("Switch ahead", isSwitchStraightAhead());
-		SmartDashboard.putBoolean("Scale ahead", isScaleStraightAhead());
-		SmartDashboard.putNumber("debug: DFW", getCenterPosition());
+		
+		if (DEBUG) {
+			SmartDashboard.putString("Switch Side", getSwitchPosition().name());
+			SmartDashboard.putString("Scale Side", getScalePosition().name());
+			SmartDashboard.putBoolean("Switch ahead", isSwitchStraightAhead());
+			SmartDashboard.putBoolean("Scale ahead", isScaleStraightAhead());
+			SmartDashboard.putNumber("debug: DFW", getCenterPosition());
+		}
 	}
 }

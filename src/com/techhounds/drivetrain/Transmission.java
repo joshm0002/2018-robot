@@ -5,6 +5,7 @@ import com.techhounds.RobotMap;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -12,6 +13,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Transmission extends Subsystem implements DashboardUpdatable {
 
     private Solenoid shifter = new Solenoid(RobotMap.DRIVE_TRANSMISSION);
+    
+    public static final boolean DEBUG = false;
     
     public void toggle() {
     	setHighGear(!isHighGear());
@@ -32,26 +35,16 @@ public class Transmission extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void initSD() {
-		// TODO Auto-generated method stub
-		
+		if (DEBUG) {
+			SmartDashboard.putData(this);
+		}
 	}
 
 	@Override
 	public void updateSD() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void initDebugSD() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateDebugSD() {
-		// TODO Auto-generated method stub
-		
+		if (DEBUG) {
+			SmartDashboard.putBoolean("Transmission High Gear", shifter.get());
+		}
 	}
 }
 

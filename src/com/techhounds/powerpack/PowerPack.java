@@ -34,6 +34,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	public static final double PEAK_ELEVATOR_REV = -0.35;
 	public static final double PEAK_CLIMBER_FWD = 1.0;
 	public static final double PEAK_CLIMBER_REV = -0.5;
+	public static final boolean DEBUG = false;
 
 	public PowerPack() {
 		climberEngage = new Solenoid(RobotMap.WINCH_TRANSMISSION);
@@ -188,37 +189,35 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	// ========== DASHBOARD ==========
 
 	@Override
-	public void initSD() {}
-
-	@Override
-	public void updateSD() {}
-
-	@Override
-	public void initDebugSD() {
-		SmartDashboard.putData(this);
-		SmartDashboard.putData("Climber Up", new SetClimberPower(0.7));
-		SmartDashboard.putData("Climber Down", new SetClimberPower(-0.3));
-		SmartDashboard.putData("Elevator Scale", new SetElevatorPosition(ElevatorPosition.SCALE));
-		SmartDashboard.putData("Elevator Switch", new SetElevatorPosition(ElevatorPosition.SWITCH));
-		SmartDashboard.putData("Elevator Collect", new SetElevatorPosition(ElevatorPosition.COLLECT));
-		SmartDashboard.putData("Power Pack Hold", new SetPowerPackHold());
+	public void initSD() {
+		if (DEBUG) {
+			SmartDashboard.putData(this);
+			SmartDashboard.putData("Climber Up", new SetClimberPower(0.7));
+			SmartDashboard.putData("Climber Down", new SetClimberPower(-0.3));
+			SmartDashboard.putData("Elevator Scale", new SetElevatorPosition(ElevatorPosition.SCALE));
+			SmartDashboard.putData("Elevator Switch", new SetElevatorPosition(ElevatorPosition.SWITCH));
+			SmartDashboard.putData("Elevator Collect", new SetElevatorPosition(ElevatorPosition.COLLECT));
+			SmartDashboard.putData("Power Pack Hold", new SetPowerPackHold());
+		}
 	}
 
 	@Override
-	public void updateDebugSD() {
-		// TODO: call subsystem methods, not winchPrimary.*
-		SmartDashboard.putNumber("Power Pack Position", winchPrimary.getSelectedSensorPosition(0));
-		SmartDashboard.putNumber("Power Pack Velocity", winchPrimary.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("Power Pack Power", winchPrimary.getMotorOutputPercent());
-		SmartDashboard.putNumber("Power Pack Current", winchPrimary.getOutputCurrent());
-		SmartDashboard.putBoolean("Elevator Bottom Limit", isBottomSwitchTripped());
-		SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
-		SmartDashboard.putBoolean("Power Pack Brake Enabled", isBrakeEngaged());
-		SmartDashboard.putBoolean("Power Pack Climber State", isClimberEngaged());
-		if (winchPrimary.getControlMode() == ControlMode.Position) {
-			SmartDashboard.putNumber("Power Pack Error", winchPrimary.getClosedLoopError(0));
-			SmartDashboard.putNumber("Power Pack Setpoint", winchPrimary.getClosedLoopTarget(0));
-			SmartDashboard.putBoolean("Power Pack On Target", onTarget());
+	public void updateSD() {
+		if (DEBUG) {
+			// TODO: call subsystem methods, not winchPrimary.*
+			SmartDashboard.putNumber("Power Pack Position", winchPrimary.getSelectedSensorPosition(0));
+			SmartDashboard.putNumber("Power Pack Velocity", winchPrimary.getSelectedSensorVelocity(0));
+			SmartDashboard.putNumber("Power Pack Power", winchPrimary.getMotorOutputPercent());
+			SmartDashboard.putNumber("Power Pack Current", winchPrimary.getOutputCurrent());
+			SmartDashboard.putBoolean("Elevator Bottom Limit", isBottomSwitchTripped());
+			SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
+			SmartDashboard.putBoolean("Power Pack Brake Enabled", isBrakeEngaged());
+			SmartDashboard.putBoolean("Power Pack Climber State", isClimberEngaged());
+			if (winchPrimary.getControlMode() == ControlMode.Position) {
+				SmartDashboard.putNumber("Power Pack Error", winchPrimary.getClosedLoopError(0));
+				SmartDashboard.putNumber("Power Pack Setpoint", winchPrimary.getClosedLoopTarget(0));
+				SmartDashboard.putBoolean("Power Pack On Target", onTarget());
+			}
 		}
 	}
 }

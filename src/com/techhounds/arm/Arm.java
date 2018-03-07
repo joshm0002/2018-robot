@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Arm extends Subsystem implements DashboardUpdatable {
 	
+	public static final boolean DEBUG = false;
+	
 	private Solenoid arm;
 	
 	public Arm(){
@@ -47,21 +49,16 @@ public class Arm extends Subsystem implements DashboardUpdatable {
 	@Override
 	public void initSD() {
 		
+		if (DEBUG) {
+			SmartDashboard.putData(this);
+			SmartDashboard.putData("Toggle Arms", new ToggleArm());
+			SmartDashboard.putData("Open Arms", new SetArm(true));
+			SmartDashboard.putData("Close Arms", new SetArm(false));
+		}
 	}
 
 	@Override
 	public void updateSD() {
 		SmartDashboard.putBoolean("Arm Actuator State", arm.get());
 	}
-
-	@Override
-	public void initDebugSD() {
-		SmartDashboard.putData(this);
-		SmartDashboard.putData("Toggle Arms", new ToggleArm());
-		SmartDashboard.putData("Open Arms", new SetArm(true));
-		SmartDashboard.putData("Close Arms", new SetArm(false));
-	}
-
-	@Override
-	public void updateDebugSD() {}
 }

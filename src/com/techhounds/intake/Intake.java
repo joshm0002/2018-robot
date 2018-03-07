@@ -16,6 +16,8 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 	private WPI_TalonSRX intakeLeft;
 	private WPI_TalonSRX intakeRight;
 	
+	public static final boolean DEBUG = false;
+	
 	public Intake() {
 		intakeLeft = RobotUtilities.getTalonSRX(RobotMap.INTAKE_LEFT, "Intake", "Left (Breakout)");
 		intakeRight = RobotUtilities.getTalonSRX(RobotMap.INTAKE_RIGHT, "Intake", "Right");
@@ -51,23 +53,21 @@ public class Intake extends Subsystem implements DashboardUpdatable {
     }
 
 	@Override
-	public void initSD() {}
+	public void initSD() {
+		if (DEBUG) {
+			SmartDashboard.putData(this);
+			SmartDashboard.putData("Intake In", new SetIntakePower(1));
+			SmartDashboard.putData("Intake Out", new SetIntakePower(-1));
+		}
+	}
 
 	@Override
 	public void updateSD() {
 		SmartDashboard.putBoolean("Cube Detected", isCubeDetected());
-	}
-
-	@Override
-	public void initDebugSD() {
-		SmartDashboard.putData(this);
-		SmartDashboard.putData("Intake In", new SetIntakePower(1));
-		SmartDashboard.putData("Intake Out", new SetIntakePower(-1));
-	}
-
-	@Override
-	public void updateDebugSD() {
-		SmartDashboard.putNumber("Intake Power", intakeLeft.getMotorOutputPercent());
-		SmartDashboard.putNumber("Intake Current", intakeLeft.getOutputCurrent());
+		
+		if (DEBUG) {
+			SmartDashboard.putNumber("Intake Power", intakeLeft.getMotorOutputPercent());
+			SmartDashboard.putNumber("Intake Current", intakeLeft.getOutputCurrent());
+		}
 	}
 }

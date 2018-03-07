@@ -6,9 +6,11 @@ import com.techhounds.auton.paths.CenterLeftSwitch;
 import com.techhounds.auton.paths.CenterRightSwitch;
 import com.techhounds.auton.paths.LeftScale;
 import com.techhounds.auton.paths.LeftSwitch;
+import com.techhounds.auton.paths.RightScale;
 import com.techhounds.auton.paths.RightSwitch;
 import com.techhounds.auton.paths.StraightSwitch;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -32,72 +34,75 @@ public class AutonLauncher {
 
 	public static void addChoices() {
 		autonChoices.addDefault("Baseline", Auton.BASELINE);
-		autonChoices.addObject("Straight Switch", Auton.FRONT_SWITCH);
-		autonChoices.addObject("Straight Scale", Auton.FRONT_SCALE);
+		autonChoices.addObject("Front Switch", Auton.FRONT_SWITCH);
+		autonChoices.addObject("Front Scale", Auton.FRONT_SCALE);
 		autonChoices.addObject("Side Switch", Auton.SIDE_SWITCH);
 		SmartDashboard.putData("Auton Chooser", autonChoices);
 	}
 	
-	public static void runAuton(FieldState field) {
+	public static Command getAuton(FieldState field) {
 		System.out.println("Running Auton " + autonChoices.getSelected().toString());
 		switch(autonChoices.getSelected()) {
 		case FRONT_SWITCH:
-			runFrontSwitch(field);
-			break;
+			return getFrontSwitch(field);
 		case FRONT_SCALE:
-			runFrontScale(field);
-			break;
+			return getFrontScale(field);
 		case SIDE_SWITCH:
-			runSideSwitch(field);
-			break;
+			return getSideSwitch(field);
 		case BASELINE:
-			runBaseline();
-			break;
+			return getBaseline();
 		default:
-			runBaseline();
-			break;
+			return getBaseline();
 		}
 	}
 	
-	public static void runBaseline() {
-		new Baseline().start();
+	public static Command getBaseline() {
+		return new Baseline();
 	}
 	
-	public static void runFrontSwitch(FieldState field) {
-		if (field.getRobotPosition() == Position.Middle) { // start in center, do either
+	public static Command getFrontSwitch(FieldState field) {
+		// Start center, we can do either
+		if (field.getRobotPosition() == Position.Middle) {
 			if (field.getSwitchPosition() == Position.Right) {
-				new CenterRightSwitch().start();
+				return new CenterRightSwitch();
 			} else if (field.getSwitchPosition() == Position.Left) {
-				new CenterLeftSwitch().start();
+				return new CenterLeftSwitch();
 			} else {
-				runBaseline();
+				return getBaseline();
 			}
-		} else if (field.getRobotPosition() == field.getSwitchPosition()) { //start on one, do it if it's ahead of us
-			new StraightSwitch().start();
+		// we're on one side, so either do it straight ahead or do neither
+		} else if (field.getRobotPosition() == field.getSwitchPosition()) {
+			return new StraightSwitch();
 		} else {
-			runBaseline();
+			return getBaseline();
 		}
 	}
 	
-	public static void runFrontScale(FieldState field) {
+	public static Command getFrontScale(FieldState field) {
 		if (field.getRobotPosition() == field.getScalePosition()) {
-			new LeftScale().start();
+			if (field.getScalePosition() == Position.Right) {
+				return new RightScale();
+			} else if (field.getScalePosition() == Position.Left) {
+				return new LeftScale();
+			} else {
+				return getBaseline();
+			}
 		} else {
-			runBaseline();
+			return getBaseline();
 		}
 	}
 	
-	public static void runSideSwitch(FieldState field) {
+	public static Command getSideSwitch(FieldState field) {
 		if (field.getRobotPosition() == field.getSwitchPosition()) {
 			if (field.getSwitchPosition() == Position.Right) {
-				new RightSwitch().start();
+				return new RightSwitch();
 			} else if (field.getSwitchPosition() == Position.Left) {
-				new LeftSwitch().start();
+				return new LeftSwitch();
 			} else {
-				runBaseline();
+				return getBaseline();
 			}
 		} else {
-			runBaseline();
+			return getBaseline();
 		}
 	}
 	

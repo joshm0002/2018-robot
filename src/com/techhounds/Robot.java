@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		Scheduler.getInstance().removeAll();
 		field.pollData();
-//		AutonLauncher.runAuton(field);
+//		AutonLauncher.getAuton(field).start();
 		
 //		 FIXME temporary for testing
 		new MotionProfileExecutor(new MotionProfile(SmartDashboard.getString("Path to Run", "Test"))).start();

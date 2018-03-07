@@ -13,12 +13,11 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class StraightScale extends CommandGroup {
+public class LeftScale extends CommandGroup {
 
-    public StraightScale() {
+    public LeftScale() {
     	addParallel(new SetTiltPosition(TiltPosition.MIDDLE));
-    	// TODO slightly curved drive distance
-//    	addSequential(new MotionProfileExecutor(MotionProfile.RightScaleRight));
+    	addSequential(new DriveDistance(270, 270, 0.4 * 0.95, 0.4)); // less power right, curves right
     	addSequential(new SetElevatorPosition(ElevatorPosition.SCALE));
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));
     	addSequential(new DelayedCommand(new SetIntakePower(-1), 0.5), 3);

@@ -1,7 +1,7 @@
 package com.techhounds.auton;
 
 import com.techhounds.auton.paths.Baseline;
-import com.techhounds.auton.paths.StraightScale;
+import com.techhounds.auton.paths.LeftScale;
 import com.techhounds.auton.paths.StraightSwitch;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -62,7 +62,7 @@ public class AutonLauncher {
 	
 	public static void runStraightScale(FieldState field) {
 		if (field.getRobotPosition() == field.getScalePosition()) {
-			new StraightScale().start();
+			new LeftScale().start();
 		} else {
 			runBaseline();
 		}

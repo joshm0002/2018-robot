@@ -16,8 +16,13 @@ public class DriveDistance extends Command {
 	private final double rightPower;
 	private final double leftPower;
 	
+	// real robot
+//	public static final double STRAIGHT_COEFFICIENT = 0.88;
+	// practice bot FIXME
+	public static final double STRAIGHT_COEFFICIENT = 0.88;
+	
 	public DriveDistance(double inches) {
-		this(inches, inches, 0.4 * 0.88, 0.4);
+		this(inches, inches, 0.4, 0.4);
 	}
 
     public DriveDistance(double rightInches, double leftInches, double rightPower, double leftPower) {
@@ -45,7 +50,7 @@ public class DriveDistance extends Command {
     		setLeft = 0;
     	}
     	
-    	Robot.drivetrain.setPower(setRight, setLeft);
+    	Robot.drivetrain.setPower(setRight * STRAIGHT_COEFFICIENT, setLeft);
     }
 
     protected boolean isFinished() {

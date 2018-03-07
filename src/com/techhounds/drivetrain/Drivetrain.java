@@ -6,6 +6,7 @@ import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
@@ -82,6 +83,8 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.setSensorPhase(true); // TODO: why both here and in the constructor??
 
+		talon.setNeutralMode(NeutralMode.Brake);
+		
 		talon.enableCurrentLimit(true);
 		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);

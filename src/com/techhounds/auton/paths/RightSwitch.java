@@ -18,11 +18,11 @@ public class RightSwitch extends CommandGroup {
     public RightSwitch() {
     	// set to 45 & switch
     	addParallel(new SetTiltPosition(TiltPosition.MIDDLE));
-    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
+//    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
     	
     	// drive up
-    	addSequential(new DriveDistance(110), 3);
-    	addSequential(new DriveDistance(40, 0, 0.4, 0)); // curve left
+    	addSequential(new DriveDistance(135), 5);
+    	addSequential(new DriveDistance(60, -10, 0.6, -0.2), 3); // curve left
     	
     	// eject cube
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));
@@ -30,7 +30,7 @@ public class RightSwitch extends CommandGroup {
     	addSequential(new SetIntakePower(-0.5), 1);
     	
     	// back up
-    	addSequential(new DriveDistance(-20), 2);
+    	addSequential(new DriveDistance(-40), 2);
     	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
     }
 }

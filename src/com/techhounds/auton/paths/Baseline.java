@@ -12,6 +12,6 @@ public class Baseline extends CommandGroup {
 
     public Baseline() {
     	addParallel(new SetTiltPosition(Tilt.POS_UP));
-    	addSequential(new DriveDistance(100, 3));
+    	addSequential(new DriveDistance(100), 3);
     }
 }

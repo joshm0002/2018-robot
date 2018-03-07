@@ -32,6 +32,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 
 	private MotionProfileStatus status;
 
+	public static final double MAX_DRIVE_SPEED = 0.75;
 	public static final double MIN_DRIVE_SPEED = 0.3; // TODO: set deadband?
 	public static final double COUNTS_PER_INCH = 437; //4096 / Math.PI * 6;
 	public static final boolean DEBUG = true;
@@ -134,6 +135,14 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 
 	public double getScaledAverageDistance() {
 		return getRawAverageDistance() / COUNTS_PER_INCH;
+	}
+	
+	public double getScaledRightDistance() {
+		return getRawRightDistance() / COUNTS_PER_INCH;
+	}
+	
+	public double getScaledLeftDistance() {
+		return getRawLeftDistance() / COUNTS_PER_INCH;
 	}
 
 	/**

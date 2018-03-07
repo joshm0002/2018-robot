@@ -2,41 +2,54 @@ package com.techhounds.auton.paths;
 
 import com.techhounds.Robot;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * TODO: add TalonPID-based distance command
  */
-public class DriveDistance extends TimedCommand {
+public class DriveDistance extends Command {
 	
-	private final double target;
-	private double initial;
+	private final double rightTarget;
+	private final double leftTarget;
+	private double rightInitial;
+	private double leftInitial;
+	private final double rightPower;
+	private final double leftPower;
+	
+	public DriveDistance(double inches) {
+		this(inches, inches, 0.4 * 0.88, 0.4);
+	}
 
-    public DriveDistance(double inches, double timeout) {
-    	super(timeout);
+    public DriveDistance(double rightInches, double leftInches, double rightPower, double leftPower) {
     	requires(Robot.drivetrain);
-    	this.target = inches;
+    	this.rightTarget = rightInches;
+    	this.leftTarget = leftInches;
+    	this.rightPower = rightPower;
+    	this.leftPower = leftPower;
     }
 
     protected void initialize() {
-    	initial = Robot.drivetrain.getScaledAverageDistance();
+    	rightInitial = Robot.drivetrain.getScaledRightDistance();
+    	leftInitial = Robot.drivetrain.getScaledLeftDistance();
     }
 
-    // TODO: use Constants for max/min
     protected void execute() {
-    	if (target > 0) {
-    	Robot.drivetrain.setPower(0.4 * 0.88, 0.4);
-    	} else {
-    		Robot.drivetrain.setPower(-0.4 * 0.88, -0.4);
+    	double setRight = rightPower;
+    	double setLeft = leftPower;
+    	
+    	if(isRightFinished()) {
+    		setRight = 0;
     	}
+    	
+    	if(isLeftFinished()) {
+    		setLeft = 0;
+    	}
+    	
+    	Robot.drivetrain.setPower(setRight, setLeft);
     }
 
     protected boolean isFinished() {
-    	if (target > 0) { //drive forward
-    		return (Robot.drivetrain.getScaledAverageDistance() - initial) > target;
-    	} else { //drive backwards
-    		return (Robot.drivetrain.getScaledAverageDistance() - initial) < target;
-    	}
+    	return isRightFinished() && isLeftFinished();
     }
 
     protected void end() {
@@ -45,5 +58,13 @@ public class DriveDistance extends TimedCommand {
 
     protected void interrupted() {
     	end();
+    }
+    
+    private boolean isRightFinished() {
+    	return Math.abs(Robot.drivetrain.getScaledRightDistance() - rightInitial) > Math.abs(rightTarget);
+    }
+    
+    private boolean isLeftFinished() {
+    	return Math.abs(Robot.drivetrain.getScaledLeftDistance() - leftInitial) > Math.abs(leftTarget);
     }
 }

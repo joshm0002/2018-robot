@@ -16,13 +16,20 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class LeftSwitch extends CommandGroup {
 
     public LeftSwitch() {
+    	// set to 45 & switch
     	addParallel(new SetTiltPosition(TiltPosition.MIDDLE));
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
+    	
+    	// drive up
     	addSequential(new DriveDistance(110), 3);
     	addSequential(new DriveDistance(0, 40, 0, 0.4)); // curve right
+    	
+    	// eject cube
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));
     	addSequential(new WaitCommand(1));
     	addSequential(new SetIntakePower(-0.5), 1);
+    	
+    	// back up
     	addSequential(new DriveDistance(-20), 2);
     	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
     }

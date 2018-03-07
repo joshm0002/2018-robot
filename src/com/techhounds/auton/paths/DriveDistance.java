@@ -22,7 +22,7 @@ public class DriveDistance extends Command {
 	public static final double STRAIGHT_COEFFICIENT = 0.96;
 	
 	public DriveDistance(double inches) {
-		this(inches, inches, 0.4, 0.4);
+		this(inches, inches, inches > 0 ? 0.4 : -0.4, inches > 0 ? 0.4 : -0.4);
 	}
 
     public DriveDistance(double rightInches, double leftInches, double rightPower, double leftPower) {

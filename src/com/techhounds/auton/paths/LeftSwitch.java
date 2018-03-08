@@ -21,8 +21,8 @@ public class LeftSwitch extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
     	
     	// drive up
-    	addSequential(new DriveDistance(110), 3);
-    	addSequential(new DriveDistance(0, 40, 0, 0.4)); // curve right
+    	addSequential(new DriveDistance(135), 5);
+    	addSequential(new DriveDistance(-10, 60, -0.2, 0.6), 3); // curve left
     	
     	// eject cube
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));

@@ -21,8 +21,8 @@ public class CenterLeftSwitch extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
     	
     	// drive in s pattern
-    	addSequential(new DriveDistance(60, 30, 0.6, 0.3));
-    	addSequential(new DriveDistance(30, 60, 0.3, 0.6));
+    	addSequential(new DriveDistance(70, 25, 0.6, 0.25));
+    	addSequential(new DriveDistance(25, 70, 0.25, 0.6));
     	
     	// eject cube
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));

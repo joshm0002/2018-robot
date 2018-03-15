@@ -7,11 +7,11 @@
 
 package com.techhounds;
 
-import com.techhounds.arm.ToggleArm;
+import com.techhounds.arm.SetArm;
 import com.techhounds.auton.ProfileRecorder;
 import com.techhounds.drivetrain.ArcadeDrive;
 import com.techhounds.drivetrain.FlipDriveDirection;
-import com.techhounds.drivetrain.ToggleTransmission;
+import com.techhounds.drivetrain.SetTransmission;
 import com.techhounds.hook.SetHookPosition;
 import com.techhounds.intake.GamepadIntakeControl;
 import com.techhounds.oi.CubeDetectedTrigger;
@@ -70,13 +70,13 @@ public class OI {
 
 		Button RB = new JoystickButton(driver, 6);
 		// high gear while held, low when released
-		RB.whenPressed(new ToggleTransmission());
-		RB.whenReleased(new ToggleTransmission());
+		RB.whenPressed(new SetTransmission(true));
+		RB.whenReleased(new SetTransmission(false));
 		
 		Button LB = new JoystickButton(driver, 5);
 		// open arm while held, close when released
-		LB.whenPressed(new ToggleArm());
-		LB.whenReleased(new ToggleArm());
+		LB.whenPressed(new SetArm(true));
+		LB.whenReleased(new SetArm(false));
 		
 		Button start = new JoystickButton(driver, 8);
 		// record motion profile
@@ -116,8 +116,8 @@ public class OI {
 
 		Button bX = new JoystickButton(operator, 3);
 		// Actuate collector arms
-		bX.whenPressed(new ToggleArm());
-		bX.whenReleased(new ToggleArm());
+		bX.whenPressed(new SetArm(true));
+		bX.whenReleased(new SetArm(false));
 
 		Button bY = new JoystickButton(operator, 4);
 		// Set elevator to SCALE position

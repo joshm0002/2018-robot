@@ -19,9 +19,7 @@ public class LEDs extends Subsystem {
 	
 	public void set(int red, int green, int blue) {
 		if (isValid()) {
-			serial.writeString("" + red + "\n");
-			serial.writeString("" + green + "\n");
-			serial.writeString("" + blue + "\n");
+			serial.write(new byte[] { (byte)red, (byte)green, (byte)blue }, 3);
 		}
 	}
 

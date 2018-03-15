@@ -1,4 +1,4 @@
-package com.techhounds.subsystems;
+package com.techhounds.leds;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
@@ -11,26 +11,17 @@ public class LEDs extends Subsystem {
 	
 	private final SerialPort serial = new SerialPort(9600, Port.kUSB1); // FIXME: correct port type
 	
-	public enum LEDState {
-		GREEN(0),
-		YELLOW(1),
-		RED(2);
-		
-		public final int code;
-		LEDState(int code) {
-			this.code = code;
-		}
-	}
-	
 	public LEDs() {}
 	
 	public boolean isValid() {
 		return serial != null;
 	}
 	
-	public void set(LEDState state) {
+	public void set(int red, int green, int blue) {
 		if (isValid()) {
-			serial.writeString(String.valueOf(state.code));
+			serial.writeString("" + red + "\n");
+			serial.writeString("" + green + "\n");
+			serial.writeString("" + blue + "\n");
 		}
 	}
 

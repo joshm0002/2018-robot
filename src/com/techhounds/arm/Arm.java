@@ -41,9 +41,9 @@ public class Arm extends Subsystem implements DashboardUpdatable {
     }
 
     /**
+     * Intentionally left blank
      */
     public void initDefaultCommand() {
-    	setDefaultCommand(new SetArm(false));
     }
 
 	@Override

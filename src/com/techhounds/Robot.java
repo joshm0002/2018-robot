@@ -15,6 +15,7 @@ import com.techhounds.drivetrain.Transmission;
 import com.techhounds.gyro.Gyroscope;
 import com.techhounds.hook.Hook;
 import com.techhounds.intake.Intake;
+import com.techhounds.leds.LEDs;
 import com.techhounds.powerpack.PowerPack;
 import com.techhounds.tilt.Tilt;
 import com.techhounds.vision.PullVision;
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
 	public static final PullVision vision = new PullVision();
 	public static final Compressor compressor = new Compressor();
 	public static final FieldState field = new FieldState();
+	public static final LEDs leds = new LEDs();
 			
 	/**
 	 * This function is run when the robot is first started up and should be

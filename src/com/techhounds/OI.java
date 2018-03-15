@@ -14,6 +14,7 @@ import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.SetTransmission;
 import com.techhounds.hook.SetHookPosition;
 import com.techhounds.intake.GamepadIntakeControl;
+import com.techhounds.leds.SetLEDs;
 import com.techhounds.oi.CubeDetectedTrigger;
 import com.techhounds.oi.MatchTimeTrigger;
 import com.techhounds.oi.RumbleDriver;
@@ -86,13 +87,15 @@ public class OI {
 		// flip drive direction
 		select.whenPressed(new FlipDriveDirection());
 
-		Trigger cubeRumble = new CubeDetectedTrigger();
+		Trigger cubeDetect = new CubeDetectedTrigger();
 		// rumble when we first get a cube
-		cubeRumble.whenActive(new RumbleDriver(1));
+		cubeDetect.whenActive(new RumbleDriver(1));
+		cubeDetect.whenActive(new SetLEDs(0, 255, 0));
+		cubeDetect.whenInactive(new SetLEDs(0, 0, 0));
 		
-		Trigger timeRumble = new MatchTimeTrigger(75);
+		Trigger sixtySeconds = new MatchTimeTrigger(75);
 		// rumble when 60 seconds remain
-		timeRumble.whenActive(new RumbleDriver(2));
+		sixtySeconds.whenActive(new RumbleDriver(2));
 	}
 
 	/**

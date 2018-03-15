@@ -59,34 +59,39 @@ public class OI {
 //		Robot.intake.setDefaultCommand(new GamepadIntakeControl(driver, 3, 2));
 		
 		Button bA = new JoystickButton(driver, 1);
-		// Set elevator to DOWN position
+		// lower hook
 		bA.whenPressed(new SetHookPosition(false));
 
 		Button bY = new JoystickButton(driver, 4);
-		// Set elevator to SCALE position
+		// ready for climb: raise hook, flip drive, and raise tilt
 		bY.whenPressed(new SetHookPosition(true));
 		bY.whenPressed(new FlipDriveDirection());
 		bY.whenPressed(new SetTiltPosition(TiltPosition.UP));
 
 		Button RB = new JoystickButton(driver, 6);
+		// high gear while held, low when released
 		RB.whenPressed(new ToggleTransmission());
 		RB.whenReleased(new ToggleTransmission());
 		
 		Button LB = new JoystickButton(driver, 5);
+		// open arm while held, close when released
 		LB.whenPressed(new ToggleArm());
 		LB.whenReleased(new ToggleArm());
 		
 		Button start = new JoystickButton(driver, 8);
+		// record motion profile
 		start.toggleWhenPressed(new ProfileRecorder(0.02));
 		
 		Button select = new JoystickButton(driver, 7);
+		// flip drive direction
 		select.whenPressed(new FlipDriveDirection());
 
 		Trigger cubeRumble = new CubeDetectedTrigger();
 		// rumble when we first get a cube
 		cubeRumble.whenActive(new RumbleDriver(1));
 		
-		Trigger timeRumble = new MatchTimeTrigger(75); //aka 60 seconds remaining
+		Trigger timeRumble = new MatchTimeTrigger(75);
+		// rumble when 60 seconds remain
 		timeRumble.whenActive(new RumbleDriver(2));
 	}
 
@@ -94,14 +99,8 @@ public class OI {
 	 * Binds triggers/buttons to commands for the operator
 	 */
 	public static void setupOperator() {
-
-		// Hook default command
-//		Robot.hook.setDefaultCommand(new GamepadHookControl(operator, 3, 2));
 		
 		Robot.intake.setDefaultCommand(new GamepadIntakeControl(operator, 3, 2));
-		
-//		Trigger cubeDetected = new CubeDetectedTrigger();
-//		cubeDetected.whenActive(new DelayedCommand(new SetTiltPosition(Tilt.POS_MID), 0.75));
 		
 		Trigger cubeRumble = new CubeDetectedTrigger();
 		// rumble when we first get a cube
@@ -124,7 +123,6 @@ public class OI {
 		// Set elevator to SCALE position
 		bY.whenPressed(new SetElevatorPosition(ElevatorPosition.SCALE));
 
-		// TODO: these whileHeld might not work right
 		Button LB = new JoystickButton(operator, 5);
 		// OperatorClimberControl (joystick)
 		LB.whileHeld(new GamepadClimberControl(operator, 1));
@@ -132,9 +130,6 @@ public class OI {
 		Button RB = new JoystickButton(operator, 6);
 		// OperatorElevatorControl (joystick)
 		RB.whileHeld(new GamepadElevatorControl(operator, 5));
-
-//		Button select = new JoystickButton(operator, 7);
-//		Button start = new JoystickButton(operator, 8);
 
 		Button arrowUp = getPOVButton(operator, 0);
 		// Set Tilt to UP

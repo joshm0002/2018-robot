@@ -32,7 +32,7 @@ public class RobotMap {
 	public static final int ARMS = 6;
 	public static final int WINCH_TRANSMISSION = 5;
 	public static final int WINCH_BRAKE = 4;
-	public static final int HOOK = 3;
+	public static final int HOOK = 0;
 
 	
 	// Sensors (Analog)

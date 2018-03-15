@@ -35,6 +35,12 @@ public class GamepadIntakeControl extends Command {
     	
     	double forward = Math.pow(controller.getRawAxis(forwardAxis), 2);
     	double reverse = Math.pow(controller.getRawAxis(reverseAxis), 2) * outMult;
+    	double power = forward - reverse;
+    	
+    	// stall the motors to hold the cube
+    	if (Math.abs(power) < 0.05 && Robot.intake.isCubeDetected()) {
+    		power = 0.1;
+    	}
     	
     	Robot.intake.setPower(forward - reverse);
     }

@@ -26,13 +26,13 @@ public class RobotMap {
 	public static final int POWER_PACK_TERTIARY = 21;
 	public static final int POWER_PACK_QUATERNARY = 20;
 	public static final int TILT = 13;
-	public static final int HOOK_MOTOR = 12;
 	
 	// Pneumatics (PCM)
 	public static final int DRIVE_TRANSMISSION = 7;
 	public static final int ARMS = 6;
 	public static final int WINCH_TRANSMISSION = 5;
 	public static final int WINCH_BRAKE = 4;
+	public static final int HOOK = 3;
 
 	
 	// Sensors (Analog)

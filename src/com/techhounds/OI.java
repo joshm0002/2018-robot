@@ -12,7 +12,7 @@ import com.techhounds.auton.ProfileRecorder;
 import com.techhounds.drivetrain.ArcadeDrive;
 import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.ToggleTransmission;
-import com.techhounds.hook.GamepadHookControl;
+import com.techhounds.hook.SetHookPosition;
 import com.techhounds.intake.GamepadIntakeControl;
 import com.techhounds.oi.CubeDetectedTrigger;
 import com.techhounds.oi.MatchTimeTrigger;
@@ -58,7 +58,14 @@ public class OI {
 		// Intake Default is DriverIntakeControl
 //		Robot.intake.setDefaultCommand(new GamepadIntakeControl(driver, 3, 2));
 		
-		Robot.hook.setDefaultCommand(new GamepadHookControl(driver, 3, 2));
+		Button bA = new JoystickButton(driver, 1);
+		// Set elevator to DOWN position
+		bA.whenPressed(new SetHookPosition(false));
+
+		Button bY = new JoystickButton(driver, 4);
+		// Set elevator to SCALE position
+		bY.whenPressed(new SetHookPosition(true));
+		bY.whenPressed(new FlipDriveDirection());
 
 		Button RB = new JoystickButton(driver, 6);
 		RB.whenPressed(new ToggleTransmission());

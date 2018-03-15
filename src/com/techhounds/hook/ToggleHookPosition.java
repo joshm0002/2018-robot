@@ -7,23 +7,20 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SetHookPower extends Command {
+public class ToggleHookPosition extends Command {
 
-	private final double power;
-	
-    public SetHookPower(double power) {
+    public ToggleHookPosition() {
     	requires(Robot.hook);
-    	this.power = power;
     }
 
     protected void initialize() {
-    	Robot.hook.setPower(power);
+    	Robot.hook.setPosition(!Robot.hook.isUp());
     }
 
     protected void execute() {}
 
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     protected void end() {}

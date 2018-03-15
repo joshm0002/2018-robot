@@ -14,6 +14,7 @@ import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.SetTransmission;
 import com.techhounds.hook.SetHookPosition;
 import com.techhounds.intake.GamepadIntakeControl;
+import com.techhounds.leds.FlashLEDs;
 import com.techhounds.leds.SetLEDs;
 import com.techhounds.oi.CubeDetectedTrigger;
 import com.techhounds.oi.MatchTimeTrigger;
@@ -96,6 +97,7 @@ public class OI {
 		Trigger sixtySeconds = new MatchTimeTrigger(75);
 		// rumble when 60 seconds remain
 		sixtySeconds.whenActive(new RumbleDriver(2));
+		sixtySeconds.whenActive(new FlashLEDs(255, 255, 0, 0.5, 3));
 	}
 
 	/**

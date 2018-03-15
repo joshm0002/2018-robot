@@ -42,7 +42,7 @@ public class GamepadIntakeControl extends Command {
     		power = 0.1;
     	}
     	
-    	Robot.intake.setPower(forward - reverse);
+    	Robot.intake.setPower(power);
     }
 
     protected boolean isFinished() {

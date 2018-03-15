@@ -3,6 +3,7 @@ package com.techhounds.intake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.Dashboard.DashboardUpdatable;
 import com.techhounds.RobotMap;
@@ -29,6 +30,7 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 		talon.configOpenloopRamp(0.1, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, RobotUtilities.CONFIG_TIMEOUT);
 		talon.overrideLimitSwitchesEnable(false);
+		talon.setNeutralMode(NeutralMode.Brake);
 	}
 	
 	public void setPower(double power){

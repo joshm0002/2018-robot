@@ -21,6 +21,7 @@ public class SetTiltPosition extends Command {
 		}
 	}
 
+	private final Command closeArms = new SetArm(false);
 	private double setpoint;
 
 	public SetTiltPosition(TiltPosition position) {
@@ -34,7 +35,7 @@ public class SetTiltPosition extends Command {
 
 	protected void initialize() {
 		if (setpoint > Tilt.POS_DOWN + 50) {
-			new SetArm(false).start();
+			closeArms.start();
 		}
 	}
 

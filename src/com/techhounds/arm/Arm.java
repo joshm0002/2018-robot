@@ -41,10 +41,10 @@ public class Arm extends Subsystem implements DashboardUpdatable {
     }
 
     /**
-     * Intentionally left blank: default state of
-     * pneumatics is determined by tubing connections.
      */
-    public void initDefaultCommand() {}
+    public void initDefaultCommand() {
+    	setDefaultCommand(new SetArm(false));
+    }
 
 	@Override
 	public void initSD() {

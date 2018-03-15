@@ -74,11 +74,9 @@ public class OI {
 		Button select = new JoystickButton(driver, 7);
 		select.whenPressed(new FlipDriveDirection());
 
-//		Trigger cubeRumble = new CubeDetectedTrigger();
+		Trigger cubeRumble = new CubeDetectedTrigger();
 		// rumble when we first get a cube
-//		cubeRumble.whenActive(new RumbleDriver(1));
-		// alternatively, rumble constantly while cube is in
-		//cubeRumble.whileActive(new RumbleDriver());
+		cubeRumble.whenActive(new RumbleDriver(1));
 		
 		Trigger timeRumble = new MatchTimeTrigger(75); //aka 60 seconds remaining
 		timeRumble.whenActive(new RumbleDriver(2));
@@ -100,7 +98,6 @@ public class OI {
 		Trigger cubeRumble = new CubeDetectedTrigger();
 		// rumble when we first get a cube
 		cubeRumble.whenActive(new RumbleOperator(1));
-		cubeRumble.whenActive(new RumbleDriver(1));
 
 		Button bA = new JoystickButton(operator, 1);
 		// Set elevator to DOWN position

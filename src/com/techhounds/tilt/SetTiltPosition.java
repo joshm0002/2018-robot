@@ -1,6 +1,7 @@
 package com.techhounds.tilt;
 
 import com.techhounds.Robot;
+import com.techhounds.arm.SetArm;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -31,7 +32,11 @@ public class SetTiltPosition extends Command {
 		requires(Robot.tilt);
 	}
 
-	protected void initialize() {}
+	protected void initialize() {
+		if (setpoint > Tilt.POS_DOWN + 50) {
+			new SetArm(false).start();
+		}
+	}
 
 	protected void execute() {
 		double position = Robot.tilt.getPosition();

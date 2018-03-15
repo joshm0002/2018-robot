@@ -66,6 +66,7 @@ public class OI {
 		// Set elevator to SCALE position
 		bY.whenPressed(new SetHookPosition(true));
 		bY.whenPressed(new FlipDriveDirection());
+		bY.whenPressed(new SetTiltPosition(TiltPosition.UP));
 
 		Button RB = new JoystickButton(driver, 6);
 		RB.whenPressed(new ToggleTransmission());

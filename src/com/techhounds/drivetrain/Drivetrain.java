@@ -56,6 +56,8 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 
 		configure(motorRightMain);
 		configure(motorLeftMain);
+		configure(motorRightFollower);
+		configure(motorLeftFollower);
 
 		motorRightFollower.follow(motorRightMain);
 		motorLeftFollower.follow(motorLeftMain);

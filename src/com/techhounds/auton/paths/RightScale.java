@@ -21,7 +21,7 @@ public class RightScale extends CommandGroup {
 
     	// drive up & curve
     	addSequential(new DriveDistance(240, 240, 0.5, 0.5), 6);
-    	addSequential(new DriveDistance(30, -10, 0.4, -0.1), 2); // curve left
+    	addSequential(new DriveDistance(30, 10, 0.4, 0.2), 2); // curve left
     	
     	// eject the cube
     	addParallel(new SetTiltPosition(TiltPosition.MIDDLE)); //TODO down?

@@ -19,7 +19,8 @@ public class DriveDistance extends Command {
 	// real robot
 //	public static final double STRAIGHT_COEFFICIENT = 0.88;
 	// practice bot FIXME
-	public static final double STRAIGHT_COEFFICIENT = 1;
+	
+	private double initialAngle;
 	
 	public DriveDistance(double inches) {
 		this(inches, inches, inches > 0 ? 0.4 : -0.4, inches > 0 ? 0.4 : -0.4);
@@ -36,6 +37,7 @@ public class DriveDistance extends Command {
     protected void initialize() {
     	rightInitial = Robot.drivetrain.getScaledRightDistance();
     	leftInitial = Robot.drivetrain.getScaledLeftDistance();
+    	initialAngle = Robot.gyro.getRotation();
     }
 
     protected void execute() {
@@ -50,7 +52,10 @@ public class DriveDistance extends Command {
     		setLeft = 0;
     	}
     	
-    	Robot.drivetrain.setPower(setRight * STRAIGHT_COEFFICIENT, setLeft);
+    	double angleError = Robot.gyro.getRotation() - initialAngle;
+    	double angleP = (angleError / 50);
+    	
+    	Robot.drivetrain.setPower(setRight * (1+angleP), setLeft * (1-angleP));
     }
 
     protected boolean isFinished() {

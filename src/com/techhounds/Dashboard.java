@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.techhounds.compressor.ToggleCompressor;
+import com.techhounds.vision.TurnByAngleGyro;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -32,6 +33,7 @@ public class Dashboard {
 		subsystems.add(Robot.tilt);
 		subsystems.add(Robot.hook);
 		subsystems.add(Robot.field);
+		subsystems.add(Robot.gyro);
 		
 		for (DashboardUpdatable subsystem : subsystems) {
 			subsystem.initSD();

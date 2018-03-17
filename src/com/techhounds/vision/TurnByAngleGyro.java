@@ -17,9 +17,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurnByAngleGyro extends TimedCommand {
 	private Drivetrain motors;
 	private PIDController ctrl;
-	private final double P = 0, I = 0, D = 0; // TODO: tune
+	private final double P = 0.0125, I = 0, D = 0.0125; // TODO: tune
 	private double setAngle;
 	private int c = 0;
+	private final double MAX_POWER = 0.4;
 
 	/**
 	 * Rotates the robot by the given angle.
@@ -44,13 +45,17 @@ public class TurnByAngleGyro extends TimedCommand {
         	}
         }, new PIDOutput() {
         	public void pidWrite(double output) {
+        		/*
     			if (output > .05 && output < Drivetrain.MIN_DRIVE_SPEED)
     				output = Drivetrain.MIN_DRIVE_SPEED;
     			if (output < -0.5 && output > -Drivetrain.MIN_DRIVE_SPEED)
     				output = -Drivetrain.MIN_DRIVE_SPEED;
-    			motors.setPower(RobotUtilities.constrain(-output), RobotUtilities.constrain(output));
+    				*/
+    			motors.setPower(RobotUtilities.constrain(-output, -MAX_POWER, MAX_POWER), RobotUtilities.constrain(output, -MAX_POWER, MAX_POWER));
     		}
         });
+        ctrl.setAbsoluteTolerance(5);
+    	SmartDashboard.putData("By Rotation PID", ctrl);
     }
 
     public TurnByAngleGyro(double angle) {
@@ -58,7 +63,6 @@ public class TurnByAngleGyro extends TimedCommand {
     }
     
     protected void initialize() {
-    	SmartDashboard.putData("By Rotation PID", ctrl);
     	ctrl.setSetpoint(setAngle+Robot.gyro.getRotation());
     	ctrl.enable();
     }
@@ -67,6 +71,8 @@ public class TurnByAngleGyro extends TimedCommand {
     protected void execute() {
     	if (ctrl.onTarget()) {
     		c++;
+    	} else {
+    		c = 0;
     	}
     }
 
@@ -83,5 +89,6 @@ public class TurnByAngleGyro extends TimedCommand {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

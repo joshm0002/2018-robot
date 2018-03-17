@@ -10,6 +10,10 @@ public class RobotUtilities {
 	
 	public static final int CONFIG_TIMEOUT = 10;
 	
+	public static double constrain(double value, double minVal, double maxVal) {
+		return Math.min(Math.max(value, minVal), maxVal);
+	}
+	
 	/**
 	 * Limits the given value to -1, 1
 	 * 
@@ -17,7 +21,7 @@ public class RobotUtilities {
 	 * @return
 	 */
 	public static double constrain(double value) {
-		return Math.min(Math.max(value, -1), 1);
+		return constrain(value, -1, 1);
 	}
 	
 	public static WPI_TalonSRX getTalonSRX(int port, String subsystem, String name) {

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Gyroscope extends Subsystem implements DashboardUpdatable {
 	private BNO055 gyro;
 	private GyroBase gyroX;
+	public static final boolean DEBUG = true;
 	
 	public Gyroscope() {
 		gyro = BNO055.getInstance(I2C.Port.kOnboard);
@@ -31,8 +32,11 @@ public class Gyroscope extends Subsystem implements DashboardUpdatable {
 		gyroX.reset();
 	}
 	
-	@Override
 	public void initSD() {
+		if (DEBUG) {
+			SmartDashboard.putData(this);
+			
+		}
 	}
 	
 	/**
@@ -40,7 +44,9 @@ public class Gyroscope extends Subsystem implements DashboardUpdatable {
 	 */
 	@Override
 	public void updateSD() {
-		SmartDashboard.putNumber("Rotation", getRotation());
+		if (DEBUG) {
+			SmartDashboard.putNumber("Rotation", getRotation());
+		}
 	}
 	
     public void initDefaultCommand() {}

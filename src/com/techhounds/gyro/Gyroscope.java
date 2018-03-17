@@ -1,11 +1,13 @@
 package com.techhounds.gyro;
 
+import com.techhounds.Dashboard.DashboardUpdatable;
+
 import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Gyroscope extends Subsystem {
+public class Gyroscope extends Subsystem implements DashboardUpdatable {
 	private BNO055 gyro;
 	private GyroBase gyroX;
 	
@@ -29,9 +31,14 @@ public class Gyroscope extends Subsystem {
 		gyroX.reset();
 	}
 	
+	@Override
+	public void initSD() {
+	}
+	
 	/**
 	 * Updates the information on the SmartDashboard.
 	 */
+	@Override
 	public void updateSD() {
 		SmartDashboard.putNumber("Rotation", getRotation());
 	}

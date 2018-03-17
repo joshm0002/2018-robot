@@ -25,6 +25,7 @@ public class Dashboard {
 	public static void initDashboard() {
 		subsystems.add(Robot.arm);
 		subsystems.add(Robot.drivetrain);
+		subsystems.add(Robot.gyro);
 		subsystems.add(Robot.intake);
 		subsystems.add(Robot.powerPack);
 		subsystems.add(Robot.transmission);

@@ -20,7 +20,7 @@ public class RightScale extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 2.5));
 
     	// drive up & curve
-    	addSequential(new DriveDistance(240, 240, 0.5, 0.5), 6);
+    	addSequential(new DriveDistance(240, 240, 0.75, 0.75), 6);
     	addSequential(new DriveDistance(30, 10, 0.4, 0.2), 2); // curve left
     	
     	// eject the cube

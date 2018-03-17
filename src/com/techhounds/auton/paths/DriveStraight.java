@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * TODO: add TalonPID-based distance command
  */
-public class DriveDistance extends Command {
+public class DriveStraight extends Command {
 	
 	private final double rightTarget;
 	private final double leftTarget;
@@ -22,16 +22,16 @@ public class DriveDistance extends Command {
 	
 	private double initialAngle;
 	
-	public DriveDistance(double inches) {
-		this(inches, inches, inches > 0 ? 0.4 : -0.4, inches > 0 ? 0.4 : -0.4);
+	public DriveStraight(double inches) {
+		this(inches, inches > 0 ? 0.6 : -0.6);
 	}
 
-    public DriveDistance(double rightInches, double leftInches, double rightPower, double leftPower) {
+    public DriveStraight(double inches, double power) {
     	requires(Robot.drivetrain);
-    	this.rightTarget = rightInches;
-    	this.leftTarget = leftInches;
-    	this.rightPower = rightPower;
-    	this.leftPower = leftPower;
+    	this.rightTarget = inches;
+    	this.leftTarget = inches;
+    	this.rightPower = power;
+    	this.leftPower = power;
     }
 
     protected void initialize() {

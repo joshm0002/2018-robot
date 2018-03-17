@@ -71,13 +71,16 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		motorRightMain.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		motorRightMain.config_kF(0, 0.19864, RobotUtilities.CONFIG_TIMEOUT); //0.19864
 		motorRightMain.configNominalOutputForward(0.189, RobotUtilities.CONFIG_TIMEOUT);
+		motorRightMain.configNominalOutputReverse(-0.189, RobotUtilities.CONFIG_TIMEOUT);
+		motorRightMain.configVoltageCompSaturation(10, RobotUtilities.CONFIG_TIMEOUT);
 		
 		motorLeftMain.config_kP(0, 0.05, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.config_kF(0, 0.21882 * 1.065, RobotUtilities.CONFIG_TIMEOUT); //0.21882
-		motorLeftMain.configNominalOutputForward(0.2, RobotUtilities.CONFIG_TIMEOUT);
-		motorLeftMain.configVoltageCompSaturation(10.5, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.configNominalOutputForward(0.18, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.configNominalOutputReverse(-0.18, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.configVoltageCompSaturation(9, RobotUtilities.CONFIG_TIMEOUT);
 	}
 
 	/**
@@ -183,6 +186,9 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	public void initSD() {
 		if (DEBUG) {
 			SmartDashboard.putData(this);
+			
+			SmartDashboard.putNumber("Right Nominal", 0.1);
+			SmartDashboard.putNumber("Left Nominal", 0.1);
 		}
 	}
 
@@ -217,6 +223,9 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 			SmartDashboard.putNumber("Drive Left Active Point Distance", motorRightMain.getActiveTrajectoryPosition());
 			SmartDashboard.putBoolean("Drive Left Active Point is Last", status.isLast);
 			SmartDashboard.putBoolean("Drive Left Active Point is Underrrun", status.isUnderrun);
+			
+			motorRightMain.configNominalOutputForward(SmartDashboard.getNumber("Right Nominal", 0.1), 0);
+			motorLeftMain.configNominalOutputForward(SmartDashboard.getNumber("Left Nominal", 0.1), 0);
 		}
 	}
 }

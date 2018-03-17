@@ -40,7 +40,7 @@ public class ArcadeDrive extends Command {
     		forward = 0;
     	}
     	
-    	if (Math.abs(turn) < OI.CONTROLLER_DEADBAND) {
+    	if (Math.abs(turn) < 0.05) {
     		turn = 0;
     	}
     	

@@ -18,11 +18,11 @@ public class StraightSwitch extends CommandGroup {
     public StraightSwitch() {
     	addParallel(new SetTiltPosition(TiltPosition.MIDDLE));
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
-    	addSequential(new DriveDistance(110), 3);
+    	addSequential(new DriveArc(110), 3);
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));
     	addSequential(new DelayedCommand(new SetIntakePower(-0.5), 1), 1);
     	addSequential(new WaitCommand(1));
-    	addSequential(new DriveDistance(-20), 2);
+    	addSequential(new DriveArc(-20), 2);
     	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
     }
 }

@@ -20,8 +20,8 @@ public class LeftScale extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 3));
 
     	// drive up & curve
-    	addSequential(new DriveDistance(240, 240, 0.75, 0.75), 6);
-    	addSequential(new DriveDistance(10, 30, 0.2, 0.4), 2); // curve left
+    	addSequential(new DriveStraight(240, 0.75), 6);
+    	addSequential(new DriveArc(10, 30, 0.2, 0.4), 2); // curve left
     	
     	// eject the cube
     	addParallel(new SetTiltPosition(TiltPosition.MIDDLE)); //TODO down?
@@ -29,7 +29,7 @@ public class LeftScale extends CommandGroup {
     	addSequential(new SetIntakePower(-0.75), 1);
     	
     	// back off and reset
-    	addSequential(new DriveDistance(-20), 1);
+    	addSequential(new DriveArc(-20), 1);
     	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
     }
 }

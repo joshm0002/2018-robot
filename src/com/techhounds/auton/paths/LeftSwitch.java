@@ -22,9 +22,9 @@ public class LeftSwitch extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
     	
     	// drive up
-    	addSequential(new DriveDistance(140, 140, 0.75, 0.75), 4);
+    	addSequential(new DriveStraight(140, 0.75), 4);
     	addSequential(new TurnByAngleGyro(90), 2);
-    	addSequential(new DriveDistance(20), 2);
+    	addSequential(new DriveStraight(20, 0.5), 2);
     	
     	// eject cube
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));
@@ -32,7 +32,7 @@ public class LeftSwitch extends CommandGroup {
     	addSequential(new SetIntakePower(-0.5), 1);
     	
     	// back up
-    	addSequential(new DriveDistance(-20), 2);
+    	addSequential(new DriveArc(-20), 2);
     	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
     }
 }

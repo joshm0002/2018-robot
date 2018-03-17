@@ -11,8 +11,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
 import com.techhounds.Dashboard.DashboardUpdatable;
-import com.techhounds.auton.MotionProfileUploader;
-import com.techhounds.auton.TrajectoryPointSequence;
+import com.techhounds.auton.profiling.MotionProfileUploader;
+import com.techhounds.auton.profiling.TrajectoryPointSequence;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;

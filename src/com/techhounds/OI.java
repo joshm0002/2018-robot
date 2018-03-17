@@ -8,7 +8,7 @@
 package com.techhounds;
 
 import com.techhounds.arm.SetArm;
-import com.techhounds.auton.ProfileRecorder;
+import com.techhounds.auton.profiling.ProfileRecorder;
 import com.techhounds.drivetrain.ArcadeDrive;
 import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.SetTransmission;

@@ -1,4 +1,4 @@
-package com.techhounds.auton;
+package com.techhounds.auton.profiling;
 
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;

@@ -27,7 +27,9 @@ public class AutonLauncher {
 		FRONT_SWITCH,
 		FRONT_SCALE,
 		SIDE_SWITCH,
-		SIDE_SCALE // NOT DONE
+		SIDE_SCALE, // NOT DONE
+		SWITCH_OR_SCALE,
+		SCALE_OR_SWITCH
 	}
 	
 	public static final SendableChooser<Auton> autonChoices = new SendableChooser<>();
@@ -37,12 +39,18 @@ public class AutonLauncher {
 		autonChoices.addObject("Front Switch", Auton.FRONT_SWITCH);
 		autonChoices.addObject("Front Scale", Auton.FRONT_SCALE);
 		autonChoices.addObject("Side Switch", Auton.SIDE_SWITCH);
+		autonChoices.addObject("Switch or Scale", Auton.SWITCH_OR_SCALE);
+		autonChoices.addObject("Scale or Switch", Auton.SCALE_OR_SWITCH);
 		SmartDashboard.putData("Auton Chooser", autonChoices);
 	}
 	
 	public static Command getAuton(FieldState field) {
 		System.out.println("Running Auton " + autonChoices.getSelected().toString());
 		switch(autonChoices.getSelected()) {
+		case SWITCH_OR_SCALE:
+			return getSwitchOrScale(field);
+		case SCALE_OR_SWITCH:
+			return getScaleOrSwitch(field);
 		case FRONT_SWITCH:
 			return getFrontSwitch(field);
 		case FRONT_SCALE:
@@ -109,15 +117,27 @@ public class AutonLauncher {
 //	public static void runSideScale(FieldState field) {
 //		
 //	}
-//	
-//	public static void runSwitchOrScale(FieldState field) {
-//		
-//	}
-//	
-//	public static void runScaleOrSwitch(FieldState field) {
-//		
-//	}
-//	
+
+	public static Command getSwitchOrScale(FieldState field) {
+		if (field.getRobotPosition() == field.getSwitchPosition()) {
+			return getSideSwitch(field);
+		} else if (field.getRobotPosition() == field.getScalePosition()) {
+			return getFrontScale(field);
+		} else {
+			return getBaseline();
+		}
+	}
+
+	public static Command getScaleOrSwitch(FieldState field) {
+		if (field.getRobotPosition() == field.getScalePosition()) {
+			return getSideSwitch(field);
+		} else if (field.getRobotPosition() == field.getSwitchPosition()) {
+			return getFrontScale(field);
+		} else {
+			return getBaseline();
+		}
+	}
+	
 //	public static void runScaleSwitch(FieldState field) {
 //		
 //	}

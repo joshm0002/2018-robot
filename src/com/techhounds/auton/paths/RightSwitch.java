@@ -24,7 +24,6 @@ public class RightSwitch extends CommandGroup {
     	// drive up
     	addSequential(new DriveDistance(140, 140, 0.75, 0.75), 4);
     	addSequential(new TurnByAngleGyro(-90), 2);
-//    	addSequential(new DriveDistance(60, 0, 0.6, 0), 2); // curve left
     	addSequential(new DriveDistance(20), 2);
     	
     	// eject cube

@@ -6,6 +6,7 @@ import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.SetTiltPosition.TiltPosition;
+import com.techhounds.vision.TurnByAngleGyro;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -21,9 +22,9 @@ public class LeftSwitch extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
     	
     	// drive up
-    	addSequential(new DriveDistance(135), 5);
-    	addSequential(new DriveDistance(-10, 60, -0.2, 0.6), 2); // curve left
-    	addSequential(new DriveDistance(10), 2);
+    	addSequential(new DriveDistance(140, 140, 0.75, 0.75), 4);
+    	addSequential(new TurnByAngleGyro(90), 2);
+    	addSequential(new DriveDistance(20), 2);
     	
     	// eject cube
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));

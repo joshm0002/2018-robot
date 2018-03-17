@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurnToAngleGyro extends Command {
 	private Drivetrain motors;
 	private PIDController ctrl;
-	private final double P = 0, I = 0, D = 0; // TODO: tune
+	private final double P = 0.125, I = 0, D = 0; // TODO: tune
+	public final double MAX_OUT = 0.4;
 	private double setAngle;
 
 	/**

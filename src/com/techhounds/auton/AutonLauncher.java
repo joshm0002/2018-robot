@@ -130,9 +130,9 @@ public class AutonLauncher {
 
 	public static Command getScaleOrSwitch(FieldState field) {
 		if (field.getRobotPosition() == field.getScalePosition()) {
-			return getSideSwitch(field);
-		} else if (field.getRobotPosition() == field.getSwitchPosition()) {
 			return getFrontScale(field);
+		} else if (field.getRobotPosition() == field.getSwitchPosition()) {
+			return getSideSwitch(field);
 		} else {
 			return getBaseline();
 		}

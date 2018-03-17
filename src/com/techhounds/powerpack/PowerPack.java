@@ -35,6 +35,8 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	public static final double PEAK_CLIMBER_FWD = 1.0;
 	public static final double PEAK_CLIMBER_REV = -0.5;
 	public static final boolean DEBUG = false;
+	
+	private boolean overrideLimits = true;
 
 	public PowerPack() {
 		climberEngage = new Solenoid(RobotMap.WINCH_TRANSMISSION);
@@ -119,10 +121,15 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 		brakeDisengage.set(false);
 	}
 	
+	public void setOverrideLimits(boolean override) {
+		overrideLimits = override;
+		winchPrimary.overrideLimitSwitchesEnable(overrideLimits);
+	}
+	
 	private void setElevator() {
 		brakeDisengage.set(true);
 		climberEngage.set(false);
-		winchPrimary.overrideLimitSwitchesEnable(true);
+		winchPrimary.overrideLimitSwitchesEnable(overrideLimits);
 		winchPrimary.configPeakOutputForward(PEAK_ELEVATOR_FWD, 0);
 		winchPrimary.configPeakOutputReverse(PEAK_ELEVATOR_REV, 0);
 	}
@@ -142,8 +149,6 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	private void setPosition(double position) {
 		winchPrimary.set(ControlMode.Position, position);
 	}
-	
-	
 	
 	// ========== GETTERS ==========
 	
@@ -180,6 +185,10 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 
 	public boolean onTarget() {
 		return Math.abs(winchPrimary.getSelectedSensorPosition(0) - winchPrimary.getClosedLoopTarget(0)) < PID_TOLERANCE;
+	}
+	
+	public boolean getOverrideLimits() {
+		return overrideLimits;
 	}
 
 	public void initDefaultCommand() {

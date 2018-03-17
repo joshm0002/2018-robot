@@ -22,6 +22,7 @@ import com.techhounds.oi.RumbleDriver;
 import com.techhounds.oi.RumbleOperator;
 import com.techhounds.powerpack.GamepadClimberControl;
 import com.techhounds.powerpack.GamepadElevatorControl;
+import com.techhounds.powerpack.SetElevatorLimits;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 import com.techhounds.tilt.SetTiltPosition;
@@ -147,6 +148,11 @@ public class OI {
 		Button arrowDown = getPOVButton(operator, 180);
 		// Set Tilt to DOWN
 		arrowDown.whenPressed(new SetTiltPosition(TiltPosition.DOWN));
+		
+		Button arrowLeft = getPOVButton(operator, 270);
+		// Enable/disable elevator limits
+		arrowLeft.whileHeld(new SetElevatorLimits(false));
+		arrowLeft.whenReleased(new SetElevatorLimits(true));
 
 	}
 

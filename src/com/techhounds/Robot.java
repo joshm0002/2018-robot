@@ -7,19 +7,23 @@
 
 package com.techhounds;
 
-import com.techhounds.commands.Dashboard;
-import com.techhounds.commands.auton.AutonLauncher;
-import com.techhounds.subsystems.ArmActuator;
-import com.techhounds.subsystems.ArmIntake;
-import com.techhounds.subsystems.ArmTilt;
-import com.techhounds.subsystems.Drivetrain;
-import com.techhounds.subsystems.Gyroscope;
-import com.techhounds.subsystems.PowerPack;
-import com.techhounds.subsystems.PullVision;
-import com.techhounds.subsystems.Transmission;
+import com.techhounds.arm.Arm;
+import com.techhounds.auton.AutonLauncher;
+import com.techhounds.auton.FieldState;
+import com.techhounds.drivetrain.Drivetrain;
+import com.techhounds.drivetrain.Transmission;
+import com.techhounds.gyro.Gyroscope;
+import com.techhounds.hook.Hook;
+import com.techhounds.intake.Intake;
+import com.techhounds.leds.LEDs;
+import com.techhounds.powerpack.PowerPack;
+import com.techhounds.tilt.Tilt;
+import com.techhounds.vision.PullVision;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,14 +35,18 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends TimedRobot {
 	
 	// Robot Subsystems
-	public static final ArmActuator arm = new ArmActuator();
+	public static final Arm arm = new Arm();
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Gyroscope gyro = new Gyroscope();
-	public static final ArmIntake intake = new ArmIntake();
+	public static final Intake intake = new Intake();
 	public static final PowerPack powerPack = new PowerPack();
 	public static final Transmission transmission = new Transmission();
-	public static final ArmTilt tilt = new ArmTilt();
+	public static final Tilt tilt = new Tilt();
+	public static final Hook hook = new Hook();
 	public static final PullVision vision = new PullVision();
+	public static final Compressor compressor = new Compressor();
+	public static final FieldState field = new FieldState();
+	public static final LEDs leds = new LEDs();
 			
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -46,10 +54,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		AutonLauncher.addAutonChoices();
 		Dashboard.initDashboard();
+		AutonLauncher.addChoices();
 		OI.setupDriver();
 		OI.setupOperator();
+		SmartDashboard.putString("Path to Run", "Test");
+		System.out.println("Robot Initialized!");
 	}
 
 	/**
@@ -65,6 +75,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		Dashboard.updateDashboard();
 	}
 
 	/**
@@ -81,7 +92,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Scheduler.getInstance().removeAll();
-		AutonLauncher.runAuton();
+		field.pollData();
+		AutonLauncher.getAuton(field).start();
+		
+//		 FIXME temporary for testing
+//		new MotionProfileExecutor(new MotionProfile(SmartDashboard.getString("Path to Run", "Test"))).start();
 	}
 
 	/**

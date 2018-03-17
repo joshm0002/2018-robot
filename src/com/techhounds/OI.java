@@ -26,13 +26,6 @@ public class OI {
 	public static final XboxController operator = new XboxController(1);
 	
 	public OI() {
-		
-		//Set up button/triggers here
-		//Be careful - if the commands require a subsystem that hasn't been
-		//initialized yet we could be in trouble
-		
-		//Overrides the default, which is auto-shifting
-		
 	}
 	
 	/**

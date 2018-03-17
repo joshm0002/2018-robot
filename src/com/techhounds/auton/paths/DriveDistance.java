@@ -19,7 +19,7 @@ public class DriveDistance extends Command {
 	// real robot
 //	public static final double STRAIGHT_COEFFICIENT = 0.88;
 	// practice bot FIXME
-	public static final double STRAIGHT_COEFFICIENT = 1.15;
+	public static final double STRAIGHT_COEFFICIENT = 1;
 	
 	public DriveDistance(double inches) {
 		this(inches, inches, inches > 0 ? 0.4 : -0.4, inches > 0 ? 0.4 : -0.4);

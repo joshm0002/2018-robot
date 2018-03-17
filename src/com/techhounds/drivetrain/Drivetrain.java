@@ -37,7 +37,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	public static final double MIN_DRIVE_SPEED = 0.3; // TODO: set deadband?
 	public static final double COUNTS_PER_INCH = 422;
 //	public static final double COUNTS_PER_INCH = 437; //4096 / Math.PI * 6;
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 
 	public Drivetrain() {
 
@@ -70,13 +70,14 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		motorRightMain.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		motorRightMain.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		motorRightMain.config_kF(0, 0.19864, RobotUtilities.CONFIG_TIMEOUT); //0.19864
-		motorRightMain.configNominalOutputForward(0.1, RobotUtilities.CONFIG_TIMEOUT);
+		motorRightMain.configNominalOutputForward(0.189, RobotUtilities.CONFIG_TIMEOUT);
 		
 		motorLeftMain.config_kP(0, 0.05, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.config_kF(0, 0.21882 * 1.065, RobotUtilities.CONFIG_TIMEOUT); //0.21882
-		motorLeftMain.configNominalOutputForward(0.1, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.configNominalOutputForward(0.2, RobotUtilities.CONFIG_TIMEOUT);
+		motorLeftMain.configVoltageCompSaturation(10.5, RobotUtilities.CONFIG_TIMEOUT);
 	}
 
 	/**

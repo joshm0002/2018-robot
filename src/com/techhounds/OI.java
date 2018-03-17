@@ -46,7 +46,7 @@ public class OI {
 	public static boolean driveDirection = true;
 	
 	// TODO tune this, 5% to 10%
-	public static final double CONTROLLER_DEADBAND = 0.1;
+	public static final double CONTROLLER_DEADBAND = 0.02;
 
 	public OI() {}
 

@@ -92,6 +92,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Scheduler.getInstance().removeAll();
+		gyro.reset();
 		field.pollData();
 		AutonLauncher.getAuton(field).start();
 		

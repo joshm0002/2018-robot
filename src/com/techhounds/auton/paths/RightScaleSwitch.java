@@ -17,20 +17,20 @@ public class RightScaleSwitch extends CommandGroup {
     public RightScaleSwitch() {
     	// do scale
     	addSequential(new RightScale());
-    	addSequential(new TurnByAngleGyro(-90));
+    	addSequential(new TurnByAngleGyro(-90), 2);
     	
     	// grab cube
-    	addParallel(new GrabCube());
-    	addParallel(new SetIntakePower(1)); // TODO open arms and close when intake done
-    	addSequential(new DriveStraight(24, 0.4));
-    	addSequential(new SetElevatorPosition(ElevatorPosition.SWITCH));
+    	addParallel(new GrabCube(), 3);
+    	addParallel(new SetIntakePower(1), 3); // TODO open arms and close when intake done
+    	addSequential(new DriveStraight(24, 0.4), 2);
+    	addSequential(new SetElevatorPosition(ElevatorPosition.SWITCH), 3);
     	
     	// place in switch
-    	addSequential(new DriveStraight(12, 0.4));
-    	addSequential(new SetIntakePower(-0.75));
+    	addSequential(new DriveStraight(12, 0.4), 2);
+    	addSequential(new SetIntakePower(-0.75), 1);
     	
     	// back off
-    	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
-    	addSequential(new DriveStraight(-24, -0.4));
+    	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT), 2);
+    	addSequential(new DriveStraight(-24, -0.4), 2);
     }
 }

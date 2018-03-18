@@ -21,8 +21,8 @@ public class RightScaleSwitch extends CommandGroup {
     	
     	// grab cube
     	addParallel(new GrabCube(), 3);
-    	addParallel(new SetIntakePower(1), 3); // TODO open arms and close when intake done
-    	addSequential(new DriveStraight(24, 0.4), 2);
+    	addParallel(new SetIntakePower(1), 3);
+    	addSequential(new DriveStraight(24, 0.4), 3);
     	addSequential(new SetElevatorPosition(ElevatorPosition.SWITCH), 3);
     	
     	// place in switch

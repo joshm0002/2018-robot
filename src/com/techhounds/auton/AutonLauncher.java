@@ -6,10 +6,12 @@ import com.techhounds.auton.paths.CenterLeftSwitch;
 import com.techhounds.auton.paths.CenterRightSwitch;
 import com.techhounds.auton.paths.LeftScale;
 import com.techhounds.auton.paths.LeftScaleCross;
+import com.techhounds.auton.paths.LeftScaleScale;
 import com.techhounds.auton.paths.LeftScaleSwitch;
 import com.techhounds.auton.paths.LeftSwitch;
 import com.techhounds.auton.paths.RightScale;
 import com.techhounds.auton.paths.RightScaleCross;
+import com.techhounds.auton.paths.RightScaleScale;
 import com.techhounds.auton.paths.RightScaleSwitch;
 import com.techhounds.auton.paths.RightSwitch;
 import com.techhounds.auton.paths.StraightSwitch;
@@ -34,7 +36,8 @@ public class AutonLauncher {
 		SIDE_SCALE, // NOT DONE
 		SWITCH_OR_SCALE,
 		SCALE_OR_SWITCH,
-		SCALE_AND_SWITCH
+		SCALE_AND_SWITCH,
+		SCALE_SCALE
 	}
 	
 	public static final SendableChooser<Auton> autonChoices = new SendableChooser<>();
@@ -47,12 +50,15 @@ public class AutonLauncher {
 		autonChoices.addObject("Switch or Scale", Auton.SWITCH_OR_SCALE);
 		autonChoices.addObject("Scale or Switch", Auton.SCALE_OR_SWITCH);
 		autonChoices.addObject("Scale and Switch", Auton.SCALE_AND_SWITCH);
+		autonChoices.addObject("Double Scale", Auton.SCALE_SCALE);
 		SmartDashboard.putData("Auton Chooser", autonChoices);
 	}
 	
 	public static Command getAuton(FieldState field) {
 		System.out.println("Running Auton " + autonChoices.getSelected().toString());
 		switch(autonChoices.getSelected()) {
+		case SCALE_SCALE:
+			return getDoubleScale(field);
 		case SCALE_AND_SWITCH:
 			return getScaleAndSwitch(field);
 		case SWITCH_OR_SCALE:
@@ -157,6 +163,23 @@ public class AutonLauncher {
 			}
 		} else {
 			return getScaleOrSwitch(field);
+		}
+	}
+	
+	/**
+	 * TODO: do cross scale or switch if it isn't our side?
+	 * @param field
+	 * @return
+	 */
+	public static Command getDoubleScale(FieldState field) {
+		if (field.getScalePosition() == field.getRobotPosition()) {
+			if (field.getRobotPosition() == Position.Right) {
+				return new RightScaleScale();
+			} else {
+				return new LeftScaleScale();
+			}
+		} else {
+			return getBaseline();
 		}
 	}
 	

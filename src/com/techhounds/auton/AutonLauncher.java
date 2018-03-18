@@ -4,11 +4,13 @@ import com.techhounds.auton.FieldState.Position;
 import com.techhounds.auton.paths.Baseline;
 import com.techhounds.auton.paths.CenterLeftSwitch;
 import com.techhounds.auton.paths.CenterRightSwitch;
-import com.techhounds.auton.paths.LeftScaleCross;
-import com.techhounds.auton.paths.RightScaleCross;
 import com.techhounds.auton.paths.LeftScale;
+import com.techhounds.auton.paths.LeftScaleCross;
+import com.techhounds.auton.paths.LeftScaleSwitch;
 import com.techhounds.auton.paths.LeftSwitch;
 import com.techhounds.auton.paths.RightScale;
+import com.techhounds.auton.paths.RightScaleCross;
+import com.techhounds.auton.paths.RightScaleSwitch;
 import com.techhounds.auton.paths.RightSwitch;
 import com.techhounds.auton.paths.StraightSwitch;
 
@@ -142,10 +144,18 @@ public class AutonLauncher {
 		}
 	}
 	
-//	public static void runScaleSwitch(FieldState field) {
-//		
-//	}
-//	
+	public static Command getScaleAndSwitch(FieldState field) {
+		if (field.getScalePosition() == field.getRobotPosition() && field.getScalePosition() == field.getRobotPosition()) {
+			if (field.getRobotPosition() == Position.Right) {
+				return new RightScaleSwitch();
+			} else {
+				return new LeftScaleSwitch();
+			}
+		} else {
+			return getScaleOrSwitch(field);
+		}
+	}
+	
 //	public static void runScaleSwitchSwitch(FieldState field) {
 //		
 //	}

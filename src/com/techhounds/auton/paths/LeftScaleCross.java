@@ -29,6 +29,6 @@ public class LeftScaleCross extends CommandGroup {
     	
     	addSequential(new WaitCommand(1));
     	addSequential(new DriveStraight(18, 0.4), 1);
-    	addSequential(new SetIntakePower(-0.75), 1);
+    	addSequential(new SetIntakePower(-0.5), 1);
     }
 }

@@ -22,13 +22,13 @@ public class RightScale extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 2.5));
 
     	// drive up & curve
-    	addSequential(new DriveStraight(240, 0.75), 6);
+    	addSequential(new DriveStraight(230, 0.6), 6);
     	addSequential(new DriveArc(30, 10, 0.4, 0.2), 2); // curve left
     	
     	// eject the cube
     	addParallel(new SetTiltPosition(TiltPosition.MIDDLE)); //TODO down?
 //    	addSequential(new WaitCommand(1));
-    	addSequential(new SetIntakePower(-0.75), 1);
+    	addSequential(new SetIntakePower(-0.5), 1);
     	
     	// back off and reset
     	addSequential(new DriveArc(-20), 1);

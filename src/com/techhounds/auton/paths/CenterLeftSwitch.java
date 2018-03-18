@@ -23,7 +23,7 @@ public class CenterLeftSwitch extends CommandGroup {
     	
     	// drive in s pattern
     	addSequential(new DriveArc(70, 50, 0.5, 0.35), 3);
-    	addSequential(new DriveArc(50, 70, 0.35, 0.5), 3);
+    	addSequential(new DriveArc(40, 70, 0.3, 0.5), 3);
     	
     	// eject cube
     	addParallel(new SetTiltPosition(TiltPosition.DOWN));

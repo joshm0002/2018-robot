@@ -33,7 +33,8 @@ public class AutonLauncher {
 		SIDE_SWITCH,
 		SIDE_SCALE, // NOT DONE
 		SWITCH_OR_SCALE,
-		SCALE_OR_SWITCH
+		SCALE_OR_SWITCH,
+		SCALE_AND_SWITCH
 	}
 	
 	public static final SendableChooser<Auton> autonChoices = new SendableChooser<>();
@@ -45,12 +46,15 @@ public class AutonLauncher {
 		autonChoices.addObject("Side Switch", Auton.SIDE_SWITCH);
 		autonChoices.addObject("Switch or Scale", Auton.SWITCH_OR_SCALE);
 		autonChoices.addObject("Scale or Switch", Auton.SCALE_OR_SWITCH);
+		autonChoices.addObject("Scale and Switch", Auton.SCALE_AND_SWITCH);
 		SmartDashboard.putData("Auton Chooser", autonChoices);
 	}
 	
 	public static Command getAuton(FieldState field) {
 		System.out.println("Running Auton " + autonChoices.getSelected().toString());
 		switch(autonChoices.getSelected()) {
+		case SCALE_AND_SWITCH:
+			return getScaleAndSwitch(field);
 		case SWITCH_OR_SCALE:
 			return getSwitchOrScale(field);
 		case SCALE_OR_SWITCH:

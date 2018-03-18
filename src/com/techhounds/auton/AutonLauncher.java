@@ -4,8 +4,8 @@ import com.techhounds.auton.FieldState.Position;
 import com.techhounds.auton.paths.Baseline;
 import com.techhounds.auton.paths.CenterLeftSwitch;
 import com.techhounds.auton.paths.CenterRightSwitch;
-import com.techhounds.auton.paths.CrossLeftScale;
-import com.techhounds.auton.paths.CrossRightScale;
+import com.techhounds.auton.paths.LeftScaleCross;
+import com.techhounds.auton.paths.RightScaleCross;
 import com.techhounds.auton.paths.LeftScale;
 import com.techhounds.auton.paths.LeftSwitch;
 import com.techhounds.auton.paths.RightScale;
@@ -93,11 +93,11 @@ public class AutonLauncher {
 			if (field.getScalePosition() == Position.Right) {
 				return new RightScale();
 			} else {
-				return new CrossLeftScale();
+				return new LeftScaleCross();
 			}
 		} else {
 			if (field.getScalePosition() == Position.Right) {
-				return new CrossRightScale();
+				return new RightScaleCross();
 			} else {
 				return new LeftScale();
 			}

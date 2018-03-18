@@ -14,18 +14,18 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class CrossLeftScale extends CommandGroup {
+public class RightScaleCross extends CommandGroup {
 
-    public CrossLeftScale() {
+    public RightScaleCross() {
     	addParallel(new SetTiltPosition(Tilt.POS_DOWN));
     	
     	addSequential(new DriveStraight(218, 0.5), 8);
-    	addSequential(new TurnToAngleGyro(-85), 3);
+    	addSequential(new TurnToAngleGyro(85), 3);
     	addSequential(new DriveStraight(184, 0.5), 8);
     	
     	addParallel(new SetElevatorPosition(ElevatorPosition.SCALE));
     	addParallel(new SetTiltPosition(Tilt.POS_MID));
-    	addSequential(new TurnToAngleGyro(10), 2);
+    	addSequential(new TurnToAngleGyro(-10), 2);
     	
     	addSequential(new WaitCommand(1));
     	addSequential(new DriveStraight(18, 0.4), 1);

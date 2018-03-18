@@ -9,9 +9,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class LEDs extends Subsystem {
 	
-	private final SerialPort serial = new SerialPort(9600, Port.kUSB1); // FIXME: correct port type
+	private SerialPort serial;
 	
-	public LEDs() {}
+	public LEDs() {
+		try {
+			serial = new SerialPort(9600, Port.kUSB1);
+		} catch (Throwable t) {
+			t.printStackTrace();
+			serial = null;
+		}
+	}
 	
 	public boolean isValid() {
 		return serial != null;

@@ -1,11 +1,12 @@
 package com.techhounds.auton.paths;
 
+import com.techhounds.auton.util.DriveStraight;
+import com.techhounds.auton.util.TurnToAngleGyro;
 import com.techhounds.intake.SetIntakePower;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.Tilt;
-import com.techhounds.vision.TurnToAngleGyro;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;

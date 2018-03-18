@@ -1,5 +1,6 @@
 package com.techhounds.auton.paths;
 
+import com.techhounds.auton.util.DriveStraight;
 import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.Tilt;
 

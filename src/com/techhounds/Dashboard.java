@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.techhounds.compressor.ToggleCompressor;
-import com.techhounds.vision.TurnByAngleGyro;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

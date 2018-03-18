@@ -1,4 +1,4 @@
-package com.techhounds.auton.paths;
+package com.techhounds.auton.util;
 
 import com.techhounds.Robot;
 

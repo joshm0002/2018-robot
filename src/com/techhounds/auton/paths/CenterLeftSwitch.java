@@ -6,6 +6,8 @@ import com.techhounds.auton.util.DriveStraight;
 import com.techhounds.intake.SetIntakePower;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
+import com.techhounds.tilt.SetTiltPosition;
+import com.techhounds.tilt.Tilt;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -15,7 +17,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CenterLeftSwitch extends CommandGroup {
 
     public CenterLeftSwitch() {
-    	// set to 45 & switch
+    	// set to switch
+    	addParallel(new DelayedCommand(new SetTiltPosition(Tilt.POS_DOWN), 1));
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
     	
     	// drive in s pattern

@@ -18,20 +18,19 @@ public class LeftScale extends CommandGroup {
 
     public LeftScale() {
     	// Set tilt/elevator
-    	addParallel(new SetTiltPosition(TiltPosition.MIDDLE));    	
-    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 3));
+    	addParallel(new SetTiltPosition(TiltPosition.DOWN));    	
+    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 1.5));
 
     	// drive up & curve
-    	addSequential(new DriveStraight(240, 0.75), 6);
+    	addSequential(new DriveStraight(230, 0.75), 6);
     	addSequential(new DriveArc(10, 30, 0.2, 0.4), 2); // curve left
     	
     	// eject the cube
-    	addParallel(new SetTiltPosition(TiltPosition.MIDDLE)); //TODO down?
-//    	addSequential(new WaitCommand(1));
-    	addSequential(new SetIntakePower(-0.75), 1);
+    	addParallel(new SetTiltPosition(TiltPosition.MIDDLE));
+    	addSequential(new SetIntakePower(-0.4), 1);
     	
     	// back off and reset
-    	addSequential(new DriveArc(-20), 1);
-    	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
+    	addSequential(new DriveStraight(-20, -0.4), 2);
+    	addSequential(new SetElevatorPosition(ElevatorPosition.COLLECT), 3);
     }
 }

@@ -75,7 +75,7 @@ public class FieldState implements DashboardUpdatable {
 	/**
 	 * Will be true once we know the field setup state.
 	 */
-	private boolean stateKnown = false;;
+	private boolean stateKnown = false;
 
 	/**
 	 * Position of our side of the switch (Unknown, Left or Right).
@@ -92,9 +92,6 @@ public class FieldState implements DashboardUpdatable {
 	 */
 	private Position robotStartPos = Position.Unknown;
 	
-	// distance from center line
-	private double DFCL = 0;;
-
 	/**
 	 * Indicates whether we know the field setup state yet.
 	 * 
@@ -142,40 +139,14 @@ public class FieldState implements DashboardUpdatable {
 	 * @return true if the state is known and the robots position is identical to
 	 *         the switch position.
 	 */
-	public boolean isSwitchStraightAhead() {
-		if (switchPos == Position.Unknown) {
-			return false;
-		} else {
-			return robotStartPos == switchPos;
-		}
+	public boolean isSwitchAhead() {
+		return robotStartPos == Position.Middle || robotStartPos == switchPos;
 	}
 	
-	public boolean isSwitchDiag(){
-		if (switchPos == Position.Unknown){
-			return false;
-		}else{
-			return (robotStartPos == Position.Middle && (getCenterPosition() < 60 && getCenterPosition() > -60));
-		}
+	public boolean isSwitchAcross(){
+		return !isSwitchAhead();
 	}
 	
-	public boolean isScaleDiag(){
-		if(switchPos == Position.Unknown){
-			return false;
-		}else{
-			return (robotStartPos != Position.Middle && robotStartPos != scalePos && (getCenterPosition() > 60 || getCenterPosition() < -60));
-		}
-	}
-	
-	public boolean isSideSwitch(){
-		if(switchPos == Position.Unknown){
-			return false;
-		}else{
-			return ((robotStartPos == switchPos || robotStartPos == Position.Middle) && (getCenterPosition() > 60 || getCenterPosition() < -60));
-		}
-	}
-	
-	//above methods are possibly redundant
-
 	/**
 	 * Determine if robot is positioned such that our side of the scale is straight
 	 * ahead of us.
@@ -183,20 +154,14 @@ public class FieldState implements DashboardUpdatable {
 	 * @return true if the state is known and the robots position is identical to
 	 *         the scale position.
 	 */
-	public boolean isScaleStraightAhead() {
-		if (scalePos == Position.Unknown) {
-			return false;
-		} else {
-			return robotStartPos == scalePos;// add distance check for this (determine if we need to turn or not)
-		}
+	public boolean isScaleAhead() {
+		return robotStartPos == scalePos;
 	}
-
-	//DFCL = distance from center line
-	public double getCenterPosition() {
-		DFCL = SmartDashboard.getNumber("Distance From Center Line (- is from left wall, + is from right wall)", 0);
-		return DFCL;
+	
+	public boolean isScaleAcross(){
+		return robotStartPos != Position.Middle && robotStartPos != scalePos;
 	}
-
+	
 	/**
 	 * Updates the internal state based on current information from the
 	 * SmartDashboard and DriverStation.
@@ -240,7 +205,6 @@ public class FieldState implements DashboardUpdatable {
 		robotPositionChooser.addObject("Middle", Position.Middle);
 		robotPositionChooser.addObject("Right", Position.Right);
 		SmartDashboard.putData(robotPositionChooser);
-		SmartDashboard.putNumber("Distance From Center Line (- is from left wall, + is from right wall)", 0.0);
 	}
 
 	@Override
@@ -250,9 +214,8 @@ public class FieldState implements DashboardUpdatable {
 		if (DEBUG) {
 			SmartDashboard.putString("Switch Side", getSwitchPosition().name());
 			SmartDashboard.putString("Scale Side", getScalePosition().name());
-			SmartDashboard.putBoolean("Switch ahead", isSwitchStraightAhead());
-			SmartDashboard.putBoolean("Scale ahead", isScaleStraightAhead());
-			SmartDashboard.putNumber("debug: DFW", getCenterPosition());
+			SmartDashboard.putBoolean("Switch ahead", isSwitchAhead());
+			SmartDashboard.putBoolean("Scale ahead", isScaleAhead());
 		}
 	}
 }

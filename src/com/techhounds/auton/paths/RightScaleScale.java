@@ -11,7 +11,6 @@ import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.Tilt;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -28,16 +27,16 @@ public class RightScaleScale extends CommandGroup {
     	addSequential(new DriveStraight(24, 0.4), 3);
     	
     	// place in scale
-    	addSequential(new DriveStraight(-24, 0.4), 2);
     	addParallel(new SetElevatorPosition(ElevatorPosition.SCALE));
     	addParallel(new SetTiltPosition(Tilt.POS_MID));
+    	addSequential(new DriveStraight(-24, 0.4), 2);
     	addSequential(new TurnByAngleGyro(90), 2);
-    	addSequential(new WaitCommand(2));
     	addSequential(new DriveStraight(20, 0.4), 2);
     	addSequential(new SetIntakePower(-0.75), 1);
     	
     	// back off
     	addSequential(new DriveStraight(-24, -0.4), 2);
+    	addParallel(new SetTiltPosition(Tilt.POS_DOWN));
     	addSequential(new SetElevatorPosition(ElevatorPosition.COLLECT), 2);
     }
 }

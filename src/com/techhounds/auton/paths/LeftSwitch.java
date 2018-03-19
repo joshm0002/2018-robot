@@ -1,7 +1,6 @@
 package com.techhounds.auton.paths;
 
 import com.techhounds.auton.util.DelayedCommand;
-import com.techhounds.auton.util.DriveArc;
 import com.techhounds.auton.util.DriveStraight;
 import com.techhounds.auton.util.TurnByAngleGyro;
 import com.techhounds.intake.SetIntakePower;
@@ -11,7 +10,6 @@ import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.SetTiltPosition.TiltPosition;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -20,7 +18,7 @@ public class LeftSwitch extends CommandGroup {
 
     public LeftSwitch() {
     	// set to 45 & switch
-    	addParallel(new SetTiltPosition(TiltPosition.MIDDLE));
+    	addParallel(new SetTiltPosition(TiltPosition.DOWN));
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
     	
     	// drive up
@@ -29,12 +27,10 @@ public class LeftSwitch extends CommandGroup {
     	addSequential(new DriveStraight(20, 0.5), 2);
     	
     	// eject cube
-    	addParallel(new SetTiltPosition(TiltPosition.DOWN));
-    	addSequential(new WaitCommand(1));
     	addSequential(new SetIntakePower(-0.5), 1);
     	
     	// back up
-    	addSequential(new DriveArc(-20), 2);
-    	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
+    	addSequential(new DriveStraight(-20, -0.4), 2);
+    	addSequential(new SetElevatorPosition(ElevatorPosition.COLLECT));
     }
 }

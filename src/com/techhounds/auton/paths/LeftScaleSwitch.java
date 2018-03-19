@@ -3,6 +3,7 @@ package com.techhounds.auton.paths;
 import com.techhounds.arm.GrabCube;
 import com.techhounds.auton.util.DriveStraight;
 import com.techhounds.auton.util.TurnByAngleGyro;
+import com.techhounds.intake.IntakeUntilDetected;
 import com.techhounds.intake.SetIntakePower;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
@@ -21,7 +22,7 @@ public class LeftScaleSwitch extends CommandGroup {
     	
     	// grab cube
     	addParallel(new GrabCube(), 3);
-    	addParallel(new SetIntakePower(1), 3);
+    	addParallel(new IntakeUntilDetected(), 3);
     	addSequential(new DriveStraight(24, 0.4), 3);
     	addSequential(new SetElevatorPosition(ElevatorPosition.SWITCH), 3);
     	

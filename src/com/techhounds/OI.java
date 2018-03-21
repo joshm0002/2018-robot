@@ -13,6 +13,7 @@ import com.techhounds.drivetrain.ArcadeDrive;
 import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.SetTransmission;
 import com.techhounds.hook.SetHookPosition;
+import com.techhounds.intake.DualGamepadIntakeControl;
 import com.techhounds.intake.GamepadIntakeControl;
 import com.techhounds.leds.FlashLEDs;
 import com.techhounds.leds.SetLEDs;
@@ -57,10 +58,10 @@ public class OI {
 
 		// Drivetrain default command is ArcadeDrive
 		Robot.drivetrain.setDefaultCommand(new ArcadeDrive(driver, 1, 4));
-
-		// Intake Default is DriverIntakeControl
-//		Robot.intake.setDefaultCommand(new GamepadIntakeControl(driver, 3, 2));
 		
+		// Give both driver & operator intake control
+		Robot.intake.setDefaultCommand(new DualGamepadIntakeControl(driver, operator, 3, 2));
+
 		Button bA = new JoystickButton(driver, 1);
 		// lower hook
 		bA.whenPressed(new SetHookPosition(false));
@@ -105,9 +106,6 @@ public class OI {
 	 * Binds triggers/buttons to commands for the operator
 	 */
 	public static void setupOperator() {
-		
-		Robot.intake.setDefaultCommand(new GamepadIntakeControl(operator, 3, 2));
-		
 		Trigger cubeRumble = new CubeDetectedTrigger();
 		// rumble when we first get a cube
 		cubeRumble.whenActive(new RumbleOperator(1));

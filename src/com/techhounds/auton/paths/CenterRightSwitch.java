@@ -29,7 +29,7 @@ public class CenterRightSwitch extends CommandGroup {
     	addSequential(new SetIntakePower(-0.5), 1);
     	
     	// back up
-    	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
+    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 1));
     	addSequential(new DriveStraight(-20, -0.4), 2);
     }
 }

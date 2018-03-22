@@ -55,6 +55,11 @@ public class DriveStraight extends Command {
     	double angleError = Robot.gyro.getRotation() - initialAngle;
     	double angleP = (angleError / 50);
     	
+    	// fix for driving backwards
+    	if (rightPower < 0 && leftPower < 0) {
+    		angleP *= -1;
+    	}
+    	
     	Robot.drivetrain.setPower(setRight * (1+angleP), setLeft * (1-angleP));
     }
 

@@ -14,7 +14,6 @@ import com.techhounds.drivetrain.FlipDriveDirection;
 import com.techhounds.drivetrain.SetTransmission;
 import com.techhounds.hook.SetHookPosition;
 import com.techhounds.intake.DualGamepadIntakeControl;
-import com.techhounds.intake.GamepadIntakeControl;
 import com.techhounds.leds.FlashLEDs;
 import com.techhounds.leds.SetLEDs;
 import com.techhounds.oi.CubeDetectedTrigger;

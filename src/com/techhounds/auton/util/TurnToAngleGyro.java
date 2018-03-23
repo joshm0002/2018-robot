@@ -54,7 +54,7 @@ public class TurnToAngleGyro extends TimedCommand {
     			motors.setPower(RobotUtilities.constrain(-output, -MAX_POWER, MAX_POWER), RobotUtilities.constrain(output, -MAX_POWER, MAX_POWER));
     		}
         });
-        ctrl.setAbsoluteTolerance(5);
+        ctrl.setAbsoluteTolerance(3);
     	SmartDashboard.putData("By Rotation PID", ctrl);
     }
 

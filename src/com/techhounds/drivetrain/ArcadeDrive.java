@@ -45,9 +45,9 @@ public class ArcadeDrive extends Command {
     	}
     	
     	// limit drive speed if elevator up
-    	if (Robot.powerPack.getWinchPosition() > 500000) {
-    		forward *= 0.5;
-    	}
+//    	if (Robot.powerPack.getWinchPosition() > 500000) {
+//    		forward *= 0.5;
+//    	}
     	
     	Robot.drivetrain.setPower(forward+turn, forward-turn);
     }

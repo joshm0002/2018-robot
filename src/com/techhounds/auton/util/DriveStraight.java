@@ -44,14 +44,6 @@ public class DriveStraight extends Command {
     	double setRight = rightPower;
     	double setLeft = leftPower;
     	
-    	if(isRightFinished()) {
-    		setRight = 0;
-    	}
-    	
-    	if(isLeftFinished()) {
-    		setLeft = 0;
-    	}
-    	
     	double angleError = Robot.gyro.getRotation() - initialAngle;
     	double angleP = (angleError / 50);
     	
@@ -64,7 +56,7 @@ public class DriveStraight extends Command {
     }
 
     protected boolean isFinished() {
-    	return isRightFinished() && isLeftFinished();
+    	return isRightFinished() || isLeftFinished();
     }
 
     protected void end() {

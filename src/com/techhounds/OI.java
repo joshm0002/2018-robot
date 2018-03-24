@@ -150,6 +150,10 @@ public class OI {
 		// Enable/disable elevator limits
 		arrowLeft.whileHeld(new SetElevatorLimits(false));
 		arrowLeft.whenReleased(new SetElevatorLimits(true));
+		
+		Button start = new JoystickButton(driver, 8);
+		// record motion profile
+		start.whenPressed(new FlashLEDs(0, 0, 255, 0.25, 3));
 
 	}
 

@@ -10,7 +10,7 @@ package com.techhounds;
 import com.techhounds.arm.SetArm;
 import com.techhounds.auton.profiling.ProfileRecorder;
 import com.techhounds.drivetrain.ArcadeDrive;
-import com.techhounds.drivetrain.FlipDriveDirection;
+import com.techhounds.drivetrain.SetDriveDirection;
 import com.techhounds.drivetrain.SetTransmission;
 import com.techhounds.hook.SetHookPosition;
 import com.techhounds.intake.DualGamepadIntakeControl;
@@ -68,7 +68,7 @@ public class OI {
 		Button bY = new JoystickButton(driver, 4);
 		// ready for climb: raise hook, flip drive, and raise tilt
 		bY.whenPressed(new SetHookPosition(true));
-		bY.whenPressed(new FlipDriveDirection());
+		bY.whenPressed(new SetDriveDirection(false));
 		bY.whenPressed(new SetTiltPosition(TiltPosition.UP));
 
 		Button RB = new JoystickButton(driver, 6);
@@ -87,7 +87,7 @@ public class OI {
 		
 		Button select = new JoystickButton(driver, 7);
 		// flip drive direction
-		select.whenPressed(new FlipDriveDirection());
+		select.whenPressed(new SetDriveDirection(true));
 
 		Trigger cubeDetect = new CubeDetectedTrigger();
 		// rumble when we first get a cube

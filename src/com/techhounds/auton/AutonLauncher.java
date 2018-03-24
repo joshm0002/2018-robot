@@ -179,7 +179,7 @@ public class AutonLauncher {
 				return new LeftScaleScale();
 			}
 		} else {
-			return getBaseline();
+			return getFrontScale(field);
 		}
 	}
 	

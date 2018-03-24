@@ -106,8 +106,8 @@ public class OI {
 	 */
 	public static void setupOperator() {
 		Trigger cubeRumble = new CubeDetectedTrigger();
-		// rumble when we first get a cube
-		cubeRumble.whenActive(new RumbleOperator(1));
+		// rumble when we first lose a cube
+		cubeRumble.whenInactive(new RumbleOperator(1));
 
 		Button bA = new JoystickButton(operator, 1);
 		// Set elevator to DOWN position

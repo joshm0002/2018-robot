@@ -3,7 +3,9 @@ package com.techhounds.auton;
 import com.techhounds.auton.FieldState.Position;
 import com.techhounds.auton.paths.Baseline;
 import com.techhounds.auton.paths.CenterLeftSwitch;
+import com.techhounds.auton.paths.CenterLeftSwitchDouble;
 import com.techhounds.auton.paths.CenterRightSwitch;
+import com.techhounds.auton.paths.CenterRightSwitchDouble;
 import com.techhounds.auton.paths.LeftScale;
 import com.techhounds.auton.paths.LeftScaleCross;
 import com.techhounds.auton.paths.LeftScaleScale;
@@ -37,7 +39,8 @@ public class AutonLauncher {
 		SWITCH_OR_SCALE,
 		SCALE_OR_SWITCH,
 		SCALE_AND_SWITCH,
-		SCALE_SCALE
+		SCALE_SCALE,
+		SWITCH_SWITCH
 	}
 	
 	public static final SendableChooser<Auton> autonChoices = new SendableChooser<>();
@@ -51,12 +54,15 @@ public class AutonLauncher {
 		autonChoices.addObject("Scale or Switch", Auton.SCALE_OR_SWITCH);
 		autonChoices.addObject("Scale and Switch", Auton.SCALE_AND_SWITCH);
 		autonChoices.addObject("Double Scale", Auton.SCALE_SCALE);
+		autonChoices.addObject("Double Switch", Auton.SWITCH_SWITCH);
 		SmartDashboard.putData("Auton Chooser", autonChoices);
 	}
 	
 	public static Command getAuton(FieldState field) {
 		System.out.println("Running Auton " + autonChoices.getSelected().toString());
 		switch(autonChoices.getSelected()) {
+		case SWITCH_SWITCH:
+			return getDoubleSwitch(field);
 		case SCALE_SCALE:
 			return getDoubleScale(field);
 		case SCALE_AND_SWITCH:
@@ -180,6 +186,18 @@ public class AutonLauncher {
 			}
 		} else {
 			return getFrontScale(field);
+		}
+	}
+	
+	public static Command getDoubleSwitch(FieldState field) {
+		if (field.getRobotPosition() == Position.Middle) {
+			if (field.getSwitchPosition() == Position.Right) {
+				return new CenterRightSwitchDouble();
+			} else {
+				return new CenterLeftSwitchDouble();
+			}
+		} else {
+			return getFrontSwitch(field);
 		}
 	}
 	

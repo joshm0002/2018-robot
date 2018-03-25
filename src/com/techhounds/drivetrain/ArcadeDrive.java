@@ -40,7 +40,7 @@ public class ArcadeDrive extends Command {
     		forward = 0;
     	}
     	
-    	if (Math.abs(turn) < 0.05) {
+    	if (Math.abs(turn) < 0.08) {
     		turn = 0;
     	}
     	

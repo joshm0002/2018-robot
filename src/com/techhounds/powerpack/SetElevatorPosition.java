@@ -43,7 +43,9 @@ public class SetElevatorPosition extends TimedCommand {
     protected void execute() {}
 
     protected boolean isFinished() {
-        return Robot.powerPack.onTarget();
+        return Robot.powerPack.onTarget() || 
+        	   (setpoint > 650000 && Robot.powerPack.isTopSwitchTripped()) ||
+        	   (setpoint < 100000 && Robot.powerPack.isBottomSwitchTripped());
     }
 
     protected void end() {

@@ -33,7 +33,10 @@ public class RightScaleCross extends CommandGroup {
     	addSequential(new DelayedCommand(new SetIntakePower(-0.5), 1.5), 2.5);
     	
     	// back off
-    	addSequential(new DriveStraight(-20, -0.4));
-    	addSequential(new SetElevatorPosition(ElevatorPosition.COLLECT));
+    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 1));
+    	addSequential(new DriveStraight(-20, -0.4), 2);
+    	
+    	// align to second cube
+    	addSequential(new TurnToAngleGyro(-160), 2);
     }
 }

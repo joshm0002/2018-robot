@@ -2,21 +2,14 @@ package com.techhounds.auton;
 
 import com.techhounds.auton.FieldState.Position;
 import com.techhounds.auton.paths.Baseline;
-import com.techhounds.auton.paths.CenterLeftSwitch;
 import com.techhounds.auton.paths.CenterLeftSwitchDouble;
-import com.techhounds.auton.paths.CenterRightSwitch;
 import com.techhounds.auton.paths.CenterRightSwitchDouble;
-import com.techhounds.auton.paths.LeftScale;
 import com.techhounds.auton.paths.LeftScaleCross;
 import com.techhounds.auton.paths.LeftScaleScale;
-import com.techhounds.auton.paths.LeftScaleSwitch;
 import com.techhounds.auton.paths.LeftSwitch;
-import com.techhounds.auton.paths.RightScale;
 import com.techhounds.auton.paths.RightScaleCross;
 import com.techhounds.auton.paths.RightScaleScale;
-import com.techhounds.auton.paths.RightScaleSwitch;
 import com.techhounds.auton.paths.RightSwitch;
-import com.techhounds.auton.paths.StraightSwitch;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -29,183 +22,94 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * to start the correct auton mode.
  */
 public class AutonLauncher {
-	
-	enum Auton {
+
+	enum Objective {
+		SCALE,
+		SWITCH,
 		BASELINE,
-		FRONT_SWITCH,
-		FRONT_SCALE,
-		SIDE_SWITCH,
-		SIDE_SCALE, // NOT DONE
-		SWITCH_OR_SCALE,
-		SCALE_OR_SWITCH,
-		SCALE_AND_SWITCH,
-		SCALE_SCALE,
-		SWITCH_SWITCH
 	}
-	
-	public static final SendableChooser<Auton> autonChoices = new SendableChooser<>();
+
+	public static final SendableChooser<Objective> firstPriority = new SendableChooser<>();
+	public static final SendableChooser<Boolean> enableCross = new SendableChooser<>();
 
 	public static void addChoices() {
-		autonChoices.addDefault("Baseline", Auton.BASELINE);
-		autonChoices.addObject("Front Switch", Auton.FRONT_SWITCH);
-		autonChoices.addObject("Front Scale", Auton.FRONT_SCALE);
-		autonChoices.addObject("Side Switch", Auton.SIDE_SWITCH);
-		autonChoices.addObject("Switch or Scale", Auton.SWITCH_OR_SCALE);
-		autonChoices.addObject("Scale or Switch", Auton.SCALE_OR_SWITCH);
-		autonChoices.addObject("Scale and Switch", Auton.SCALE_AND_SWITCH);
-		autonChoices.addObject("Double Scale", Auton.SCALE_SCALE);
-		autonChoices.addObject("Double Switch", Auton.SWITCH_SWITCH);
-		SmartDashboard.putData("Auton Chooser", autonChoices);
+		firstPriority.addDefault("Baseline", Objective.BASELINE);
+		firstPriority.addObject("Switch", Objective.SWITCH);
+		firstPriority.addObject("Scale", Objective.SCALE);
+		SmartDashboard.putData("First Cube Priority", firstPriority);
+
+		enableCross.addDefault("Enable Cross", new Boolean(true));
+		enableCross.addObject("Disable Cross", new Boolean(false));
+		SmartDashboard.putData("Enable Midfield Crossing", enableCross);
 	}
-	
+
 	public static Command getAuton(FieldState field) {
-		System.out.println("Running Auton " + autonChoices.getSelected().toString());
-		switch(autonChoices.getSelected()) {
-		case SWITCH_SWITCH:
-			return getDoubleSwitch(field);
-		case SCALE_SCALE:
-			return getDoubleScale(field);
-		case SCALE_AND_SWITCH:
-			return getScaleAndSwitch(field);
-		case SWITCH_OR_SCALE:
-			return getSwitchOrScale(field);
-		case SCALE_OR_SWITCH:
-			return getScaleOrSwitch(field);
-		case FRONT_SWITCH:
-			return getFrontSwitch(field);
-		case FRONT_SCALE:
-			return getFrontScale(field);
-		case SIDE_SWITCH:
-			return getSideSwitch(field);
+		switch(firstPriority.getSelected()) {
 		case BASELINE:
 			return getBaseline();
+		case SWITCH:
+			return getSwitch(field);
+		case SCALE:
+			if (enableCross.getSelected()) {
+				return getAnyScale(field);
+			} else {
+				return getAheadScale(field);
+			}
 		default:
 			return getBaseline();
 		}
 	}
-	
+
 	public static Command getBaseline() {
 		return new Baseline();
 	}
-	
-	public static Command getFrontSwitch(FieldState field) {
-		// Start center, we can do either
-		if (field.getRobotPosition() == Position.Middle) {
-			if (field.getSwitchPosition() == Position.Right) {
-				return new CenterRightSwitch();
-			} else if (field.getSwitchPosition() == Position.Left) {
-				return new CenterLeftSwitch();
-			} else {
-				return getBaseline();
-			}
-		// we're on one side, so either do it straight ahead or do neither
-		} else if (field.getRobotPosition() == field.getSwitchPosition()) {
-			return new StraightSwitch();
-		} else {
-			return getBaseline();
-		}
-	}
-	
-	public static Command getFrontScale(FieldState field) {
-		if (field.getRobotPosition() == Position.Right) {
-			if (field.getScalePosition() == Position.Right) {
-				return new RightScale();
-			} else {
-				return new LeftScaleCross();
-			}
-		} else {
-			if (field.getScalePosition() == Position.Right) {
-				return new RightScaleCross();
-			} else {
-				return new LeftScale();
-			}
-		}
-	}
-	
-	public static Command getSideSwitch(FieldState field) {
-		if (field.getRobotPosition() == field.getSwitchPosition()) {
-			if (field.getSwitchPosition() == Position.Right) {
-				return new RightSwitch();
-			} else if (field.getSwitchPosition() == Position.Left) {
-				return new LeftSwitch();
-			} else {
-				return getBaseline();
-			}
-		} else {
-			return getBaseline();
-		}
-	}
-	
-//	public static void runSideScale(FieldState field) {
-//		
-//	}
 
-	public static Command getSwitchOrScale(FieldState field) {
-		if (field.getRobotPosition() == field.getSwitchPosition()) {
-			return getSideSwitch(field);
-		} else if (field.getRobotPosition() == field.getScalePosition()) {
-			return getFrontScale(field);
-		} else {
-			return getBaseline();
-		}
-	}
-
-	public static Command getScaleOrSwitch(FieldState field) {
-		if (field.getRobotPosition() == field.getScalePosition()) {
-			return getFrontScale(field);
-		} else if (field.getRobotPosition() == field.getSwitchPosition()) {
-			return getSideSwitch(field);
-		} else {
-			return getBaseline();
-		}
-	}
-	
-	public static Command getScaleAndSwitch(FieldState field) {
-		if (field.getScalePosition() == field.getRobotPosition() && field.getScalePosition() == field.getRobotPosition()) {
-			if (field.getRobotPosition() == Position.Right) {
-				return new RightScaleSwitch();
-			} else {
-				return new LeftScaleSwitch();
-			}
-		} else {
-			return getScaleOrSwitch(field);
-		}
-	}
-	
-	/**
-	 * TODO: do cross scale or switch if it isn't our side?
-	 * @param field
-	 * @return
-	 */
-	public static Command getDoubleScale(FieldState field) {
-		if (field.getScalePosition() == field.getRobotPosition()) {
-			if (field.getRobotPosition() == Position.Right) {
-				return new RightScaleScale();
-			} else {
-				return new LeftScaleScale();
-			}
-		} else {
-			return getFrontScale(field);
-		}
-	}
-	
-	public static Command getDoubleSwitch(FieldState field) {
+	public static Command getSwitch(FieldState field) {
 		if (field.getRobotPosition() == Position.Middle) {
 			if (field.getSwitchPosition() == Position.Right) {
 				return new CenterRightSwitchDouble();
-			} else {
+			} else if (field.getSwitchPosition() == Position.Left) {
 				return new CenterLeftSwitchDouble();
+			} else {
+				return getBaseline();
 			}
+		} else if (field.getRobotPosition() == Position.Right && field.getSwitchPosition() == Position.Right) {
+			return new RightSwitch();
+
+		} else if (field.getRobotPosition() == Position.Left && field.getSwitchPosition() == Position.Left) {
+			return new LeftSwitch();
 		} else {
-			return getFrontSwitch(field);
+			return getBaseline();
 		}
 	}
 	
-//	public static void runScaleSwitchSwitch(FieldState field) {
-//		
-//	}
-//	
-//	public static void runScaleSwitchScale(FieldState field) {
-//		
-//	}
+	public static Command getAnyScale(FieldState field) {
+		if (field.getRobotPosition() == Position.Right) {
+			if (field.getScalePosition() == Position.Right) {
+				return new RightScaleScale();
+			} else if (field.getScalePosition() == Position.Left) {
+				return new LeftScaleCross();
+			} else {
+				return getBaseline();
+			}
+		} else if (field.getRobotPosition() == Position.Left) {
+			if (field.getScalePosition() == Position.Right) {
+				return new RightScaleCross();
+			} else if (field.getScalePosition() == Position.Left) {
+				return new LeftScaleScale();
+			} else {
+				return getBaseline();
+			}
+		} else {
+			return getBaseline();
+		}
+	}
+	
+	public static Command getAheadScale(FieldState field) {
+		if (field.getRobotPosition() == field.getScalePosition()) {
+			return getAnyScale(field);
+		} else {
+			return getSwitch(field);
+		}
+	}
 }

@@ -37,7 +37,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	public static final double MIN_DRIVE_SPEED = 0.3; // TODO: set deadband?
 	public static final double COUNTS_PER_INCH = 422;
 //	public static final double COUNTS_PER_INCH = 437; //4096 / Math.PI * 6;
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	public Drivetrain() {
 
@@ -189,15 +189,16 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateSD() {
-		SmartDashboard.putNumber("Drive Right Distance", getRawRightDistance());
-		SmartDashboard.putNumber("Drive Left Distance", getRawLeftDistance());
-		SmartDashboard.putNumber("Drive Right Velocity", getRawRightVelocity());
-		SmartDashboard.putNumber("Drive Left Velocity", getRawLeftVelocity());
+		SmartDashboard.putNumber("Drive Right Counts", getRawRightDistance());
+		SmartDashboard.putNumber("Drive Left Counts", getRawLeftDistance());
 		SmartDashboard.putNumber("Drive Right Scaled Distance", getScaledRightDistance());
 		SmartDashboard.putNumber("Drive Left Scaled Distance", getScaledLeftDistance());
 		
 		if (DEBUG) {
-			getRightProfileStatus();
+			SmartDashboard.putNumber("Drive Right Velocity", getRawRightVelocity());
+			SmartDashboard.putNumber("Drive Left Velocity", getRawLeftVelocity());
+			
+//			getRightProfileStatus();
 //			SmartDashboard.putNumber("Drive Right Profile Top Buffer", motorRightMain.getMotionProfileTopLevelBufferCount());
 //			SmartDashboard.putNumber("Drive Right Top Buf Rem", getRightProfileStatus().topBufferRem);
 //			SmartDashboard.putNumber("Drive Right Profile Bottom Buffer", getRightProfileStatus().btmBufferCnt);

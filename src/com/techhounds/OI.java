@@ -7,6 +7,7 @@
 
 package com.techhounds;
 
+import com.techhounds.arm.GrabCube;
 import com.techhounds.arm.SetArm;
 import com.techhounds.auton.profiling.ProfileRecorder;
 import com.techhounds.drivetrain.ArcadeDrive;
@@ -14,6 +15,7 @@ import com.techhounds.drivetrain.SetDriveDirection;
 import com.techhounds.drivetrain.SetTransmission;
 import com.techhounds.hook.SetHookPosition;
 import com.techhounds.intake.DualGamepadIntakeControl;
+import com.techhounds.intake.IntakeUntilDetected;
 import com.techhounds.leds.FlashLEDs;
 import com.techhounds.leds.SetLEDs;
 import com.techhounds.oi.CubeDetectedTrigger;
@@ -26,6 +28,7 @@ import com.techhounds.powerpack.SetElevatorLimits;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 import com.techhounds.tilt.SetTiltPosition;
+import com.techhounds.tilt.Tilt;
 import com.techhounds.tilt.SetTiltPosition.TiltPosition;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -34,6 +37,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -147,13 +151,20 @@ public class OI {
 		arrowDown.whenPressed(new SetTiltPosition(TiltPosition.DOWN));
 		
 		Button arrowLeft = getPOVButton(operator, 270);
-		// Enable/disable elevator limits
-		arrowLeft.whileHeld(new SetElevatorLimits(false));
-		arrowLeft.whenReleased(new SetElevatorLimits(true));
+		CommandGroup intakeGroup = new CommandGroup();
+		intakeGroup.addParallel(new SetTiltPosition(Tilt.POS_DOWN));
+		intakeGroup.addParallel(new GrabCube());
+		intakeGroup.addParallel(new IntakeUntilDetected());
+		arrowLeft.whileHeld(intakeGroup); //might get some weird results with it spam open/close arms
 		
-		Button start = new JoystickButton(driver, 8);
-		// record motion profile
+		Button start = new JoystickButton(operator, 8);
+		// flash LED signal to human player
 		start.whenPressed(new FlashLEDs(0, 0, 255, 0.25, 3));
+		
+		Button select = new JoystickButton(operator, 7);
+		// Enable/disable elevator limits
+		select.whileHeld(new SetElevatorLimits(false));
+		select.whenReleased(new SetElevatorLimits(true));
 
 	}
 

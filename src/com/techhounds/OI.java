@@ -28,8 +28,8 @@ import com.techhounds.powerpack.SetElevatorLimits;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 import com.techhounds.tilt.SetTiltPosition;
-import com.techhounds.tilt.Tilt;
 import com.techhounds.tilt.SetTiltPosition.TiltPosition;
+import com.techhounds.tilt.Tilt;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -68,6 +69,14 @@ public class OI {
 		Button bA = new JoystickButton(driver, 1);
 		// lower hook
 		bA.whenPressed(new SetHookPosition(false));
+		
+		Button bB = new JoystickButton(driver, 2);
+		// jiggle hook
+		CommandGroup jiggleHook = new CommandGroup();
+		jiggleHook.addSequential(new SetHookPosition(true));
+		jiggleHook.addSequential(new WaitCommand(0.5));
+		jiggleHook.addSequential(new SetHookPosition(false));
+		bB.whenPressed(jiggleHook);
 
 		Button bY = new JoystickButton(driver, 4);
 		// ready for climb: raise hook, flip drive, and raise tilt

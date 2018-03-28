@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -61,7 +60,6 @@ public class Robot extends TimedRobot {
 		OI.setupDriver();
 		OI.setupOperator();
 //		CameraServer.getInstance().startAutomaticCapture();
-		SmartDashboard.putString("Path to Run", "Test");
 		System.out.println("Robot Initialized!");
 	}
 
@@ -98,9 +96,6 @@ public class Robot extends TimedRobot {
 		gyro.reset();
 		field.pollData();
 		AutonLauncher.getAuton(field).start();
-		
-//		 FIXME temporary for testing
-//		new MotionProfileExecutor(new MotionProfile(SmartDashboard.getString("Path to Run", "Test"))).start();
 	}
 
 	/**

@@ -9,7 +9,6 @@ package com.techhounds;
 
 import com.techhounds.arm.GrabCube;
 import com.techhounds.arm.SetArm;
-import com.techhounds.auton.profiling.ProfileRecorder;
 import com.techhounds.drivetrain.ArcadeDrive;
 import com.techhounds.drivetrain.SetDriveDirection;
 import com.techhounds.drivetrain.SetTransmission;
@@ -94,9 +93,7 @@ public class OI {
 		LB.whenPressed(new SetArm(true));
 		LB.whenReleased(new SetArm(false));
 		
-		Button start = new JoystickButton(driver, 8);
-		// record motion profile
-		start.toggleWhenPressed(new ProfileRecorder(0.02));
+//		Button start = new JoystickButton(driver, 8);
 		
 		Button select = new JoystickButton(driver, 7);
 		// flip drive direction

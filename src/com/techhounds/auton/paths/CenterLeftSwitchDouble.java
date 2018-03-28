@@ -2,7 +2,6 @@ package com.techhounds.auton.paths;
 
 import com.techhounds.arm.GrabCube;
 import com.techhounds.auton.util.DelayedCommand;
-import com.techhounds.auton.util.DriveArc;
 import com.techhounds.auton.util.DriveStraight;
 import com.techhounds.auton.util.TurnToAngleGyro;
 import com.techhounds.intake.IntakeUntilDetected;
@@ -22,11 +21,11 @@ public class CenterLeftSwitchDouble extends CommandGroup {
     public CenterLeftSwitchDouble() {
     	// set to switch
     	addParallel(new DelayedCommand(new SetTiltPosition(Tilt.POS_DOWN), 1));
-    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
+    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1.5));
     	
     	// drive in s pattern
     	addSequential(new DriveStraight(15, 0.4), 1);
-    	addSequential(new TurnToAngleGyro(-25), 0.75); //too much?
+    	addSequential(new TurnToAngleGyro(-25), 1); //too much?
     	addSequential(new DriveStraight(65, 0.6), 3);
     	addSequential(new DriveStraight(20, 0.4), 1);
     	
@@ -35,13 +34,13 @@ public class CenterLeftSwitchDouble extends CommandGroup {
     	
     	// back up to starting position
     	addSequential(new DriveStraight(-10, -0.4), 1);
-    	addSequential(new TurnToAngleGyro(-25), 0.75);
-    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 1));
+    	addSequential(new TurnToAngleGyro(-25), 1);
+    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 0.5));
     	addSequential(new DriveStraight(-45, -0.6), 3);
     	addSequential(new DriveStraight(-20, -0.4), 2);
     	
     	// grab another one
-    	addSequential(new TurnToAngleGyro(0), 0.75);
+    	addSequential(new TurnToAngleGyro(0), 1);
     	addParallel(new GrabCube(), 3);
     	addParallel(new IntakeUntilDetected(), 3);
     	addSequential(new DriveStraight(40, 0.5), 1);
@@ -49,16 +48,16 @@ public class CenterLeftSwitchDouble extends CommandGroup {
     	
     	// line up to switch again
     	addSequential(new DriveStraight(-30, -0.6), 2);
-    	addSequential(new TurnToAngleGyro(-25), 0.75);
+    	addSequential(new TurnToAngleGyro(-25), 1);
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 0.5));
-    	addSequential(new DriveStraight(50, 0.6), 3);
+    	addSequential(new DriveStraight(55, 0.6), 3);
     	addSequential(new DriveStraight(30, 0.4), 2);
     	
     	// place it baby
     	addSequential(new SetIntakePower(-0.5), 0.5);
     	
     	// line up for second
-    	addSequential(new TurnToAngleGyro(0), 0.75);
+    	addSequential(new TurnToAngleGyro(0), 1);
     	addSequential(new DriveStraight(-35, -0.4), 1); //enough?
     	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
     	addSequential(new TurnToAngleGyro(45), 1);

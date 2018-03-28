@@ -21,11 +21,11 @@ public class CenterRightSwitchDouble extends CommandGroup {
     public CenterRightSwitchDouble() {
     	// set to switch
     	addParallel(new DelayedCommand(new SetTiltPosition(Tilt.POS_DOWN), 1));
-    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
+    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1.5));
     	
     	// drive in s pattern
     	addSequential(new DriveStraight(15, 0.4), 1);
-    	addSequential(new TurnToAngleGyro(30), 0.75);
+    	addSequential(new TurnToAngleGyro(25), 0.75);
     	addSequential(new DriveStraight(65, 0.6), 3);
     	addSequential(new DriveStraight(20, 0.4), 1);
     	
@@ -34,8 +34,8 @@ public class CenterRightSwitchDouble extends CommandGroup {
     	
     	// back up to starting position
     	addSequential(new DriveStraight(-10, -0.4), 1);
-    	addSequential(new TurnToAngleGyro(30), 0.75);
-    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 1));
+    	addSequential(new TurnToAngleGyro(25), 0.75);
+    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 0.5));
     	addSequential(new DriveStraight(-40, -0.6), 3);
     	addSequential(new DriveStraight(-20, -0.4), 2);
     	

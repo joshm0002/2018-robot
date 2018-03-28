@@ -4,6 +4,7 @@ import com.techhounds.arm.GrabCube;
 import com.techhounds.auton.util.DelayedCommand;
 import com.techhounds.auton.util.DriveArc;
 import com.techhounds.auton.util.DriveStraight;
+import com.techhounds.auton.util.TurnToAngleGyro;
 import com.techhounds.intake.IntakeUntilDetected;
 import com.techhounds.intake.SetIntakePower;
 import com.techhounds.powerpack.SetElevatorPosition;
@@ -24,28 +25,48 @@ public class CenterLeftSwitchDouble extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
     	
     	// drive in s pattern
-    	addSequential(new DriveArc(70, 50, 0.5, 0.35), 3);
-    	addSequential(new DriveArc(40, 70, 0.3, 0.5), 3);
+    	addSequential(new DriveStraight(15, 0.4), 1);
+    	addSequential(new TurnToAngleGyro(-25), 0.75); //too much?
+    	addSequential(new DriveStraight(65, 0.6), 3);
+    	addSequential(new DriveStraight(20, 0.4), 1);
     	
     	// eject cube
     	addSequential(new SetIntakePower(-0.5), 0.5);
     	
     	// back up to starting position
+    	addSequential(new DriveStraight(-10, -0.4), 1);
+    	addSequential(new TurnToAngleGyro(-25), 0.75);
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 1));
-    	addSequential(new DriveArc(-40, -70, -0.3, -0.5), 3);
-    	addSequential(new DriveArc(-70, -50, -0.5, -0.35), 3);
+    	addSequential(new DriveStraight(-45, -0.6), 3);
+    	addSequential(new DriveStraight(-20, -0.4), 2);
     	
-    	// drive forward and grab cube
+    	// grab another one
+    	addSequential(new TurnToAngleGyro(0), 0.75);
     	addParallel(new GrabCube(), 3);
     	addParallel(new IntakeUntilDetected(), 3);
-    	addSequential(new DriveStraight(70, 0.4), 3);
+    	addSequential(new DriveStraight(40, 0.5), 1);
+    	addSequential(new DriveStraight(10, 0.3), 0.5);
     	
-    	// back up to starting position
-    	addSequential(new DriveStraight(-70, -0.6), 3);
+    	// line up to switch again
+    	addSequential(new DriveStraight(-30, -0.6), 2);
+    	addSequential(new TurnToAngleGyro(-25), 0.75);
+    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 0.5));
+    	addSequential(new DriveStraight(50, 0.6), 3);
+    	addSequential(new DriveStraight(30, 0.4), 2);
     	
-    	// place second cube
-    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 1));
-       	addSequential(new DriveArc(70, 50, 0.5, 0.35), 3);
-    	addSequential(new DriveArc(40, 70, 0.3, 0.5), 3);
+    	// place it baby
+    	addSequential(new SetIntakePower(-0.5), 0.5);
+    	
+    	// line up for second
+    	addSequential(new TurnToAngleGyro(0), 0.75);
+    	addSequential(new DriveStraight(-35, -0.4), 1); //enough?
+    	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
+    	addSequential(new TurnToAngleGyro(45), 1);
+    	
+    	// grab second cube
+    	addParallel(new GrabCube(), 3);
+    	addParallel(new IntakeUntilDetected(), 3);
+    	addSequential(new DriveStraight(15, 0.4), 1);
+    	addSequential(new DriveStraight(-50, -0.4), 2);
     }
 }

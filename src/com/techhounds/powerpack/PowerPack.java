@@ -30,11 +30,15 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	private WPI_TalonSRX winchQuaternary;
 
 	public static final int PID_TOLERANCE = 5000;
-	public static final double PEAK_ELEVATOR_FWD = 0.60;
-	public static final double PEAK_ELEVATOR_REV = -0.35;
+	public static final double PEAK_ELEVATOR_FWD = 10;
+	public static final double PEAK_ELEVATOR_REV = -0.45;
+	public static final double MIN_ELEVATOR_FWD = 0.2;
+	public static final double MIN_ELEVATOR_REV = -0.15;
+	public static final double ELEVATOR_RAMP = 0.25;
+	
 	public static final double PEAK_CLIMBER_FWD = 1.0;
 	public static final double PEAK_CLIMBER_REV = -0.5;
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	private boolean overrideLimits = true;
 
@@ -72,26 +76,23 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	private void configure(WPI_TalonSRX talon) {		
 		talon.setNeutralMode(NeutralMode.Brake);
 		
-		// TODO: limit current?
-//		talon.configPeakCurrentLimit(100, RobotUtilities.CONFIG_TIMEOUT);
-//		talon.configPeakCurrentDuration(500, RobotUtilities.CONFIG_TIMEOUT);
-//		talon.configContinuousCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
-//		talon.enableCurrentLimit(true);
+		talon.configPeakCurrentLimit(60, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configPeakCurrentDuration(250, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configContinuousCurrentLimit(40, RobotUtilities.CONFIG_TIMEOUT);
+		talon.enableCurrentLimit(true);
 		
-		// TODO: do we want to ramp the power as well?
-
 		talon.configPeakOutputForward(PEAK_ELEVATOR_FWD, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configPeakOutputReverse(PEAK_ELEVATOR_REV, RobotUtilities.CONFIG_TIMEOUT);
-		// TODO use constants for these
-		talon.configNominalOutputForward(0.4, RobotUtilities.CONFIG_TIMEOUT);
-		talon.configNominalOutputReverse(-0.15, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configNominalOutputForward(MIN_ELEVATOR_FWD, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configNominalOutputReverse(MIN_ELEVATOR_REV, RobotUtilities.CONFIG_TIMEOUT);
 
 		// TODO use constants for these
-		talon.config_kP(0, 0.004, RobotUtilities.CONFIG_TIMEOUT);
+		talon.config_kP(0, 0.01/2.5, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);
-		talon.config_kD(0, 0, RobotUtilities.CONFIG_TIMEOUT);
+		talon.config_kD(0, 0.25, RobotUtilities.CONFIG_TIMEOUT);
 		talon.config_kF(0, 0, RobotUtilities.CONFIG_TIMEOUT);
 		talon.configAllowableClosedloopError(0, PID_TOLERANCE, RobotUtilities.CONFIG_TIMEOUT);
+		talon.configClosedloopRamp(ELEVATOR_RAMP, RobotUtilities.CONFIG_TIMEOUT);
 	}
 	
 	// ========== SETTERS ==========

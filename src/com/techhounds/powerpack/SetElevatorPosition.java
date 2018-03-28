@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
 public class SetElevatorPosition extends TimedCommand {
 	
 	public enum ElevatorPosition {
-		COLLECT(-20000),
+		COLLECT(-25000),
 		SWITCH(300000),
-		SCALE(750000);
+		SCALE(700000);
 		
 		public final double setpoint;
 		private ElevatorPosition(double value) {

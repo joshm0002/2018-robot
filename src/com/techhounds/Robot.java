@@ -20,6 +20,7 @@ import com.techhounds.powerpack.PowerPack;
 import com.techhounds.tilt.Tilt;
 import com.techhounds.vision.PullVision;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -58,6 +59,7 @@ public class Robot extends TimedRobot {
 		AutonLauncher.addChoices();
 		OI.setupDriver();
 		OI.setupOperator();
+		CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putString("Path to Run", "Test");
 		System.out.println("Robot Initialized!");
 	}

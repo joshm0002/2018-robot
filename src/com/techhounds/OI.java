@@ -120,6 +120,7 @@ public class OI {
 	public static void setupOperator() {
 		Trigger cubeRumble = new CubeDetectedTrigger();
 		// rumble when we first lose a cube
+		cubeRumble.whenActive(new RumbleOperator(1));
 		cubeRumble.whenInactive(new RumbleOperator(1));
 
 		Button bA = new JoystickButton(operator, 1);

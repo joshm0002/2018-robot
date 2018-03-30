@@ -29,14 +29,14 @@ public class LeftScaleCross extends CommandGroup {
     	
     	// put in scale
     	addSequential(new TurnToAngleGyro(10), 2);
-    	addSequential(new DriveStraight(6, 0.4), 2);
-    	addSequential(new DelayedCommand(new SetIntakePower(-0.5), 1.5), 2.5);
+    	addSequential(new DriveStraight(12, 0.4), 2);
+    	addSequential(new SetIntakePower(-0.5), 1);
     	
     	// back off
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 1));
     	addSequential(new DriveStraight(-20, -0.4), 2);
     	
     	// align to second cube
-    	addSequential(new TurnToAngleGyro(-160), 2);
+    	addSequential(new TurnToAngleGyro(160), 2);
     }
 }

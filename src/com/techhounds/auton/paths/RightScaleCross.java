@@ -29,8 +29,8 @@ public class RightScaleCross extends CommandGroup {
     	
     	// put in scale
     	addSequential(new TurnToAngleGyro(-10), 2);
-    	addSequential(new DriveStraight(6, 0.4), 2);
-    	addSequential(new DelayedCommand(new SetIntakePower(-0.5), 1.5), 2.5);
+    	addSequential(new DriveStraight(12, 0.4), 2);
+    	addSequential(new SetIntakePower(-0.5), 1);
     	
     	// back off
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 1));

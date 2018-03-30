@@ -24,6 +24,9 @@ public class Intake extends Subsystem implements DashboardUpdatable {
 		intakeRight = RobotUtilities.getTalonSRX(RobotMap.INTAKE_RIGHT, "Intake", "Right");
 		configure(intakeLeft);
 		configure(intakeRight);
+		
+		intakeLeft.setInverted(true);
+		intakeRight.setInverted(true);
 	}
 	
 	private void configure(WPI_TalonSRX talon) {

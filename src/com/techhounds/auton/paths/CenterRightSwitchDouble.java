@@ -52,6 +52,7 @@ public class CenterRightSwitchDouble extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 0.5));
     	addSequential(new DriveStraight(50, 0.6), 3);
     	addSequential(new DriveStraight(30, 0.4), 2);
+    	addSequential(new TurnToAngleGyro(0), 0.5);
     	
     	// place it baby
     	addSequential(new SetIntakePower(-0.5), 0.5);

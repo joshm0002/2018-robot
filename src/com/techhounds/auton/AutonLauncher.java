@@ -2,7 +2,9 @@ package com.techhounds.auton;
 
 import com.techhounds.auton.FieldState.Position;
 import com.techhounds.auton.paths.Baseline;
+import com.techhounds.auton.paths.CenterLeftSwitch;
 import com.techhounds.auton.paths.CenterLeftSwitchDouble;
+import com.techhounds.auton.paths.CenterRightSwitch;
 import com.techhounds.auton.paths.CenterRightSwitchDouble;
 import com.techhounds.auton.paths.LeftScaleCross;
 import com.techhounds.auton.paths.LeftScaleScale;
@@ -67,9 +69,11 @@ public class AutonLauncher {
 	public static Command getSwitch(FieldState field) {
 		if (field.getRobotPosition() == Position.Middle) {
 			if (field.getSwitchPosition() == Position.Right) {
-				return new CenterRightSwitchDouble();
+//				return new CenterRightSwitchDouble();
+				return new CenterRightSwitch();
 			} else if (field.getSwitchPosition() == Position.Left) {
-				return new CenterLeftSwitchDouble();
+//				return new CenterLeftSwitchDouble();
+				return new CenterLeftSwitch();
 			} else {
 				return getBaseline();
 			}

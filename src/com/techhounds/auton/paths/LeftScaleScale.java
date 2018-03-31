@@ -52,7 +52,7 @@ public class LeftScaleScale extends CommandGroup {
     	// place in scale
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 1));
     	addParallel(new SetTiltPosition(Tilt.POS_MID));
-    	addSequential(new DriveStraight(-85, -0.5), 3);
+    	addSequential(new DriveStraight(-65, -0.5), 3);
     	addSequential(new TurnByAngleGyro(-65), 2);
     	addSequential(new DriveStraight(20, 0.3), 2);
     	addSequential(new SetIntakePower(-0.5), 1);

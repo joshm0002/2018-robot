@@ -28,7 +28,8 @@ public class RightScaleCross extends CommandGroup {
     	addSequential(new DriveStraight(184, 0.6), 8);
     	
     	// put in scale
-    	addSequential(new TurnToAngleGyro(-10), 2);
+    	addSequential(new DriveStraight(30, 0.4), 2);
+    	addSequential(new TurnToAngleGyro(-30), 2);
     	addSequential(new DriveStraight(12, 0.4), 2);
     	addSequential(new SetIntakePower(-0.5), 1);
     	

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.techhounds.compressor.ToggleCompressor;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -49,6 +48,7 @@ public class Dashboard {
 		
 		SmartDashboard.putNumber("Dashboard Update Counts", updateCounts++);
 		SmartDashboard.putNumber("PDP Voltage", Robot.pdp.getVoltage());
+		SmartDashboard.putNumber("Total Current Draw", Robot.pdp.getTotalCurrent());
 	}
 	
 	public interface DashboardUpdatable {

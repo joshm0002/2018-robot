@@ -58,7 +58,7 @@ public class RightScaleScale extends CommandGroup {
     	addSequential(new DriveStraight(20, 0.3), 2);
     	addSequential(new SetIntakePower(-0.5), 1);
     	
-//    	// back off
+    	// back off
     	addSequential(new DriveStraight(-24, -0.3), 2);
     	addParallel(new SetTiltPosition(Tilt.POS_DOWN));
     	addSequential(new SetElevatorPosition(ElevatorPosition.COLLECT), 2);

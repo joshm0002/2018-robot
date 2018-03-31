@@ -21,6 +21,7 @@ import com.techhounds.tilt.Tilt;
 import com.techhounds.vision.PullVision;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,6 +48,7 @@ public class Robot extends TimedRobot {
 	public static final Compressor compressor = new Compressor();
 	public static final FieldState field = new FieldState();
 	public static final LEDs leds = new LEDs();
+	public static final PowerDistributionPanel pdp = new PowerDistributionPanel();
 			
 	/**
 	 * This function is run when the robot is first started up and should be

@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Tilt extends Subsystem implements DashboardUpdatable {
 	
-	public static final double POS_UP = 490; 
-	public static final double POS_MID = 440;
-	public static final double POS_DOWN = 305;
+	public static final double POS_UP = 540; 
+	public static final double POS_MID = 470;
+	public static final double POS_DOWN = 330;
 	
 //	public static final double POS_UP = 650; 
 //	public static final double POS_MID = 550;
@@ -82,8 +82,9 @@ public class Tilt extends Subsystem implements DashboardUpdatable {
 
 	@Override
 	public void updateSD() {
+		SmartDashboard.putNumber("Tilt Angle", getPosition());
+
 		if (DEBUG) {
-			SmartDashboard.putNumber("Tilt Angle", getPosition());
 			SmartDashboard.putNumber("Tilt Power", tiltMotor.getMotorOutputPercent());
 			SmartDashboard.putNumber("Tilt Error", tiltMotor.getClosedLoopError(0));
 			SmartDashboard.putNumber("Tilt Current", tiltMotor.getOutputCurrent());

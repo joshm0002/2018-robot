@@ -1,4 +1,4 @@
-package com.techhounds.auton.util;
+package com.techhounds.auton.drive;
 
 import com.techhounds.Robot;
 import com.techhounds.RobotUtilities;
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class TurnByAngleGyro extends TimedCommand {
+public class TurnToAngleGyro extends TimedCommand {
 	private Drivetrain motors;
 	private PIDController ctrl;
 	private final double P = 0.0125, I = 0, D = 0.0125; // TODO: tune
@@ -28,7 +28,7 @@ public class TurnByAngleGyro extends TimedCommand {
 	 * Left is negative, right is positive
 	 * @param angle in degrees
 	 */
-    public TurnByAngleGyro(double deg, double timeout) {
+    public TurnToAngleGyro(double deg, double timeout) {
         super(timeout);
         motors = Robot.drivetrain;
         requires(motors);
@@ -54,16 +54,16 @@ public class TurnByAngleGyro extends TimedCommand {
     			motors.setPower(RobotUtilities.constrain(-output, -MAX_POWER, MAX_POWER), RobotUtilities.constrain(output, -MAX_POWER, MAX_POWER));
     		}
         });
-        ctrl.setAbsoluteTolerance(5);
+        ctrl.setAbsoluteTolerance(3);
     	SmartDashboard.putData("By Rotation PID", ctrl);
     }
 
-    public TurnByAngleGyro(double angle) {
+    public TurnToAngleGyro(double angle) {
     	this(angle, 3);
     }
     
     protected void initialize() {
-    	ctrl.setSetpoint(setAngle+Robot.gyro.getRotation());
+    	ctrl.setSetpoint(setAngle);
     	ctrl.enable();
     }
 

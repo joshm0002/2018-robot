@@ -1,8 +1,8 @@
 package com.techhounds.auton.paths;
 
+import com.techhounds.auton.drive.DriveStraight;
+import com.techhounds.auton.drive.TurnByAngleGyro;
 import com.techhounds.auton.util.DelayedCommand;
-import com.techhounds.auton.util.DriveStraight;
-import com.techhounds.auton.util.TurnByAngleGyro;
 import com.techhounds.intake.SetIntakePower;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;

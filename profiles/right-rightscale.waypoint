@@ -1,0 +1,5 @@
+-, Max Velocity, Max Acceleration, Max Jerk, Wheelbase Width, External Width, External Length, Timestep, I Sample Count, I Sample Length
+Parameters, 14.0000, 20.0000, 26.0000, 2.1000, 2.6000, 3.1000, 0.0100, 100, 0.0050
+-, X, Y, Velocity Angle, Velocity Magnitude, Acceleration Angle, Acceleration Magnitude, Max Linear Velocity, Max Linear Acceleration, Max Angular Velocity, Max Angular Acceleration
+0.0000, 0.0000, -0.0000, 22.0053, 0.7488, 20.4418, 1000000.0000, 1000000.0000, 1000000.0000, 1000000.0000
+1.3020, 21.5540, 0.785, 5.5639, -2.9916, 24.2041, 1000000.0000, 1000000.0000, 1000000.0000, 1000000.0000

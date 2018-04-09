@@ -25,9 +25,9 @@ public class RightScaleScale extends CommandGroup {
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 1.5));
 
     	// drive up & curve
-    	addSequential(new DriveStraight(240, 0.6), 6);
-    	addSequential(new DriveStraight(10, 0.4), 1);
-    	addSequential(new DriveArc(50, 25, 0.4, 0.2), 2); // curve left
+    	addSequential(new DriveStraight(230, 0.75), 6);
+    	addSequential(new DriveStraight(10, 0.5), 1);
+    	addSequential(new DriveArc(50, 20, 0.45, 0.2), 2); // curve left
 //    	addSequential(new TurnToAngleGyro(-45), 1.5);
     	
     	// eject the cube
@@ -48,16 +48,17 @@ public class RightScaleScale extends CommandGroup {
 //    	addSequential(new RetryCollectCube(40), 3);
 //    	
 //    	// place in scale
-//    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 1));
-//    	addParallel(new SetTiltPosition(Tilt.POS_MID));
-//    	addSequential(new DriveStraight(-45, -0.5), 3);
-//    	addSequential(new TurnByAngleGyro(65), 2);
-//    	addSequential(new DriveStraight(20, 0.3), 2);
-//    	addSequential(new SetIntakePower(-0.5), 1);
-//    	
-//    	// back off
-//    	addSequential(new DriveStraight(-24, -0.3), 2);
-//    	addParallel(new SetTiltPosition(Tilt.POS_DOWN));
-//    	addSequential(new SetElevatorPosition(ElevatorPosition.COLLECT), 2);
+    	addSequential(new TurnToAngleGyro(-135), 1);
+    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 1));
+    	addParallel(new SetTiltPosition(Tilt.POS_MID));
+    	addSequential(new DriveStraight(-45, -0.4), 3);
+    	addSequential(new TurnToAngleGyro(-60), 2);
+    	addSequential(new DriveStraight(20, 0.3), 2);
+    	addSequential(new SetIntakePower(-0.5), 1);
+    	
+    	// back off
+    	addSequential(new DriveStraight(-24, -0.3), 2);
+    	addParallel(new SetTiltPosition(Tilt.POS_DOWN));
+    	addSequential(new SetElevatorPosition(ElevatorPosition.COLLECT), 2);
     }
 }

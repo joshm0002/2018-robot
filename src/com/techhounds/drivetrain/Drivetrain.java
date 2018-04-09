@@ -6,9 +6,12 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.techhounds.Dashboard.DashboardUpdatable;
+import com.techhounds.auton.profiling.MotionProfile;
+import com.techhounds.auton.profiling.MotionProfileExecutor;
 import com.techhounds.RobotMap;
 import com.techhounds.RobotUtilities;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,6 +24,8 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 	private WPI_TalonSRX motorRightFollower;
 	private WPI_TalonSRX motorLeftMain;
 	private WPI_TalonSRX motorLeftFollower;
+	
+	public final MotionProfileExecutor mpe;
 
 	public static final double MAX_DRIVE_SPEED = 0.75;
 	public static final double MIN_DRIVE_SPEED = 0.3; // TODO: set deadband?
@@ -51,6 +56,9 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		
 		motorLeftMain.configNominalOutputForward(0.15, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.configNominalOutputReverse(-0.15, RobotUtilities.CONFIG_TIMEOUT);
+		
+		mpe = new MotionProfileExecutor();
+		new Notifier(mpe).startPeriodic(MotionProfile.TIMESTEP_SECS);
 	}
 
 	/**

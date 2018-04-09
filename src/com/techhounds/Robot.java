@@ -99,8 +99,6 @@ public class Robot extends TimedRobot {
 		field.pollData();
 		AutonLauncher.getAuton(field).start();
 		
-//		 FIXME temporary for testing
-//		new MotionProfileExecutor(new MotionProfile(SmartDashboard.getString("Path to Run", "Test"))).start();
 	}
 
 	/**

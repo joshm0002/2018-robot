@@ -10,6 +10,7 @@ import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.Tilt;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -25,12 +26,13 @@ public class LeftScaleCross extends CommandGroup {
     	addSequential(new TurnToAngleGyro(-85), 3);
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 4));
     	addParallel(new DelayedCommand(new SetTiltPosition(Tilt.POS_MID), 4));
-    	addSequential(new DriveStraight(184, 0.6), 8);
+    	addSequential(new DriveStraight(200, 0.6), 8);
     	
     	// put in scale
     	addSequential(new TurnToAngleGyro(10), 2);
     	addSequential(new DriveStraight(12, 0.4), 2);
-    	addSequential(new SetIntakePower(-0.5), 1);
+    	addSequential(new WaitCommand(0.5));
+    	addSequential(new SetIntakePower(-0.35), 1);
     	
     	// back off
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.COLLECT), 1));

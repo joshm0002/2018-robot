@@ -13,6 +13,7 @@ import com.techhounds.tilt.SetTiltPosition;
 import com.techhounds.tilt.Tilt;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -49,28 +50,15 @@ public class CenterLeftSwitchDouble extends CommandGroup {
     	addParallel(new IntakeUntilDetected(), 3);
     	addSequential(new DriveStraightUntilDetected(40, 0.5), 1);
     	addSequential(new DriveStraightUntilDetected(10, 0.3), 0.5);
-//    	
-//    	// line up to switch again
-//    	addSequential(new DriveStraight(-30, -0.6), 2);
-//    	addSequential(new TurnToAngleGyro(-30), 1);
-//    	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SWITCH), 0.5));
-//    	addSequential(new DriveStraight(55, 0.6), 3);
-//    	addSequential(new DriveStraight(30, 0.4), 2);
-//    	addSequential(new TurnToAngleGyro(-10), 0.5);
-//    	
-//    	// place it baby
-//    	addSequential(new SetIntakePower(-0.5), 0.5);
-//    	
-//    	// line up for second
-//    	addSequential(new TurnToAngleGyro(0), 1);
-//    	addSequential(new DriveStraight(-35, -0.4), 1); //enough?
-//    	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
-//    	addSequential(new TurnToAngleGyro(45), 1);
-//    	
-//    	// grab second cube
-//    	addParallel(new GrabCube(), 3);
-//    	addParallel(new IntakeUntilDetected(), 3);
-//    	addSequential(new DriveStraight(15, 0.4), 1);
-//    	addSequential(new DriveStraight(-50, -0.4), 2);
+    	
+    	// line up to switch again
+    	addSequential(new WaitCommand(0.5));
+    	addSequential(new TurnToAngleGyro(-70), 1.5);
+    	addSequential(new DriveStraight(50, 0.5), 2);
+    	addParallel(new SetElevatorPosition(ElevatorPosition.SWITCH));
+    	addSequential(new TurnToAngleGyro(0), 1);
+    	addSequential(new DriveStraight(12, 0.4), 1);
+    	
+    	addSequential(new SetIntakePower(-0.5), 0.5);
     }
 }

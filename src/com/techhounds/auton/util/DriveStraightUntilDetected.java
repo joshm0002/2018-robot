@@ -22,6 +22,8 @@ public class DriveStraightUntilDetected extends Command {
 	
 	private double initialAngle;
 	
+	private int detectCounts = 0;
+	
 	public DriveStraightUntilDetected(double inches) {
 		this(inches, inches > 0 ? 0.6 : -0.6);
 	}
@@ -53,10 +55,16 @@ public class DriveStraightUntilDetected extends Command {
     	}
     	
     	Robot.drivetrain.setPower(setRight * (1+angleP), setLeft * (1-angleP));
+    	
+    	if (Robot.intake.isCubeDetected()) {
+    		detectCounts++;
+    	} else {
+    		detectCounts = 0;
+    	}
     }
 
     protected boolean isFinished() {
-    	return isRightFinished() || isLeftFinished() || Robot.intake.isCubeDetected();
+    	return isRightFinished() || isLeftFinished() || detectCounts > 5;
     }
 
     protected void end() {

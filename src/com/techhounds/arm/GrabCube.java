@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class GrabCube extends Command {
+	
+	private int detectCounts = 0;
 
     public GrabCube() {
     	requires(Robot.arm);
@@ -17,10 +19,16 @@ public class GrabCube extends Command {
     	Robot.arm.setArm(true);
     }
 
-    protected void execute() {}
+    protected void execute() {
+    	if (Robot.intake.isCubeDetected()) {
+    		detectCounts++;
+    	} else {
+    		detectCounts = 0;
+    	}
+    }
 
     protected boolean isFinished() {
-        return Robot.intake.isCubeDetected();
+        return detectCounts > 5;
     }
 
     protected void end() {

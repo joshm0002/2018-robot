@@ -21,6 +21,8 @@ public class IntakeUntilDetected extends Command {
     	Robot.intake.setPower(1);
     	if (Robot.intake.isCubeDetected()) {
     		detectCounts++;
+    	} else {
+    		detectCounts = 0;
     	}
     }
 

@@ -20,6 +20,7 @@ import com.techhounds.powerpack.PowerPack;
 import com.techhounds.tilt.Tilt;
 import com.techhounds.vision.PullVision;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -49,6 +50,7 @@ public class Robot extends TimedRobot {
 	public static final FieldState field = new FieldState();
 	public static final LEDs leds = new LEDs();
 	public static final PowerDistributionPanel pdp = new PowerDistributionPanel();
+	public static final AnalogInput analog = new AnalogInput(0);
 			
 	/**
 	 * This function is run when the robot is first started up and should be

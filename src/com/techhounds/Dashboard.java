@@ -49,6 +49,7 @@ public class Dashboard {
 		SmartDashboard.putNumber("Dashboard Update Counts", updateCounts++);
 		SmartDashboard.putNumber("PDP Voltage", Robot.pdp.getVoltage());
 		SmartDashboard.putNumber("Total Current Draw", Robot.pdp.getTotalCurrent());
+		SmartDashboard.putNumber("3.3v", Robot.analog.getVoltage());
 	}
 	
 	public interface DashboardUpdatable {

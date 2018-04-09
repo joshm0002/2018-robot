@@ -10,6 +10,7 @@ package com.techhounds;
 import com.techhounds.arm.Arm;
 import com.techhounds.auton.AutonLauncher;
 import com.techhounds.auton.FieldState;
+import com.techhounds.auton.profiling.RightScaleRightProfile;
 import com.techhounds.drivetrain.Drivetrain;
 import com.techhounds.drivetrain.Transmission;
 import com.techhounds.gyro.Gyroscope;
@@ -95,7 +96,8 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().removeAll();
 		gyro.reset();
 		field.pollData();
-		AutonLauncher.getAuton(field).start();
+//		AutonLauncher.getAuton(field).start();
+		new RightScaleRightProfile().start();
 	}
 
 	/**

@@ -72,6 +72,7 @@ public class Drivetrain extends Subsystem implements DashboardUpdatable {
 		motorRightMain.config_kF(0, 0.19864, RobotUtilities.CONFIG_TIMEOUT); //0.19864
 		motorRightMain.configNominalOutputForward(0.15, RobotUtilities.CONFIG_TIMEOUT);
 		motorRightMain.configNominalOutputReverse(-0.15, RobotUtilities.CONFIG_TIMEOUT);
+		motorRightMain.configVoltageCompSaturation(11.6, RobotUtilities.CONFIG_TIMEOUT);
 		
 		motorLeftMain.config_kP(0, 0.05, RobotUtilities.CONFIG_TIMEOUT);
 		motorLeftMain.config_kI(0, 0, RobotUtilities.CONFIG_TIMEOUT);

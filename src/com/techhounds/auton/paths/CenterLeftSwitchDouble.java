@@ -45,10 +45,10 @@ public class CenterLeftSwitchDouble extends CommandGroup {
     	
 //    	// grab another one
     	addSequential(new TurnToAngleGyro(0), 1.5);
-//    	addParallel(new GrabCube(), 3);
-//    	addParallel(new IntakeUntilDetected(), 3);
-//    	addSequential(new DriveStraightUntilDetected(40, 0.5), 1);
-//    	addSequential(new DriveStraightUntilDetected(10, 0.3), 0.5);
+    	addParallel(new GrabCube(), 3);
+    	addParallel(new IntakeUntilDetected(), 3);
+    	addSequential(new DriveStraightUntilDetected(40, 0.5), 1);
+    	addSequential(new DriveStraightUntilDetected(10, 0.3), 0.5);
 //    	
 //    	// line up to switch again
 //    	addSequential(new DriveStraight(-30, -0.6), 2);

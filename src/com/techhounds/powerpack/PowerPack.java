@@ -38,7 +38,7 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	
 	public static final double PEAK_CLIMBER_FWD = 1.0;
 	public static final double PEAK_CLIMBER_REV = -0.5;
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	
 	private boolean overrideLimits = true;
 
@@ -215,10 +215,10 @@ public class PowerPack extends Subsystem implements DashboardUpdatable {
 	public void updateSD() {
 		SmartDashboard.putBoolean("Elevator Bottom Limit", isBottomSwitchTripped());
 		SmartDashboard.putBoolean("Elevator Top Limit", isTopSwitchTripped());
+		SmartDashboard.putNumber("Power Pack Position", winchPrimary.getSelectedSensorPosition(0));
 		
 		if (DEBUG) {
 			// TODO: call subsystem methods, not winchPrimary.*
-			SmartDashboard.putNumber("Power Pack Position", winchPrimary.getSelectedSensorPosition(0));
 			SmartDashboard.putNumber("Power Pack Velocity", winchPrimary.getSelectedSensorVelocity(0));
 			SmartDashboard.putNumber("Power Pack Power", winchPrimary.getMotorOutputPercent());
 			SmartDashboard.putNumber("Power Pack Current", winchPrimary.getOutputCurrent());

@@ -1,13 +1,12 @@
 package com.techhounds.auton.paths;
 
-import com.techhounds.arm.GrabCube;
+import com.techhounds.auton.util.CollectCube;
 import com.techhounds.auton.util.DelayedCommand;
 import com.techhounds.auton.util.DriveArc;
 import com.techhounds.auton.util.DriveStraight;
-import com.techhounds.auton.util.DriveStraightUntilDetected;
+import com.techhounds.auton.util.RetryCollectCube;
 import com.techhounds.auton.util.TurnByAngleGyro;
 import com.techhounds.auton.util.TurnToAngleGyro;
-import com.techhounds.intake.IntakeUntilDetected;
 import com.techhounds.intake.SetIntakePower;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
@@ -46,14 +45,19 @@ public class RightScaleScale extends CommandGroup {
     	
     	// grab second cube
     	addSequential(new TurnToAngleGyro(-132), 2);
-    	addParallel(new GrabCube(), 3);
-    	addParallel(new IntakeUntilDetected(), 3);
-    	addSequential(new DriveStraightUntilDetected(75, 0.4), 3);
+    	addSequential(new CollectCube(75), 3);
+    	addSequential(new DriveStraight(-40, -0.4), 2);
+    	
+    	// retry grab if we didn't get it
+    	addSequential(new RetryCollectCube(40), 3);
+    	addSequential(new DriveStraight(-40, -0.4), 2);
+    	addSequential(new RetryCollectCube(40), 3);
+    	addSequential(new DriveStraight(-40, -0.4), 2);
     	
     	// place in scale
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 1));
     	addParallel(new SetTiltPosition(Tilt.POS_MID));
-    	addSequential(new DriveStraight(-85, -0.5), 3);
+    	addSequential(new DriveStraight(-45, -0.5), 3);
     	addSequential(new TurnByAngleGyro(65), 2);
     	addSequential(new DriveStraight(20, 0.3), 2);
     	addSequential(new SetIntakePower(-0.5), 1);

@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.command.ConditionalCommand;
 
 public class RetryCollectCube extends ConditionalCommand {
 
-	public RetryCollectCube(double distance) {
-		super(new CollectCube(distance));
+	public RetryCollectCube(double distance, double angle) {
+		super(new CollectCube(distance, angle));
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.techhounds.gyro;
 
+import java.util.ArrayList;
+
 import com.techhounds.Dashboard.DashboardUpdatable;
 
 import edu.wpi.first.wpilibj.GyroBase;
@@ -25,6 +27,7 @@ public class Gyroscope extends Subsystem implements DashboardUpdatable {
 	 * @return rotation of the robot (degrees)
 	 */
 	public double getRotation() {
+		
 		return gyroX.getAngle();
 	}
 	

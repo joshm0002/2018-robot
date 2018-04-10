@@ -1,5 +1,6 @@
-package com.techhounds.gyro;
+ package com.techhounds.gyro;
 
+import java.util.ArrayList;
 import java.util.TimerTask;
 
 import edu.wpi.first.wpilibj.GyroBase;
@@ -126,6 +127,8 @@ public class BNO055 {
 	private volatile byte[] positionVector = new byte[6];
 	private volatile long turns = 0;
 	private volatile double[] xyz = new double[3];
+	public ArrayList<Double> lastVals;
+
 
 	public class SystemStatus {
 		public int system_status;
@@ -377,6 +380,8 @@ public class BNO055 {
 	 */
 	private BNO055(I2C.Port port, byte address) {
 		imu = new I2C(port, address);
+		lastVals = new ArrayList<Double>(5);
+
 		
 		executor = new java.util.Timer();
 		executor.schedule(new BNO055UpdateTask(this), 0L, THREAD_PERIOD);
@@ -431,6 +436,18 @@ public class BNO055 {
 	 */
 	private void update() {
 		currentTime = Timer.getFPGATimestamp(); //seconds
+		
+		// figure out if the gyro has frozen, if so restart
+		lastVals.remove(0);
+		lastVals.add(xyz[0]);
+		
+		double val = lastVals.get(0);
+		int cnt = 0;
+		for (int i = 0; i < lastVals.size()-1; i++) {
+			if (val == lastVals.get(i+1)) cnt++;
+		}
+		if (cnt == 4) initialized=false;
+		
 		if(!initialized) {
 //			System.out.println("State: " + state + ".  curr: " + currentTime
 //					+ ", next: " + nextTime);
@@ -664,6 +681,7 @@ public class BNO055 {
 		status.system_error = read8(reg_t.BNO055_SYS_ERR_ADDR);
 		return status;
 	}
+	
 
 	/**
 	 * Gets the chip revision numbers

@@ -41,7 +41,7 @@ public class RightScaleScale extends CommandGroup {
     	
     	// grab second cube
     	addSequential(new DriveArc(60, 50, 0.5, 0.4), 2);
-    	addSequential(new CollectCube(35, -175), 3);
+    	addSequential(new CollectCube(25, -175), 3);
 //    	
 //    	// retry grab if we didn't get it
 //    	addSequential(new RetryCollectCube(40), 3);

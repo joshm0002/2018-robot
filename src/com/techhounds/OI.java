@@ -28,6 +28,7 @@ import com.techhounds.powerpack.SetElevatorLimits;
 import com.techhounds.powerpack.SetElevatorPosition;
 import com.techhounds.powerpack.SetElevatorPosition.ElevatorPosition;
 import com.techhounds.tilt.SetTiltPosition;
+import com.techhounds.tilt.SetTiltPower;
 import com.techhounds.tilt.SetTiltPosition.TiltPosition;
 import com.techhounds.tilt.Tilt;
 
@@ -150,15 +151,19 @@ public class OI {
 
 		Button arrowUp = getPOVButton(operator, 0);
 		// Set Tilt to UP
-		arrowUp.whenPressed(new SetTiltPosition(TiltPosition.UP));
+//		arrowUp.whenPressed(new SetTiltPosition(TiltPosition.UP));
+		arrowUp.whenPressed(new SetTiltPower(0.75));
+		arrowUp.whenReleased(new SetTiltPower(-0.5));
 
-		Button arrowRight = getPOVButton(operator, 90);
+//		Button arrowRight = getPOVButton(operator, 90);
 		// Set Tilt to MIDDLE
-		arrowRight.whenPressed(new SetTiltPosition(TiltPosition.MIDDLE));
+//		arrowRight.whenPressed(new SetTiltPosition(TiltPosition.MIDDLE));
 
 		Button arrowDown = getPOVButton(operator, 180);
 		// Set Tilt to DOWN
-		arrowDown.whenPressed(new SetTiltPosition(TiltPosition.DOWN));
+//		arrowDown.whenPressed(new SetTiltPosition(TiltPosition.DOWN));
+		arrowDown.whenPressed(new SetTiltPower(0.75));
+		arrowDown.whenReleased(new SetTiltPower(-0.5));
 		
 		Button arrowLeft = getPOVButton(operator, 270);
 		CommandGroup intakeGroup = new CommandGroup();

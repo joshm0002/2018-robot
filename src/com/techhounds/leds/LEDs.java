@@ -18,6 +18,7 @@ public class LEDs extends Subsystem {
 			t.printStackTrace();
 			serial = null;
 		}
+		serial = null; // XXX: temporary hack
 	}
 	
 	public boolean isValid() {

@@ -38,16 +38,16 @@ public class SetTiltPosition extends Command {
 		double error = setpoint - position;
 		double power = 0;
 
-		if (setpoint > Tilt.POS_DOWN + 50) { // going up
-			if (error > 15) { // need to move up
+		if (setpoint > Tilt.POS_DOWN + 20) { // going up
+			if (error > 5) { // need to move up
 				power = 0.65;
-			} else if (error < -15) { //need to go down
+			} else if (error < -5) { //need to go down
 				power = -0.2;
 			} else {
 				power = 0.15;
 			}
 		} else { //going down
-			if (error < -15) { //need to go down
+			if (error < -5) { //need to go down
 				double proportion = (position - Tilt.POS_DOWN) / (Tilt.POS_RANGE);
 				power = -0.15 - (proportion * 0.3);
 			} else {

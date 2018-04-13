@@ -34,11 +34,17 @@ public class SetTiltPosition extends Command {
 	protected void initialize() {}
 
 	protected void execute() {
+		double currentSetpoint = setpoint;
+
+		if (Robot.intake.isCubeDetected()) {
+			currentSetpoint = Math.min(currentSetpoint, Tilt.POS_MID);
+		}
+
 		double position = Robot.tilt.getPosition();
-		double error = setpoint - position;
+		double error = currentSetpoint - position;
 		double power = 0;
 
-		if (setpoint > Tilt.POS_DOWN + 20) { // going up
+		if (currentSetpoint > Tilt.POS_DOWN + 20) { // going up
 			if (error > 5) { // need to move up
 				power = 0.65;
 			} else if (error < -5) { //need to go down

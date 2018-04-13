@@ -46,7 +46,7 @@ public class Gyroscope extends Subsystem implements DashboardUpdatable {
 	public void updateSD() {
 		SmartDashboard.putNumber("Rotation", getRotation());
 		if (DEBUG) {
-			gyro.updateDashboard(10);
+//			gyro.updateDashboard(10);
 		}
 	}
 	

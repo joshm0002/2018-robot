@@ -47,7 +47,7 @@ public class Dashboard {
 	}
 	
 	public static void updateDashboard() {
-		if (updateTimer.hasPeriodPassed(0.1)) {
+		if (updateTimer.hasPeriodPassed(0.25)) {
 		
 			for (DashboardUpdatable subsystem : subsystems) {
 				subsystem.updateSD();

@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Tilt extends Subsystem implements DashboardUpdatable {
 	
-	public static final double POS_UP = 540; 
-	public static final double POS_MID = 470;
-	public static final double POS_DOWN = 330;
+	public static final double POS_UP = 210; 
+	public static final double POS_MID = 150;
+	public static final double POS_DOWN = 10;
 	
 //	public static final double POS_UP = 650; 
 //	public static final double POS_MID = 550;

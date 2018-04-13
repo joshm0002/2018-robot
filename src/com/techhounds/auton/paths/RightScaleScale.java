@@ -35,7 +35,8 @@ public class RightScaleScale extends CommandGroup {
     	
     	// back off and reset
     	addParallel(new SetTiltPosition(Tilt.POS_DOWN));
-    	addSequential(new TurnToAngleGyro(-135), 2);
+    	addSequential(new DriveStraight(-15, -0.4), 2);
+    	addSequential(new TurnToAngleGyro(-132), 2);
     	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
     	
     	// grab second cube

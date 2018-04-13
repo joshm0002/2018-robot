@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Gyroscope extends Subsystem implements DashboardUpdatable {
 	private BNO055 gyro;
 	private GyroBase gyroX;
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	
 	public Gyroscope() {
 		gyro = BNO055.getInstance(I2C.Port.kOnboard);

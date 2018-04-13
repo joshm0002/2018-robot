@@ -6,9 +6,11 @@ import com.techhounds.auton.paths.CenterLeftSwitchDouble;
 import com.techhounds.auton.paths.CenterRightSwitchDouble;
 import com.techhounds.auton.paths.LeftScaleCross;
 import com.techhounds.auton.paths.LeftScaleScale;
+import com.techhounds.auton.paths.LeftScaleSide;
 import com.techhounds.auton.paths.LeftSwitch;
 import com.techhounds.auton.paths.RightScaleCross;
 import com.techhounds.auton.paths.RightScaleScale;
+import com.techhounds.auton.paths.RightScaleSide;
 import com.techhounds.auton.paths.RightSwitch;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,6 +29,7 @@ public class AutonLauncher {
 		SCALE,
 		SWITCH,
 		BASELINE,
+		SCALE_SIDE
 	}
 
 	public static final SendableChooser<Objective> firstPriority = new SendableChooser<>();
@@ -35,7 +38,8 @@ public class AutonLauncher {
 	public static void addChoices() {
 		firstPriority.addDefault("Baseline", Objective.BASELINE);
 		firstPriority.addObject("Switch", Objective.SWITCH);
-		firstPriority.addObject("Scale", Objective.SCALE);
+		firstPriority.addObject("Scale (Double)", Objective.SCALE);
+		firstPriority.addObject("Scale (Single)", Objective.SCALE_SIDE);
 		SmartDashboard.putData("First Cube Priority", firstPriority);
 
 		enableCross.addDefault("Enable Cross", new Boolean(true));
@@ -55,6 +59,8 @@ public class AutonLauncher {
 			} else {
 				return getAheadScale(field);
 			}
+		case SCALE_SIDE:
+			return getSideScale(field);
 		default:
 			return getBaseline();
 		}
@@ -62,6 +68,16 @@ public class AutonLauncher {
 
 	public static Command getBaseline() {
 		return new Baseline();
+	}
+	
+	public static Command getSideScale(FieldState field) {
+		if (field.getRobotPosition() == Position.Right && field.getScalePosition() == Position.Right) {
+			return new RightScaleSide();
+		} else if (field.getRobotPosition() == Position.Left && field.getScalePosition() == Position.Left) {
+			return new LeftScaleSide();
+		} else {
+			return getSwitch(field);
+		}
 	}
 
 	public static Command getSwitch(FieldState field) {

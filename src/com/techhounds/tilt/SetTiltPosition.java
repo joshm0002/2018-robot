@@ -39,9 +39,12 @@ public class SetTiltPosition extends Command {
 		double power = 0;
 
 		if (setpoint > Tilt.POS_DOWN + 20) { // going up
-			if (error > 5) { // need to move up
+			if (error > 40) {
+				power = 1;
+			} else if (error > 5) { // need to move up
 				power = 0.65;
 			} else if (error < -5) { //need to go down
+
 				power = -0.2;
 			} else {
 				power = 0.15;
@@ -49,7 +52,7 @@ public class SetTiltPosition extends Command {
 		} else { //going down
 			if (error < -5) { //need to go down
 				double proportion = (position - Tilt.POS_DOWN) / (Tilt.POS_RANGE);
-				power = -0.15 - (proportion * 0.3);
+				power = -0.15 - (proportion * 0.6);
 			} else {
 				power = 0;
 			}
@@ -61,26 +64,6 @@ public class SetTiltPosition extends Command {
 		}
 		
 		Robot.tilt.setPower(power);
-
-//    	// power needed to hold us at that setpoint
-//    	double holdPower;
-//    	if (setpoint > Tilt.POS_DOWN + 50) {
-//    		holdPower = (1 - ((setpoint - Tilt.POS_DOWN) / Tilt.POS_RANGE)) * 0.3;
-//    	} else {
-//    		holdPower = 0; //sit on the hardstops
-//    	}
-//    	
-//    	// error-proportion
-//    	double errorPower;
-//    	if (error > 15) {
-//    		errorPower = (1 - (error / Tilt.POS_RANGE)) * 0.75;
-//    	} else if (error < -15) {
-//    		errorPower = (error / Tilt.POS_RANGE) * -0.3;
-//    	} else {
-//    		errorPower = 0;
-//    	}
-//    	
-//    	Robot.tilt.setPower(holdPower + errorPower);
 	}
 
 	protected boolean isFinished() {

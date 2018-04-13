@@ -28,7 +28,6 @@ public class RightScaleScale extends CommandGroup {
     	addSequential(new DriveStraight(210, 0.75), 6);
     	addSequential(new DriveStraight(30, 0.5), 1);
     	addSequential(new DriveArc(50, 25, 0.45, 0.25), 2); // curve left
-//    	addSequential(new TurnToAngleGyro(-45), 1.5);
     	
     	// eject the cube
     	addParallel(new SetTiltPosition(TiltPosition.MIDDLE));
@@ -42,12 +41,12 @@ public class RightScaleScale extends CommandGroup {
     	// grab second cube
     	addSequential(new DriveArc(60, 50, 0.5, 0.4), 2);
     	addSequential(new CollectCube(25, -175), 3);
-//    	
-//    	// retry grab if we didn't get it
+    	
+    	// retry grab if we didn't get it
 //    	addSequential(new RetryCollectCube(40), 3);
 //    	addSequential(new RetryCollectCube(40), 3);
-//    	
-//    	// place in scale
+    	
+    	// place in scale
     	addSequential(new TurnToAngleGyro(-135), 1);
     	addParallel(new DelayedCommand(new SetElevatorPosition(ElevatorPosition.SCALE), 1));
     	addParallel(new SetTiltPosition(Tilt.POS_MID));

@@ -40,7 +40,7 @@ public class LeftScaleScale extends CommandGroup {
     	
     	// grab second cube
     	addSequential(new DriveArc(50, 60, 0.4, 0.5), 2);
-    	addSequential(new CollectCube(25, -175), 3);
+    	addSequential(new CollectCube(25, 135), 3);
     	
     	// retry grab if we didn't get it
 //    	addSequential(new RetryCollectCube(40), 3);

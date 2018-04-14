@@ -23,6 +23,10 @@ public class LeftScaleSide extends CommandGroup {
     	addSequential(new SetElevatorPosition(ElevatorPosition.SCALE), 5);
     	addSequential(new DriveStraight(25, 0.3), 2);
     	addParallel(new SetTiltPosition(Tilt.POS_MID));
-    	addSequential(new SetIntakePower(-0.6), 1);
-    	}
+    	addSequential(new SetIntakePower(-0.6), 0.5);
+    	addSequential(new DriveStraight(-15, -0.3), 2);
+    	addParallel(new SetTiltPosition(Tilt.POS_DOWN));
+    	addParallel(new SetElevatorPosition(ElevatorPosition.COLLECT));
+    	addSequential(new TurnToAngleGyro(0), 3);
+    }
 }

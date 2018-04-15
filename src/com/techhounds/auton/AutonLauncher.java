@@ -4,10 +4,12 @@ import com.techhounds.auton.FieldState.Position;
 import com.techhounds.auton.paths.Baseline;
 import com.techhounds.auton.paths.CenterLeftSwitchDouble;
 import com.techhounds.auton.paths.CenterRightSwitchDouble;
+import com.techhounds.auton.paths.LeftCross;
 import com.techhounds.auton.paths.LeftScaleCross;
 import com.techhounds.auton.paths.LeftScaleScale;
 import com.techhounds.auton.paths.LeftScaleSide;
 import com.techhounds.auton.paths.LeftSwitch;
+import com.techhounds.auton.paths.RightCross;
 import com.techhounds.auton.paths.RightScaleCross;
 import com.techhounds.auton.paths.RightScaleScale;
 import com.techhounds.auton.paths.RightScaleSide;
@@ -39,7 +41,7 @@ public class AutonLauncher {
 		firstPriority.addDefault("Baseline", Objective.BASELINE);
 		firstPriority.addObject("Switch", Objective.SWITCH);
 		firstPriority.addObject("Scale (Double)", Objective.SCALE);
-		firstPriority.addObject("Scale (Single)", Objective.SCALE_SIDE);
+		firstPriority.addObject("Scale (Single/Assist)", Objective.SCALE_SIDE);
 		SmartDashboard.putData("First Cube Priority", firstPriority);
 
 		enableCross.addDefault("Enable Cross", new Boolean(true));
@@ -60,7 +62,11 @@ public class AutonLauncher {
 				return getAheadScale(field);
 			}
 		case SCALE_SIDE:
-			return getSideScale(field);
+			if (enableCross.getSelected()) {
+				return getAssistScale(field);
+			} else {
+				return getSideScale(field);
+			}
 		default:
 			return getBaseline();
 		}
@@ -77,6 +83,24 @@ public class AutonLauncher {
 			return new LeftScaleSide();
 		} else {
 			return getSwitch(field);
+		}
+	}
+	
+	public static Command getAssistScale(FieldState field) {
+		if (field.getRobotPosition() == Position.Right) {
+			if (field.getScalePosition() == Position.Right) {
+				return new RightScaleSide();
+			} else {
+				return new LeftCross();
+			}
+		} else if (field.getRobotPosition() == Position.Left) {
+			if (field.getScalePosition() == Position.Left) {
+				return new LeftScaleSide();
+			} else {
+				return new RightCross();
+			}
+		} else {
+			return getBaseline();
 		}
 	}
 

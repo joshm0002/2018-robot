@@ -17,12 +17,12 @@ public class RightScaleSide extends CommandGroup {
 
     public RightScaleSide() {
     	addSequential(new DriveStraight(275, 0.7), 5);
+    	addParallel(new SetTiltPosition(Tilt.POS_MID));
     	addSequential(new DriveStraight(30, 0.4), 2);
     	addSequential(new TurnToAngleGyro(-90), 2);
     	addSequential(new DriveStraight(-20, -0.4), 2);
     	addSequential(new SetElevatorPosition(ElevatorPosition.SCALE), 5);
     	addSequential(new DriveStraight(25, 0.3), 2);
-    	addParallel(new SetTiltPosition(Tilt.POS_MID));
     	addSequential(new SetIntakePower(-0.6), 0.5);
     	addSequential(new DriveStraight(-15, -0.3), 2);
     	addParallel(new SetTiltPosition(Tilt.POS_DOWN));
